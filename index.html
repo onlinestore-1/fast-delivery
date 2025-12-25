@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Shop</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="referee" content="strict-origin-when-cross-origin">
+<style>
+  body{
+ margin:0;
+ font-family:Arial;
+ background:#f1f3f6;
+}
+
+.header{
+ display:flex;
+ padding:10px;
+ background:#2874f0;
+ gap:10px;
+}
+
+.header input{
+ flex:1;
+ padding:8px;
+ border:none;
+ border-radius:4px;
+}
+
+.cart-icon{
+ color:white;
+ font-size:22px;
+}
+
+.slider img{
+ width:100%;
+ display:none;
+}
+
+.slider img:first-child{display:block;}
+
+.categories{
+ display:flex;
+ overflow-x:auto;
+ background:#fff;
+ padding:10px;
+ gap:15px;
+}
+
+.categories div{
+ min-width:90px;
+ text-align:center;
+}
+
+.grid{
+ display:grid;
+ grid-template-columns:repeat(2,1fr);
+ gap:10px;
+ padding:10px;
+}
+
+.card{
+ background:#fff;
+ padding:10px;
+ position:relative;
+ border-radius:6px;
+}
+
+.card img{
+ width:100%;
+}
+
+.wishlist{
+ position:absolute;
+ top:8px;
+ right:8px;
+ font-size:20px;
+ color:#999;
+}
+
+.wishlist.active{
+ color:red;
+}
+
+.buy{
+ background:#ff9f00;
+ color:#000;
+ padding:6px;
+ border:none;
+ width:100%;
+ margin-top:5px;
+}
+</style>
+
+<!-- ICONS -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="header">
+  <input type="search" placeholder="Search products..." onkeyup="searchProduct(this.value)">
+  <i class="fa-solid fa-cart-shopping cart-icon" onclick="location.href='cart.html'"></i>
+</header>
+
+<!-- AD SLIDER -->
+<div class="slider">
+  <img src="https://via.placeholder.com/600x200?text=SALE+1">
+  <img src="https://via.placeholder.com/600x200?text=SALE+2">
+</div>
+
+<!-- CATEGORIES (UNCHANGED LAYOUT) -->
+<div class="categories">
+  <div onclick="filterCategory('Clothes')">
+    <img src="https://via.placeholder.com/80">
+    <p>Clothes</p>
+  </div>
+  <div onclick="filterCategory('Shoes')">
+    <img src="https://via.placeholder.com/80">
+    <p>Shoes</p>
+  </div>
+</div>
+
+<h3>Products</h3>
+<div id="products" class="grid"></div>
+
+<h3>Suggested For You</h3>
+<div id="suggested" class="grid"></div>
+
+<script>
+  const products=[
+ {id:1,name:"Men T-shirt",price:12,img:"https://via.placeholder.com/200",cat:"Clothes"},
+ {id:2,name:"Ladies Dress",price:22,img:"https://via.placeholder.com/200",cat:"Clothes"},
+ {id:3,name:"Shoes",price:30,img:"https://via.placeholder.com/200",cat:"Shoes"}
+];
+</script>
+<script>
+  const productBox=document.getElementById("products");
+const suggestedBox=document.getElementById("suggested");
+
+function draw(list,box){
+ box.innerHTML="";
+ list.forEach(p=>{
+  box.innerHTML+=`
+  <div class="card">
+   <i class="fa-regular fa-heart wishlist" onclick="toggleWish(this,event)"></i>
+   <img src="${p.img}" onclick="openProduct(${p.id})">
+   <p>${p.name}</p>
+   <b>$${p.price}</b>
+   <button class="buy" onclick="buyNow(${p.id})">Buy Now</button>
+  </div>`;
+ });
+}
+
+draw(products,productBox);
+draw(products.slice(0,2),suggestedBox);
+
+function filterCategory(c){
+ draw(products.filter(p=>p.cat===c),productBox);
+}
+
+function searchProduct(v){
+ draw(products.filter(p=>p.name.toLowerCase().includes(v.toLowerCase())),productBox);
+}
+
+function toggleWish(el,e){
+ e.stopPropagation();
+ el.classList.toggle("active");
+}
+
+function openProduct(id){
+ localStorage.setItem("pid",id);
+ location.href="product.html";
+}
+
+function buyNow(id){
+ localStorage.setItem("pid",id);
+ location.href="product.html";
+}
+</script>
+</body>
+</html>
