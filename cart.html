@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>My Cart</title>
+</head>
+<body>
+
+<h2>Cash on Delivery</h2>
+<form onsubmit="placeOrder(event)">
+<input placeholder="Name" required><br>
+<input placeholder="Phone" required><br>
+<input placeholder="Address" required><br>
+<button>Place Order</button>
+</form>
+
+<script>
+function placeOrder(e){
+ e.preventDefault();
+ alert("Order placed successfully!");
+ location.href="orders.html";
+}
+</script>
+
+</body>
+</html>
