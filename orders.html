@@ -2,19 +2,15 @@
 <html>
 <body>
 <h2>My Orders</h2>
-<div class="products" id="orders"></div>
+<div id="orders"></div>
 <script>
-const orders = JSON.parse(localStorage.getItem("orders") || "[]");
-orders.forEach(p => {
-  orders.innerHTML += `
-    <div class="product">
-      <img src="${p.img}">
-      <h4>${p.name}</h4>
-      <p>${p.description}</p>
-    </div>
-  `;
-});
+  const o=JSON.parse(localStorage.getItem("orders"))||[];
+orders.innerHTML=o.map(x=>`
+<div>
+<h4>${x.product}</h4>
+<p>Qty:${x.qty}</p>
+<p>${x.name}</p>
+</div>`).join("");
 </script>
-
 </body>
 </html>
