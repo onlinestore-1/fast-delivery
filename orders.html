@@ -53,29 +53,20 @@ h2{
 
 <body>
 
-<h2>📦 My Orders</h2>
-
-<div id="orders">
-    <p>Your placed orders will appear here.</p>
-</div>
+<h2>My Orders</h2>
+<div class="products" id="orders"></div>
 
 <script>
-// Get orders from localStorage
-const ordersDiv = document.getElementById("orders");
-const orders = JSON.parse(localStorage.getItem("orders")) || [];
-
-if (orders.length > 0) {
-    ordersDiv.innerHTML = "";
-    orders.forEach(order => {
-        ordersDiv.innerHTML += `
-            <div class="order-card">
-                <img src="${order.img}" alt="${order.name}">
-                <div class="order-name">${order.name}</div>
-                <div class="order-desc">${order.desc}</div>
-            </div>
-        `;
-    });
-}
+const orders = JSON.parse(localStorage.getItem("orders") || "[]");
+orders.forEach(p => {
+  orders.innerHTML += `
+    <div class="product">
+      <img src="${p.img}">
+      <h4>${p.name}</h4>
+      <p>${p.description}</p>
+    </div>
+  `;
+});
 </script>
 
 </body>
