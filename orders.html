@@ -1,16 +1,86 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>My Orders</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="css/style.css">
+
+<style>
+.order-card {
+  display: flex;
+  background: #fff;
+  margin: 10px;
+  padding: 10px;
+  border-radius: 6px;
+}
+
+.order-card img {
+  width: 120px;
+  height: 120px;
+  object-fit: cover;
+}
+
+.order-details {
+  flex: 1;
+  padding-left: 10px;
+}
+
+.order-actions button {
+  margin-top: 5px;
+  width: 100%;
+}
+</style>
+</head>
+
 <body>
-<h2>My Orders</h2>
-<div id="orders"></div>
+
+<header class="top-bar">
+  <h3>My Orders</h3>
+</header>
+
+<div id="ordersContainer"></div>
+
 <script>
-  const o=JSON.parse(localStorage.getItem("orders"))||[];
-orders.innerHTML=o.map(x=>`
-<div>
-<h4>${x.product}</h4>
-<p>Qty:${x.qty}</p>
-<p>${x.name}</p>
-</div>`).join("");
+const ordersContainer = document.getElementById("ordersContainer");
+let orders = JSON.parse(localStorage.getItem("orders")) || [];
+
+if (orders.length === 0) {
+  ordersContainer.innerHTML = "<p style='padding:10px'>No orders yet</p>";
+}
+
+orders.forEach((order, index) => {
+  ordersContainer.innerHTML += `
+    <div class="order-card">
+      <img src="${order.img}">
+      <div class="order-details">
+        <h4>${order.name}</h4>
+        <p>Price: $${order.price}</p>
+        <p>Quantity: ${order.qty}</p>
+        <p>Status: <b>${order.status}</b></p>
+
+        <div class="order-actions">
+          <button onclick="buyAgain(${index})">Buy Again</button>
+          <button onclick="deleteOrder(${index})" style="background:red;color:white">
+            Delete
+          </button>
+        </div>
+      </div>
+    </div>
+  `;
+});
+
+function deleteOrder(i) {
+  orders.splice(i, 1);
+  localStorage.setItem("orders", JSON.stringify(orders));
+  location.reload();
+}
+
+function buyAgain(i) {
+  localStorage.setItem("productId", orders[i].id);
+  location.href = "product.html";
+}
 </script>
+
 </body>
 </html>
