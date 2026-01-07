@@ -79,17 +79,27 @@ button:hover{
     Pay when your order arrives
 </div>
 
-<!-- 🔴 Replace YOUR_FORM_ID with your Formspree ID -->
-<form action="https://formspree.io/f/mgowglbv" method="POST">
+<form action="https://formsubmit.co/damasrphl2001@gmail.com" method="POST">
 
-    <input type="text" name="name" placeholder="Full Name" required>
-    <input type="tel" name="phone" placeholder="Phone Number" required>
-    <input type="text" name="address" placeholder="Delivery Address" required>
+  <!-- Honeypot (blocks bots) -->
+  <input type="text" name="_honey" style="display:none">
 
-    <!-- Optional hidden message -->
-    <input type="hidden" name="payment_method" value="Cash on Delivery">
+  <!-- Disable CAPTCHA -->
+  <input type="hidden" name="_captcha" value="false">
 
-    <button type="submit">PLACE ORDER</button>
+  <!-- Redirect after submit -->
+  <input type="hidden" name="_next" value="https://yourwebsite.com/success.html">
+
+  <!-- Email subject -->
+  <input type="hidden" name="_subject" value="New Order - Cash on Delivery">
+
+  <!-- Order fields -->
+  <input type="text" name="name" placeholder="Full Name" required>
+  <input type="tel" name="phone" placeholder="Phone Number" required>
+  <input type="text" name="address" placeholder="Delivery Address" required>
+  <input type="hidden" name="payment" value="Cash on Delivery">
+
+  <button type="submit">PLACE ORDER</button>
 </form>
 
 </body>
