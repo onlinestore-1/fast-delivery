@@ -1,6 +1,6 @@
 {
-  "name": "Jafarotto Shop",
-  "short_name": "Shop",
+  "name": "jafar-otto.com",
+  "short_name": "jafar-otto.com",
   "start_url": "/index.html",
   "display": "standalone",
   "background_color": "#ffffff",
