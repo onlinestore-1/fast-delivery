@@ -4,7 +4,6 @@
   <meta charset="UTF-8">
   <title>My Cart</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="referrer" content="strict-origin-when-cross-origin">
 
   <style>
     body{
@@ -44,14 +43,8 @@
       border-radius:6px;
     }
 
-    .info{
-      flex:1;
-    }
-
-    .info b{
-      display:block;
-      margin-bottom:4px;
-    }
+    .info{flex:1;}
+    .info b{display:block;margin-bottom:4px;}
 
     .buy{
       background:#ff9f00;
@@ -68,6 +61,36 @@
       margin-top:40px;
       color:#777;
     }
+
+    /* SUGGESTED / RECENT */
+    h3{
+      margin:20px 0 10px;
+    }
+
+    .grid{
+      display:grid;
+      grid-template-columns:repeat(2,1fr);
+      gap:10px;
+    }
+
+    .mini{
+      background:#fff;
+      padding:10px;
+      border-radius:6px;
+      cursor:pointer;
+    }
+
+    .mini img{
+      width:100%;
+      height:120px;
+      object-fit:cover;
+      border-radius:5px;
+    }
+
+    .mini p{
+      margin:5px 0;
+      font-size:14px;
+    }
   </style>
 </head>
 
@@ -77,10 +100,25 @@
 
 <div class="cart" id="cartBox"></div>
 
+<h3>Suggested For You</h3>
+<div class="grid" id="suggestedBox"></div>
+
+<h3>Recently Viewed</h3>
+<div class="grid" id="recentBox"></div>
+
 <script>
 const cartBox = document.getElementById("cartBox");
-let cart = JSON.parse(localStorage.getItem("cart")) || [];
 
+let cart = JSON.parse(localStorage.getItem("cart")) || [];
+let products = JSON.parse(localStorage.getItem("allProducts")) || [
+  {id:1,name:"Men T-shirt",price:12,img:"https://via.placeholder.com/200"},
+  {id:2,name:"Dress",price:22,img:"https://via.placeholder.com/200"},
+  {id:3,name:"Shoes",price:30,img:"https://via.placeholder.com/200"}
+];
+
+let recent = JSON.parse(localStorage.getItem("recent")) || [];
+
+/* CART */
 if(cart.length === 0){
   cartBox.innerHTML = `
     <div class="empty">
@@ -96,19 +134,43 @@ if(cart.length === 0){
           <b>${c.name}</b>
           Price: $${c.price}<br>
           Qty: ${c.qty}
-
-          <button class="buy" onclick="buyNow(${i})">
-            Buy Now
-          </button>
+          <button class="buy" onclick="buyNow(${i})">Buy Now</button>
         </div>
       </div>
     `;
   });
 }
 
+/* SUGGESTED (random products) */
+products.slice(0,2).forEach(p=>{
+  suggestedBox.innerHTML += `
+    <div class="mini" onclick="openProduct(${p.id})">
+      <img src="${p.img}">
+      <p>${p.name}</p>
+      <b>$${p.price}</b>
+    </div>
+  `;
+});
+
+/* RECENTLY VIEWED */
+recent.slice(-4).forEach(p=>{
+  recentBox.innerHTML += `
+    <div class="mini" onclick="openProduct(${p.id})">
+      <img src="${p.img}">
+      <p>${p.name}</p>
+      <b>$${p.price}</b>
+    </div>
+  `;
+});
+
 function buyNow(index){
   localStorage.setItem("buy", JSON.stringify(cart[index]));
   location.href = "checkout.html";
+}
+
+function openProduct(id){
+  localStorage.setItem("pid", id);
+  location.href = "product.html";
 }
 </script>
 
