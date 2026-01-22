@@ -1,7 +1,7 @@
 {
   "name": "jafar-otto.com",
   "short_name": "jafar-otto.com",
-  "start_url": "/index.html",
+  "start_url": "./index.html",
   "display": "standalone",
   "background_color": "#ffffff",
   "theme_color": "#2874f0",
