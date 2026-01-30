@@ -156,6 +156,10 @@ let products = JSON.parse(localStorage.getItem("allProducts")) || [
 
 let recent = JSON.parse(localStorage.getItem("recent")) || [];
 
+ function formatTZS(amount){
+  return "TZS " + Number(amount).toLocaleString("en-US");
+}
+
 /* CART */
 if(cart.length === 0){
   cartBox.innerHTML = `
@@ -165,18 +169,18 @@ if(cart.length === 0){
   `;
 }else{
   cart.forEach((c, i) => {
-    cartBox.innerHTML += `
-      <div class="item">
-        <img src="${c.img}">
-        <div class="info">
-          <b>${c.name}</b>
-          Price: $${c.price}<br>
-          Qty: ${c.qty}
-          <button class="buy" onclick="buyNow(${i})">Buy Now</button>
-        </div>
+  cartBox.innerHTML += `
+    <div class="item">
+      <img src="${c.img}">
+      <div class="info">
+        <b>${c.name}</b>
+        Price: ${formatTZS(c.price)}<br>
+        Qty: ${c.qty}
+        <button class="buy" onclick="buyNow(${i})">Buy Now</button>
       </div>
-    `;
-  });
+    </div>
+  `;
+});
 }
 
 /* SUGGESTED (random products) */
@@ -185,7 +189,7 @@ products.slice(0,2).forEach(p=>{
     <div class="mini" onclick="openProduct(${p.id})">
       <img src="${p.img}">
       <p>${p.name}</p>
-      <b>$${p.price}</b>
+      <b>${formatTZS(p.price)}</b>
     </div>
   `;
 });
@@ -196,7 +200,7 @@ recent.slice(-4).forEach(p=>{
     <div class="mini" onclick="openProduct(${p.id})">
       <img src="${p.img}">
       <p>${p.name}</p>
-      <b>$${p.price}</b>
+      <b>${formatTZS(p.price)}</b>
     </div>
   `;
 });
