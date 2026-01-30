@@ -167,6 +167,10 @@ const products=[
  {id:40,name:"u-fresh cola",price:21,img:"https://i.imgur.com/FvMtoAL.jpeg/200",cat:"Juices & cold drinks",desc:"u-fresh baridi ipo weka idadi hapo chini"}
 ];
 
+ function formatTZS(amount){
+ return "TZS " + Number(amount).toLocaleString("en-US");
+}
+
 function draw(list,id){
  document.getElementById(id).innerHTML=list.map(p=>`
  <div class="card">
