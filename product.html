@@ -127,12 +127,16 @@ const products = JSON.parse(localStorage.getItem("allProducts")) || [
 const pid = localStorage.getItem("pid");
 const p = products.find(x => x.id == pid);
 
+  function formatTZS(amount){
+  return "TZS " + Number(amount).toLocaleString("en-US");
+}
+
 // MAIN PRODUCT
 document.getElementById("productBox").innerHTML = `
   <img src="${p.img}">
   <h2>${p.name}</h2>
   <p>${p.desc}</p>
-  <b>$${p.price}</b><br><br>
+  <b>${formatTZS(p.price)}</b><br><br>
 
   Qty:
   <input id="qty" type="number" value="1" min="1"><br><br>
@@ -148,7 +152,7 @@ products.filter(x => x.id != pid).forEach(p2 => {
     <div class="mini" onclick="openProduct(${p2.id})">
       <img src="${p2.img}">
       <p>${p2.name}</p>
-      <b>$${p2.price}</b>
+      <b>${formatTZS(p2.price)}</b>
     </div>
   `;
 });
