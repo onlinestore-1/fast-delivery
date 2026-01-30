@@ -170,10 +170,10 @@ const products=[
 function draw(list,id){
  document.getElementById(id).innerHTML=list.map(p=>`
  <div class="card">
-  <img src="${p.img}" onclick="openProduct(${p.id})">
-  <p>${p.name}</p>
-  <b>$${p.price}</b>
-  <button class="buy" onclick="openProduct(${p.id})">Buy Now</button>
+  <img src="TZS{p.img}" onclick="openProduct(TZS{p.id})">
+  <p>TZS{p.name}</p>
+  <b>TZS{p.price}</b>
+  <button class="buy" onclick="openProduct(TZS{p.id})">Buy Now</button>
  </div>`).join("");
 }
  
