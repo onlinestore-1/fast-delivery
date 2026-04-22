@@ -1,6 +1,7 @@
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
   <meta charset="UTF-8">
   <title>My Cart</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -12,11 +13,13 @@
       font-family: Arial, sans-serif;
       background:#f4f4f4;
       padding:10px;
+
+      padding-top:70px;
     }
 
     header{
-      background:#2874f0;
-      color:#fff;
+      background:white;
+      color:black;
       padding:12px;
       text-align:center;
       font-size:18px;
@@ -63,23 +66,57 @@
       color:#777;
     }
 
+        /* TOP BAR (LIKE IMAGE) */
+.top-bar{
+  position:fixed;
+  top:0;
+  left:0;
+  width:100%;
+  height:60px;
+  background:#fff;
+  display:flex;
+  align-items:center;
+  padding:0 15px;
+  border-bottom:1px solid #ddd;
+  z-index:1000;
+}
+
+.top-bar span{
+  font-size:22px;
+  cursor:pointer;
+  margin-right:10px;
+}
+
+.top-bar h3{
+  margin:0;
+  font-size:18px;
+}
+
     /* SUGGESTED / RECENT */
     h3{
       margin:20px 0 10px;
     }
 
-    .grid{
-      display:grid;
-      grid-template-columns:repeat(2,1fr);
-      gap:10px;
-    }
+     .grid{
+  display:flex;
+  overflow-x:auto;
+  gap:10px;
+  padding-bottom:10px;
+  scroll-behavior:smooth;
+}
+
+.grid::-webkit-scrollbar{
+  display:none; /* hide scrollbar */
+}
 
     .mini{
-      background:#fff;
-      padding:10px;
-      border-radius:6px;
-      cursor:pointer;
-    }
+  min-width:140px; /* controls card size */
+  background:#fff;
+  padding:10px;
+  border-radius:6px;
+  cursor:pointer;
+  flex-shrink:0; /* prevents shrinking */
+}
 
     .mini img{
       width:100%;
@@ -92,19 +129,61 @@
       margin:5px 0;
       font-size:14px;
     }
+
+    /* BOTTOM NAVBAR */
+.bottom-nav{
+ position:fixed;
+ bottom:0;
+ left:0;
+ width:100%;
+ height:60px;
+ background:#fff;
+ display:flex;
+ justify-content:space-around;
+ align-items:center;
+ border-top:1px solid #ddd;
+ z-index:1000;
+}
+
+.bottom-nav a{
+ text-decoration:none;
+ text-align:center;
+ font-size:12px;
+ color:#777;
+}
+
+.bottom-nav i{
+ display:block;
+ font-size:20px;
+ margin-bottom:3px;
+}
+
+/* ACTIVE PAGE (BLUE) */
+.bottom-nav .active{
+ color:#2874f0;
+ font-weight:bold;
+}
+
+/* PREVENT CONTENT HIDING */
+body{
+ padding-bottom:70px;
+}
   </style>
 </head>
 
 <body>
 
-<header>My Cart</header>
+<div class="top-bar">
+  <span onclick="goHome()">&#8592;</span>
+  <h3>My Cart</h3>
+</div>
 
 <div class="cart" id="cartBox"></div>
 
 <h3>Suggested For You</h3>
 <div class="grid" id="suggestedBox"></div>
 
-<h3>Recently Viewed</h3>
+<h3>Next Deal For You</h3>
 <div class="grid" id="recentBox"></div>
 
 <script>
@@ -154,11 +233,11 @@ let products = JSON.parse(localStorage.getItem("allProducts")) || [
   {id:40,name:"u-fresh cola",price:21,img:"https://i.imgur.com/FvMtoAL.jpeg/200"}
 ];
 
-let recent = JSON.parse(localStorage.getItem("recent")) || [];
-
- function formatTZS(amount){
-  return "TZS " + Number(amount).toLocaleString("en-US");
+ function formatPrice(price){
+  return "TZS " + Number(price).toLocaleString() + "/=";
 }
+
+let recent = JSON.parse(localStorage.getItem("recent")) || [];
 
 /* CART */
 if(cart.length === 0){
@@ -169,38 +248,50 @@ if(cart.length === 0){
   `;
 }else{
   cart.forEach((c, i) => {
-  cartBox.innerHTML += `
-    <div class="item">
-      <img src="${c.img}">
-      <div class="info">
-        <b>${c.name}</b>
-        Price: ${formatTZS(c.price)}<br>
-        Qty: ${c.qty}
-        <button class="buy" onclick="buyNow(${i})">Buy Now</button>
+    cartBox.innerHTML += `
+      <div class="item">
+        <img src="${c.img}">
+        <div class="info">
+          <b>${c.name}</b>
+          Price: ${formatPrice(c.price)}<br>
+          Qty: ${c.qty}
+          <button class="buy" onclick="buyNow(${i})">Buy Now</button>
+        </div>
       </div>
-    </div>
-  `;
-});
+    `;
+  });
 }
 
-/* SUGGESTED (random products) */
-products.slice(0,2).forEach(p=>{
+ /* SHUFFLE FUNCTION */
+function shuffle(array){
+  return array.sort(() => 0.5 - Math.random());
+}
+
+/* SHUFFLED PRODUCTS */
+let shuffled = shuffle([...products]);
+
+/* SUGGESTED FOR YOU (8 PRODUCTS) */
+let suggestedProducts = shuffled.slice(0,8);
+
+suggestedProducts.forEach(p=>{
   suggestedBox.innerHTML += `
     <div class="mini" onclick="openProduct(${p.id})">
       <img src="${p.img}">
       <p>${p.name}</p>
-      <b>${formatTZS(p.price)}</b>
+      <b>${formatPrice(p.price)}</b>
     </div>
   `;
 });
 
-/* RECENTLY VIEWED */
-recent.slice(-4).forEach(p=>{
+/* NEXT DEAL FOR YOU (7 DIFFERENT PRODUCTS) */
+let nextDeals = shuffled.slice(8,15);
+
+nextDeals.forEach(p=>{
   recentBox.innerHTML += `
     <div class="mini" onclick="openProduct(${p.id})">
       <img src="${p.img}">
       <p>${p.name}</p>
-      <b>${formatTZS(p.price)}</b>
+      <b>${formatPrice(p.price)}</b>
     </div>
   `;
 });
@@ -214,7 +305,57 @@ function openProduct(id){
   localStorage.setItem("pid", id);
   location.href = "product.html";
 }
+
+  /* AUTO ACTIVE NAV */
+function setActiveNav(){
+
+  let path = window.location.pathname;
+
+  if(path.includes("index.html") || path === "/" ){
+    document.getElementById("nav-home").classList.add("active");
+  }
+  else if(path.includes("category") || path.includes("fashion")){
+    document.getElementById("nav-category").classList.add("active");
+  }
+  else if(path.includes("account")){
+    document.getElementById("nav-account").classList.add("active");
+  }
+  else if(path.includes("cart")){
+    document.getElementById("nav-cart").classList.add("active");
+  }
+}
+
+window.addEventListener("load", setActiveNav);
+
+function goHome(){
+  location.href = "index.html";
+}
 </script>
+
+  <!-- BOTTOM NAV -->
+<div class="bottom-nav">
+
+  <a href="index.html" id="nav-home">
+    <i class="fa fa-home"></i>
+    Home
+  </a>
+
+  <a href="category.html" id="nav-category">
+    <i class="fa fa-th-large"></i>
+    Categories
+  </a>
+
+  <a href="account.html" id="nav-account">
+    <i class="fa fa-user"></i>
+    Account
+  </a>
+
+  <a href="cart.html" id="nav-cart">
+    <i class="fa fa-shopping-cart"></i>
+    Cart
+  </a>
+
+</div>
 
 </body>
 </html>
