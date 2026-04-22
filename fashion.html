@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html>
+<head>
+ <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<meta charset="UTF-8">
+<title>Fashion</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<style>
+ body{
+ margin:0;
+ font-family:Arial;
+ background:#f4f4f4;
+ padding-top:70px;
+}
+
+/* TOP */
+ .topbar{
+ display:flex;
+ align-items:center;
+ background:linear-gradient(180deg, #87c7f3, #a8d8f8);
+ padding:10px;
+ color:white;
+ gap:10px;
+
+ position:fixed;
+ top:0;
+ left:0;
+ width:100%;
+ z-index:1000;
+
+ box-sizing:border-box;
+}
+.topbar input{
+ flex:1;
+ padding:8px;
+ border:none;
+ border-radius:4px;
+}
+.cart{font-size:22px;cursor:pointer}
+
+/* SLIDER */
+.slider img{width:100%;display:none}
+.slider img:first-child{display:block}
+
+/* CATEGORY GRID */
+.grid3{
+ display:grid;
+ grid-template-columns:repeat(3,1fr);
+ gap:10px;
+ padding:10px
+}
+.cat{
+ background:#fff;
+ padding:10px;
+ text-align:center;
+ border-radius:6px;
+ cursor:pointer
+}
+.cat img{width:100%;height:90px;object-fit:cover}
+
+/* TOP DEALS SECTION */
+.deal-title{
+  background:#dfe8f4;
+  color:black;
+  padding:10px;
+  margin:0;
+  border-left:6px solid #2874f0;
+}
+
+.deal-wrapper{
+  background:#dfe8f4;
+  padding:10px;
+}
+
+.deal-grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:10px;
+}
+
+.deal-card{
+  background:#fff;
+  padding:10px;
+  border-radius:6px;
+  cursor:pointer;
+}
+
+.deal-card img{
+  width:100%;
+  height:140px;
+  object-fit:cover;
+} 
+
+/* PRODUCTS */
+.grid2{
+ display:grid;
+ grid-template-columns:repeat(2,1fr);
+ gap:10px;
+ padding:10px
+}
+.card{
+ background:#fff;
+ padding:10px;
+ border-radius:6px
+}
+.card img{width:100%}
+
+ /* BOTTOM NAVBAR */
+.bottom-nav{
+ position:fixed;
+ bottom:0;
+ left:0;
+ width:100%;
+ height:60px;
+ background:#fff;
+ display:flex;
+ justify-content:space-around;
+ align-items:center;
+ border-top:1px solid #ddd;
+ z-index:1000;
+}
+
+.bottom-nav div{
+ text-align:center;
+ font-size:12px;
+ color:#777;
+ cursor:pointer;
+}
+
+.bottom-nav i{
+ display:block;
+ font-size:20px;
+ margin-bottom:3px;
+}
+
+/* ACTIVE (BLUE LIKE IMAGE) */
+.bottom-nav .active{
+ color:#2874f0;
+}
+</style>
+</head>
+
+<body>
+
+ <div class="topbar">
+ <input type="search" placeholder="Search fashion..." onkeyup="search(this.value)">
+ <span class="cart" onclick="location.href='cart.html'">🛒</span>
+</div>
+
+<!-- ADS -->
+<div class="slider">
+ <img src="https://i.postimg.cc/vmTFm5Lw/aaa5.png">
+ <img src="https://i.imgur.com/3ZFgqAY.png">
+ <img src="https://i.imgur.com/M4bTgH1.png">
+</div>
+
+<h3 style="padding:10px">Fashion Categories</h3>
+
+<div class="grid3">
+ <div class="cat" onclick="openType('tshirt')"><img src="https://i.postimg.cc/RFXLFgV9/aa35.jpg"><p>T-Shirts</p></div>
+ <div class="cat" onclick="openType('jeans')"><img src="https://i.postimg.cc/8zMdWpzD/aa14.jpg"><p>Jeans</p></div>
+ <div class="cat" onclick="openType('jezi')"><img src="https://i.postimg.cc/66PCm27K/ars2.jpg"><p>Jezi</p></div>
+ <div class="cat" onclick="openType('gloves')"><img src="https://i.postimg.cc/CLNnVR5Z/b21.jpg"><p>Gloves</p></div>
+ <div class="cat" onclick="openType('kids')"><img src="https://i.postimg.cc/3xFBVr5F/kof6.jpg"><p>Kofia</p></div>
+ <div class="cat" onclick="openType('sports')"><img src="https://i.postimg.cc/bwp0xXDx/kia1.jpg"><p>Shoes</p></div>
+</div>
+
+<h3 class="deal-title">Top Deals Of The Week</h3>
+
+<div class="deal-wrapper">
+  <div class="deal-grid" id="topDeals"></div>
+</div>
+
+<div class="grid2" id="topDeals"></div>
+
+<h3 style="padding:10px">Suggested For You</h3>
+<div class="grid2" id="suggested"></div>
+
+<h3 style="padding:10px">You May Also Like</h3>
+<div class="grid2" id="like"></div>
+
+<script>
+/* SLIDER */
+let s=0;
+setInterval(()=>{
+ let imgs=document.querySelectorAll(".slider img");
+ imgs.forEach(i=>i.style.display="none");
+ s=(s+1)%imgs.length;
+ imgs[s].style.display="block";
+},3000);
+
+/* FASHION DATA */
+const fashion=[
+ {id:1,name:"Blue T-Shirt",price:12,img:"https://i.imgur.com/M7lVvkH.jpeg",type:"tshirt",desc:"Men Washed Relaxed Fit Crew" },
+ {id:2,name:"NEONOMAD",price:14,img:"https://i.imgur.com/QlgHGCQ.jpeg",type:"tshirt",desc:"Men Embroidered Regular Fit"},
+ {id:3,name:"Indian Garage Co",price:32500,img:"https://i.imgur.com/0bMhAZJ.jpeg",type:"jeans",desc:"Slim Fit Flat-Front Cargo Trousers"},
+ {id:4,name:"Buda Jeans Co",price:25500,img:"https://i.imgur.com/HPRwTKJ.jpeg",type:"jeans",desc:"Men Slim Fit Mid-Rise Cargo Pants"},
+ {id:5,name:"Sneakers",price:40,img:"https://i.imgur.com/Oe0FdMT.jpeg",type:"sports",desc:"Nike Black Shox TL Sneakers"},
+ {id:6,name:"TECHNOSPORT",price:13000,img:"https://i.imgur.com/EptkNxj.jpeg",type:"tshirt",desc:"Men Slim Fit T Shirt"},
+ {id:7,name:"Buda Jeans Co",price:10000,img:"https://i.imgur.com/DuPhNKu.jpeg",type:"tshirt",desc:"Men Graphic Print Regular Fit"},
+ {id:8,name:"Alfaq",price:15000,img:"https://i.imgur.com/unw4MV3.jpeg",type:"tshirt",desc:"Men Graphic Print Oversized"},
+ {id:9,name:"Neonomad",price:12000,img:"https://i.imgur.com/zgyFKOe.jpeg",type:"tshirt",desc:"Men Graphic Print Oversized"},
+ {id:10,name:"Neonomad",price:12500,img:"https://i.imgur.com/tpYrddJ.jpeg",type:"tshirt",desc:"Men Graphic Print Oversized"},
+ {id:11,name:"Buda Jeans Co",price:12500,img:"https://i.imgur.com/bBde034.jpeg",type:"tshirt",desc:"Men Graphic Oversized Fit"},
+ {id:12,name:"Neonomad",price:12000,img:"https://i.imgur.com/NDAoZAr.jpeg",type:"tshirt",desc:"Men Graphic Print Oversized Fit"},
+ {id:13,name:"Buda Jeans Co",price:12000,img:"https://i.imgur.com/SSMbMl6.jpeg",type:"tshirt",desc:"Men Graphic Print Oversized Fit"},
+ {id:14,name:"lee cooper",price:10000,img:"https://i.imgur.com/3yuEsKY.jpeg",type:"tshirt",desc:"Men Brand Print oversized Fit"},
+ {id:15,name:"Yousta",price:6000,img:"https://i.imgur.com/3d3c22F.jpeg",type:"tshirt",desc:"Men Graphic Print Oversized Fit"},
+ {id:16,name:"Buda jeans Co",price:13000,img:"https://i.imgur.com/0kLhxU4.jpeg",type:"tshirt",desc:"Men Graphic Print Oversized Fit"},
+ {id:17,name:"T-Base",price:19000,img:"https://i.imgur.com/MkDOJUt.jpeg",type:"tshirt",desc:"Men Typographic Print Regular"},
+ {id:18,name:"Indian Garage Co",price:32000,img:"https://i.imgur.com/fJconnx.jpeg",type:"jeans",desc:"Slim Fit Flat-Front Cargo Trousers"},
+ {id:19,name:"Dnmx for trends select",price:33000,img:"https://i.imgur.com/2JaAcgr.jpeg",type:"jeans",desc:"Slim Fit Flat-Front Cargo Trousers"},
+ {id:20,name:"ECKO UNLTD",price:82500,img:"https://i.imgur.com/R3ZrzPW.jpeg",type:"jeans",desc:"Slim Fit Flat-Front Cargo Pants"},
+ {id:21,name:"STUDIO NEXX",price:74000,img:"https://i.imgur.com/8E1PQNH.jpeg",type:"jeans",desc:"Straight Fit Cargo Pants"},
+ {id:22,name:"Sneakers",price:40,img:"https://i.imgur.com/FVZ7qPJ.jpeg",type:"sports",desc:"Air Max 95 CDG Black"},
+ {id:23,name:"Gloves",price:15000,img:"https://i.imgur.com/bnxAhsJ.jpeg",type:"gloves",desc:"ZaySoo Anti-Slip Gym  Gloves for Professional Weightlifting,fitness Training and workout"},
+ {id:24,name:"Gloves",price:40,img:"https://i.imgur.com/SEkRfCe.jpeg",type:"gloves",desc:"Adidas Essential Training Gloves"},
+ {id:25,name:"Gloves",price:40,img:"https://i.imgur.com/bdRBRBf.jpeg",type:"gloves",desc:"Riding Gloves"},
+ {id:26,name:"Kofia",price:40,img:"https://i.imgur.com/a4J8TP1.jpeg",type:"kids",desc:"kofia"},
+ {id:27,name:"Kofia",price:40,img:"https://i.imgur.com/V8Z9QOn.jpeg",type:"kids",desc:"kofia"},
+ {id:28,name:"Air Force",price:40,img:"https://i.imgur.com/tsN4nxq.jpeg",type:"sports",desc:"Nike Air Force 1 07 Low Triple Black Shoes"},
+ {id:29,name:"iVOC",price:40000,img:"https://i.imgur.com/tgQnYlT.jpeg",type:"jeans",desc:"Solid Slim Fit Trouser"},
+ {id:47,name:"psg",price:10000,img:"https://i.postimg.cc/Sx9yW3Ch/ab3.jpg",type:"jezi",desc:"psg Home Kit 2025/26"},
+ {id:48,name:"psg",price:10000,img:"https://i.postimg.cc/0QQFCKFt/ab2.jpg",type:"jezi",desc:"psg Kit 2025/26"},
+ {id:30,name:"Manchester United",price:10000,img:"https://i.postimg.cc/D0f5GjC9/dr12.jpg",type:"jezi",desc:"Manchester United Home Kit 2025/26"},
+ {id:31,name:"Arsenal",price:10000,img:"https://i.postimg.cc/DfqfvrKf/ars1.jpg",type:"jezi",desc:"Arsenal Home Kit 2025/26"},
+ {id:32,name:"Arsenal",price:10000,img:"https://i.postimg.cc/x8gWkT5Y/ars2.jpg",type:"jezi",desc:"Arsenal Third Kit 2025/26"},
+ {id:33,name:"Manchester City",price:10000,img:"https://i.postimg.cc/vT9tjP1f/sport2.jpg",type:"jezi",desc:"Manchester City Home Shirt 25/26"},
+ {id:34,name:"Manchester United",price:10000,img:"https://i.postimg.cc/nLkDmH6x/dr11.jpg",type:"jezi",desc:"Manchester United Away Kit 2025/26"},
+ {id:35,name:"Atlético Madrid",price:10000,img:"https://i.postimg.cc/kGz2FDJ2/dr7.jpg",type:"jezi",desc:"Atlético Madrid 2025/26"},
+ {id:36,name:"Atlético Madrid",price:10000,img:"https://i.postimg.cc/N0nLw5XC/dr4.jpg",type:"jezi",desc:"Atlético Madrid 2025/26"},
+ {id:37,name:"Tanzania",price:10000,img:"https://i.postimg.cc/8kxk47Q0/aa64.jpg",type:"jezi",desc:"Tanzania jersey"},
+ {id:38,name:"Liverpool",price:10000,img:"https://i.postimg.cc/RCG1DnbG/liva1.jpg",type:"jezi",desc:"Liverpool Home Kit 2025/26"},
+ {id:39,name:"Louis Vuitton",price:10000,img:"https://i.postimg.cc/MTg8fy0X/a24.jpg",type:"sports",desc:"Louis Vuitton Sandal"},
+ {id:40,name:"Sendal",price:10000,img:"https://i.postimg.cc/VkCX4N2z/kia9.jpg",type:"sports",desc:"New Sandal"},
+ {id:41,name:"Sendal",price:10000,img:"https://i.imgur.com/dS333TG.jpeg",type:"sports",desc:"New Sandal"},
+ {id:42,name:"Sendal",price:10000,img:"https://i.imgur.com/4yT3Qoy.jpeg",type:"sports",desc:"New Sandal"},
+ {id:43,name:"Louis Vuitton",price:10000,img:"https://i.imgur.com/xBbd2gc.jpeg",type:"sports",desc:"Louis Vuitton Sandal"},
+ {id:44,name:"Louis Vuitton",price:10000,img:"https://i.imgur.com/x9nZ7hW.jpeg",type:"sports",desc:"Louis Vuitton Sandal"},
+ {id:45,name:"Louis Vuitton",price:10000,img:"https://i.imgur.com/FbKtweM.jpeg",type:"sports",desc:"Louis Vuitton Sandal"},
+ {id:46,name:"Louis Vuitton",price:10000,img:"https://i.imgur.com/d1BurlS.jpeg",type:"sports",desc:"Louis Vuitton Sandal"},
+ {id:49,name:"Clogs",price:40,img:"https://i.postimg.cc/PqJw0wRc/a49.jpg",type:"kids",desc:"Navy Back Strap Clogs"},
+ {id:50,name:"Red Tape",price:40,img:"https://i.postimg.cc/tRMmc3vD/a53.jpg",type:"kids",desc:"Red Tape Clogs"},
+ {id:51,name:"Red Tape",price:40,img:"https://i.postimg.cc/1tNJhTjM/a55.jpg",type:"kids",desc:"Red Tape Clogs"},
+ {id:52,name:"Slip On Clogs",price:40,img:"https://i.postimg.cc/VLSGjJgL/a54.jpg",type:"kids",desc:"Casual Slip On Clogs"},
+ {id:53,name:"Stylish Clogs",price:40,img:"https://i.postimg.cc/7607HyMc/a56.jpg",type:"kids",desc:"Stylish Slip On Clogs"},
+ {id:54,name:"Wugatti",price:40,img:"https://i.postimg.cc/sf0yjZ1Q/a58.jpg",type:"sports",desc:"Wugatti Comfort Sendals"}
+];
+
+ /* TOP DEALS DATA */
+const topDeals = [
+ {id:9,name:"Neonomad",price:12000,img:"https://i.imgur.com/zgyFKOe.jpeg",type:"tshirt",desc:"Men Graphic Print Oversized"},
+ {id:26,name:"Kofia",price:40,img:"https://i.imgur.com/a4J8TP1.jpeg",type:"kids",desc:"kofia"},
+ {id:13,name:"Buda Jeans Co",price:12000,img:"https://i.imgur.com/SSMbMl6.jpeg",type:"tshirt",desc:"Men Graphic Print Oversized Fit"},
+ {id:22,name:"Sneakers",price:40,img:"https://i.imgur.com/FVZ7qPJ.jpeg",type:"sports",desc:"Air Max 95 CDG Black"},
+ {id:4,name:"Buda Jeans Co",price:25500,img:"https://i.imgur.com/HPRwTKJ.jpeg",type:"jeans",desc:"Men Slim Fit Mid-Rise Cargo Pants"},
+ {id:25,name:"Gloves",price:40,img:"https://i.imgur.com/bdRBRBf.jpeg",type:"gloves",desc:"Riding Gloves"}
+];
+
+ let allProducts = JSON.parse(localStorage.getItem("allProducts")) || [];
+
+// Merge without duplicates
+topDeals.forEach(d=>{
+ if(!allProducts.some(p=>p.id===d.id)){
+   allProducts.push(d);
+ }
+});
+
+localStorage.setItem("allProducts", JSON.stringify(allProducts));
+
+localStorage.setItem("allProducts",JSON.stringify(fashion));
+
+ function formatPrice(price){
+  return "TZS " + Number(price).toLocaleString() + "/=";
+}
+
+function draw(list,id){
+ document.getElementById(id).innerHTML=list.map(p=>`
+  <div class="card" onclick="openProduct(${p.id})">
+   <img src="${p.img}">
+   <p>${p.name}</p>
+   <b>${formatPrice(p.price)}</b>
+  </div>`).join("");
+}
+
+ function drawTopDeals(){
+ document.getElementById("topDeals").innerHTML =
+  topDeals.map(p=>`
+   <div class="card" onclick="openProduct(${p.id})">
+    <img src="${p.img}">
+    <p>${p.name}</p>
+    <b>TZS ${Number(p.price).toLocaleString()}/=</b>
+   </div>
+  `).join("");
+}
+
+drawTopDeals();
+
+draw(fashion.slice(0,2),"suggested");
+draw(fashion.slice(1),"like");
+
+function openType(t){
+ localStorage.setItem("fashionType",t);
+ location.href="fashion-list.html";
+}
+
+function openProduct(id){
+ localStorage.setItem("pid",id);
+ location.href="product.html";
+}
+
+function search(v){
+ draw(fashion.filter(p=>p.name.toLowerCase().includes(v.toLowerCase())),"suggested");
+}
+
+ function goPage(page){
+  location.href = page;
+}
+
+/* SET ACTIVE PAGE (BLUE COLOR) */
+function setActiveNav(){
+
+  let path = window.location.pathname;
+
+  if(path.includes("index.html") || path === "/"){
+    document.getElementById("nav-home").classList.add("active");
+  }
+  else if(path.includes("category")){
+    document.getElementById("nav-category").classList.add("active");
+  }
+  else if(path.includes("account")){
+    document.getElementById("nav-account").classList.add("active");
+  }
+  else if(path.includes("cart")){
+    document.getElementById("nav-cart").classList.add("active");
+  }
+
+}
+
+window.addEventListener("load", setActiveNav);
+</script>
+
+ <div class="bottom-nav">
+
+  <div onclick="goPage('index.html')">
+    <i class="fa fa-home"></i>
+    Home
+  </div>
+
+  <div class="active" onclick="goPage('category.html')">
+    <i class="fa fa-th-large"></i>
+    Categories
+  </div>
+
+  <div onclick="goPage('account.html')">
+    <i class="fa fa-user"></i>
+    Account
+  </div>
+
+  <div onclick="goPage('cart.html')">
+    <i class="fa fa-shopping-cart"></i>
+    Cart
+  </div>
+
+</div>
+</body>
+</html>
