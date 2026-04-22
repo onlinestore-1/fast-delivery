@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html>
+<head>
+ <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<meta charset="UTF-8">
+<title>Mobile</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<style>
+ body{
+ margin:0;
+ font-family:Arial;
+ background:#f4f4f4;
+ padding-top:70px;
+}
+
+/* TOP */
+.topbar{
+ display:flex;
+ align-items:center;
+ background:linear-gradient(180deg, #87c7f3, #a8d8f8);
+ padding:10px;
+ color:white;
+ gap:10px;
+
+ position:fixed;
+ top:0;
+ left:0;
+ width:100%;
+ z-index:1000;
+
+ box-sizing:border-box;
+}
+.topbar input{
+ flex:1;
+ padding:8px;
+ border:none;
+ border-radius:4px;
+}
+.cart{font-size:22px;cursor:pointer}
+
+/* SLIDER */
+.slider img{width:100%;display:none}
+.slider img:first-child{display:block}
+
+/* CATEGORY GRID */
+.grid3{
+ display:grid;
+ grid-template-columns:repeat(3,1fr);
+ gap:10px;
+ padding:10px
+}
+.cat{
+ background:#fff;
+ padding:10px;
+ text-align:center;
+ border-radius:6px;
+ cursor:pointer
+}
+.cat img{width:100%;height:90px;object-fit:cover}
+
+/* PRODUCTS */
+.grid2{
+ display:grid;
+ grid-template-columns:repeat(2,1fr);
+ gap:10px;
+ padding:10px
+}
+.card{
+ background:#fff;
+ padding:10px;
+ border-radius:6px
+}
+.card img{width:100%}
+
+ /* BOTTOM NAVBAR */
+.bottom-nav{
+ position:fixed;
+ bottom:0;
+ left:0;
+ width:100%;
+ height:60px;
+ background:#fff;
+ display:flex;
+ justify-content:space-around;
+ align-items:center;
+ border-top:1px solid #ddd;
+ z-index:1000;
+}
+
+.bottom-nav a{
+ text-decoration:none;
+ text-align:center;
+ font-size:12px;
+ color:#777;
+}
+
+.bottom-nav i{
+ display:block;
+ font-size:20px;
+ margin-bottom:3px;
+}
+
+/* ACTIVE PAGE (BLUE) */
+.bottom-nav .active{
+ color:#2874f0;
+ font-weight:bold;
+}
+
+/* PREVENT CONTENT HIDING */
+body{
+ padding-bottom:70px;
+}
+</style>
+</head>
+
+<body>
+
+ <div class="topbar">
+ <input type="search" placeholder="Search fashion..." onkeyup="search(this.value)">
+ <span class="cart" onclick="location.href='cart.html'">🛒</span>
+</div>
+
+<!-- ADS -->
+<div class="slider">
+ <img src="https://i.imgur.com/j6JWI5n.png">
+ <img src="https://i.imgur.com/3ZFgqAY.png">
+ <img src="https://i.imgur.com/M4bTgH1.png">
+</div>
+
+<h3 style="padding:10px">MOBILE Categories</h3>
+
+<div class="grid3">
+ <div class="cat" onclick="openType('samsung')"><img src="https://i.postimg.cc/9M5TxG4b/aa57.jpg"><p>SAMSUNG</p></div>
+ <div class="cat" onclick="openType('apple')"><img src="https://i.postimg.cc/KjhNg6rM/ap4.jpg"><p>Apple</p></div>
+ <div class="cat" onclick="openType('infinix')"><img src="https://i.postimg.cc/Y9M0G8Lq/inf1.jpg"><p>Infinix</p></div>
+ <div class="cat" onclick="openType('google')"><img src="https://i.postimg.cc/yYZKKcWS/aa53.jpg"><p>Google</p></div>
+ <div class="cat" onclick="openType('xiaomi')"><img src="https://i.postimg.cc/59v1d8XF/xia5.jpg"><p>Xiaomi</p></div>
+ <div class="cat" onclick="openType('sony')"><img src="https://i.postimg.cc/MTVL4b9V/son5.jpg"><p>Sony</p></div>
+</div>
+
+<h3 style="padding:10px">Suggested For You</h3>
+<div class="grid2" id="suggested"></div>
+
+<h3 style="padding:10px">You May Also Like</h3>
+<div class="grid2" id="like"></div>
+
+<script>
+/* SLIDER */
+let s=0;
+setInterval(()=>{
+ let imgs=document.querySelectorAll(".slider img");
+ imgs.forEach(i=>i.style.display="none");
+ s=(s+1)%imgs.length;
+ imgs[s].style.display="block";
+},3000);
+
+/* FASHION DATA */
+const fashion=[
+ {id:300,name:"Samsung Galaxy",price:480000,img:"https://i.postimg.cc/hG4NXd49/sam6.jpg",type:"samsung",desc:"Samsung Galaxy Note 20 Ultra 128Gb Black"},
+ {id:301,name:"Samsung Galaxy",price:480000,img:"https://i.postimg.cc/VN44pZ8H/sam2.jpg",type:"samsung",desc:"Samsung Galaxy Note 20 Ultra 128Gb pink"},
+ {id:302,name:"Samsung Galaxy",price:480000,img:"https://i.postimg.cc/yNCwsb2s/sam3.jpg",type:"samsung",desc:"Samsung Galaxy Note 20 Ultra 128Gb white"},
+ {id:303,name:"Apple iphone",price:14,img:"https://i.imgur.com/1eGOscP.jpeg",type:"apple",desc:"Apple iphone 15 Pro Max 256GB"},
+ {id:304,name:"Apple iphone",price:14,img:"https://i.imgur.com/CoMUqoa.jpeg",type:"apple",desc:"Apple iphone 13 Pro 128GB Sierra Blue"},
+ {id:305,name:"Infinix",price:14,img:"https://i.imgur.com/n6N2S5v.jpeg",type:"infinix",desc:"The Note 50 Pro 256GB"},
+ {id:306,name:"Infinix",price:14,img:"https://i.imgur.com/hvMxIYZ.jpeg",type:"infinix",desc:"infinix hot 60 pro plus 256GB 16RAM"},
+ {id:307,name:"Redmi",price:25,img:"https://i.imgur.com/1vZm3wE.jpeg",type:"xiaomi",desc:"Xiaomi Redmi 15C 8gb 256GB Midnight black"},
+ {id:308,name:"Redmi",price:25,img:"https://i.imgur.com/0JHAHqQ.jpeg",type:"xiaomi",desc:"Redmi 14c 5G 4GB 128GB"},
+ {id:309,name:"Google Pixel",price:40,img:"https://i.imgur.com/OrdCEN6.jpeg",type:"google",desc:"Google Pixel 6a 128GB"},
+ {id:310,name:"Sony Xperia",price:40,img:"https://i.imgur.com/xdWEj8z.jpeg",type:"sony",desc:"Sony Xperia 10 iii ROM 128GB RAM 6GB"}
+];
+
+localStorage.setItem("allProducts",JSON.stringify(fashion));
+
+ function formatPrice(price){
+  return "TZS " + Number(price).toLocaleString() + "/=";
+}
+
+function draw(list,id){
+ document.getElementById(id).innerHTML=list.map(p=>`
+  <div class="card" onclick="openProduct(${p.id})">
+   <img src="${p.img}">
+   <p>${p.name}</p>
+   <b>${formatPrice(p.price)}</b>
+  </div>`).join("");
+}
+
+draw(fashion.slice(0,2),"suggested");
+draw(fashion.slice(1),"like");
+
+function openType(t){
+ localStorage.setItem("fashionType",t);
+ location.href="fashion-list.html";
+}
+
+function openProduct(id){
+ localStorage.setItem("pid",id);
+ location.href="product.html";
+}
+
+function search(v){
+ draw(fashion.filter(p=>p.name.toLowerCase().includes(v.toLowerCase())),"suggested");
+}
+
+ /* AUTO ACTIVE NAV */
+function setActiveNav(){
+
+  let path = window.location.pathname;
+
+  if(path.includes("index.html") || path === "/" ){
+    document.getElementById("nav-home").classList.add("active");
+  }
+  else if(path.includes("category") || path.includes("fashion")){
+    document.getElementById("nav-category").classList.add("active");
+  }
+  else if(path.includes("account")){
+    document.getElementById("nav-account").classList.add("active");
+  }
+  else if(path.includes("cart")){
+    document.getElementById("nav-cart").classList.add("active");
+  }
+}
+
+window.addEventListener("load", setActiveNav);
+</script>
+
+ <!-- BOTTOM NAV -->
+<div class="bottom-nav">
+
+  <a href="index.html" id="nav-home">
+    <i class="fa fa-home"></i>
+    Home
+  </a>
+
+  <a href="category.html" id="nav-category">
+    <i class="fa fa-th-large"></i>
+    Categories
+  </a>
+
+  <a href="account.html" id="nav-account">
+    <i class="fa fa-user"></i>
+    Account
+  </a>
+
+  <a href="cart.html" id="nav-cart">
+    <i class="fa fa-shopping-cart"></i>
+    Cart
+  </a>
+
+</div>
+
+</body>
+</html>
