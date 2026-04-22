@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Gloves</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<style>
+body{
+ margin:0;
+ font-family:Arial;
+ background:#f4f4f4;
+ padding-top:70px;
+}
+
+/* TOP BAR */
+.topbar{
+ display:flex;
+ align-items:center;
+ background:linear-gradient(180deg, #87c7f3, #a8d8f8);
+ padding:10px;
+ color:white;
+ gap:10px;
+
+ position:fixed;
+ top:0;
+ left:0;
+ width:100%;
+ z-index:1000;
+
+  box-sizing:border-box;
+}
+.topbar input{
+ flex:1;
+ padding:8px;
+ border:none;
+ border-radius:4px;
+}
+.cart{font-size:22px;cursor:pointer}
+
+/* GRID */
+.grid{
+ display:grid;
+ grid-template-columns:repeat(2,1fr);
+ gap:10px;
+ padding:10px;
+}
+.card{
+ background:#fff;
+ padding:10px;
+ border-radius:6px;
+}
+.card img{width:100%}
+</style>
+</head>
+
+<body>
+
+<!-- SEARCH + CART -->
+<div class="topbar">
+ <input type="search" placeholder="Search products..." onkeyup="search(this.value)">
+ <span class="cart" onclick="location.href='cart.html'">🛒</span>
+</div>
+
+<h2 style="padding:10px">Gloves</h2>
+<div id="box" class="grid"></div>
+
+<script>
+const speakers = [
+ {id:300,name:"Samsung Galaxy",price:480000,img:"https://i.postimg.cc/hG4NXd49/sam6.jpg",type:"samsung",desc:"Samsung Galaxy Note 20 Ultra 128Gb Black"},
+ {id:301,name:"Samsung Galaxy",price:480000,img:"https://i.postimg.cc/VN44pZ8H/sam2.jpg",type:"samsung",desc:"Samsung Galaxy Note 20 Ultra 128Gb pink"},
+ {id:302,name:"Samsung Galaxy",price:480000,img:"https://i.postimg.cc/yNCwsb2s/sam3.jpg",type:"samsung",desc:"Samsung Galaxy Note 20 Ultra 128Gb white"},
+ {id:303,name:"Apple iphone",price:14,img:"https://i.imgur.com/1eGOscP.jpeg",type:"apple",desc:"Apple iphone 15 Pro Max 256GB"},
+ {id:304,name:"Apple iphone",price:14,img:"https://i.imgur.com/CoMUqoa.jpeg",type:"apple",desc:"Apple iphone 13 Pro 128GB Sierra Blue"},
+ {id:305,name:"Infinix",price:14,img:"https://i.imgur.com/n6N2S5v.jpeg",type:"infinix",desc:"The Note 50 Pro 256GB"},
+ {id:306,name:"Infinix",price:14,img:"https://i.imgur.com/hvMxIYZ.jpeg",type:"infinix",desc:"infinix hot 60 pro plus 256GB 16RAM"},
+ {id:307,name:"Redmi",price:25,img:"https://i.imgur.com/1vZm3wE.jpeg",type:"xiaomi",desc:"Xiaomi Redmi 15C 8gb 256GB Midnight black"},
+ {id:308,name:"Redmi",price:25,img:"https://i.imgur.com/0JHAHqQ.jpeg",type:"xiaomi",desc:"Redmi 14c 5G 4GB 128GB"},
+ {id:309,name:"Google Pixel",price:40,img:"https://i.imgur.com/OrdCEN6.jpeg",type:"google",desc:"Google Pixel 6a 128GB"},
+ {id:310,name:"Sony Xperia",price:40,img:"https://i.imgur.com/xdWEj8z.jpeg",type:"sony",desc:"Sony Xperia 10 iii ROM 128GB RAM 6GB"}
+];
+
+// FORMAT PRICE (TZS + comma)
+function formatPrice(price){
+ return "TZS " + Number(price).toLocaleString() + "/=";
+}
+
+// LOAD EXISTING PRODUCTS
+let all = JSON.parse(localStorage.getItem("allProducts")) || [];
+
+// MERGE WITHOUT DUPLICATES
+speakers.forEach(sp => {
+ if (!all.some(p => p.id === sp.id)) {
+  all.push(sp);
+ }
+});
+
+localStorage.setItem("allProducts", JSON.stringify(all));
+
+// DISPLAY FUNCTION
+function draw(list){
+ document.getElementById("box").innerHTML = list.map(p=>`
+  <div class="card" onclick="openProduct(${p.id})">
+   <img src="${p.img}">
+   <p>${p.name}</p>
+   <b>${formatPrice(p.price)}</b>
+  </div>
+ `).join("");
+}
+
+// INITIAL LOAD
+draw(speakers);
+
+// SEARCH FUNCTION
+function search(value){
+ const filtered = speakers.filter(p =>
+  p.name.toLowerCase().includes(value.toLowerCase())
+ );
+ draw(filtered);
+}
+
+// OPEN PRODUCT
+function openProduct(id){
+ localStorage.setItem("pid", id);
+ location.href = "product.html";
+}
+</script>
+
+</body>
+</html>
