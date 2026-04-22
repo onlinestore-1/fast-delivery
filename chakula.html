@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html>
+<head>
+ <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<meta charset="UTF-8">
+<title>Chakula & afya</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<style>
+ body{
+ margin:0;
+ font-family:Arial;
+ background:#f4f4f4;
+ padding-top:70px;
+}
+
+/* TOP */
+.topbar{
+ display:flex;
+ align-items:center;
+ background:linear-gradient(180deg, #87c7f3, #a8d8f8);
+ padding:10px;
+ color:white;
+ gap:10px;
+
+ position:fixed;
+ top:0;
+ left:0;
+ width:100%;
+ z-index:1000;
+
+ box-sizing:border-box;
+}
+.topbar input{
+ flex:1;
+ padding:8px;
+ border:none;
+ border-radius:4px;
+}
+.cart{font-size:22px;cursor:pointer}
+
+/* SLIDER */
+.slider img{width:100%;display:none}
+.slider img:first-child{display:block}
+
+/* CATEGORY GRID */
+.grid3{
+ display:grid;
+ grid-template-columns:repeat(3,1fr);
+ gap:10px;
+ padding:10px
+}
+.cat{
+ background:#fff;
+ padding:10px;
+ text-align:center;
+ border-radius:6px;
+ cursor:pointer
+}
+.cat img{width:100%;height:90px;object-fit:cover}
+
+ /* SPOTLIGHT SECTION */
+.spotlight-section{
+  background:#e53935; /* red surroundings */
+  margin:10px;
+  border-radius:6px;
+}
+
+.spotlight-header{
+  padding:10px;
+  font-weight:bold;
+  color:#fff; /* white text */
+  text-align:left;
+}
+
+.spotlight-grid{
+  background:#e53935; /* red side space */
+  padding:10px;
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:10px;
+}
+
+.spotlight-card{
+  background:#fff; /* product grid NOT red */
+  border-radius:6px;
+  overflow:hidden;
+  cursor:pointer;
+}
+
+.spotlight-card img{
+  width:100%;
+}
+
+.spotlight-card p{
+  margin:8px;
+  font-weight:bold;
+}
+
+/* PRODUCTS */
+.grid2{
+ display:grid;
+ grid-template-columns:repeat(2,1fr);
+ gap:10px;
+ padding:10px
+}
+.card{
+ background:#fff;
+ padding:10px;
+ border-radius:6px
+}
+.card img{width:100%}
+
+ /* BOTTOM NAVBAR */
+.bottom-nav{
+ position:fixed;
+ bottom:0;
+ left:0;
+ width:100%;
+ height:60px;
+ background:#fff;
+ display:flex;
+ justify-content:space-around;
+ align-items:center;
+ border-top:1px solid #ddd;
+ z-index:1000;
+}
+
+.bottom-nav a{
+ text-decoration:none;
+ text-align:center;
+ font-size:12px;
+ color:#777;
+}
+
+.bottom-nav i{
+ display:block;
+ font-size:20px;
+ margin-bottom:3px;
+}
+
+/* ACTIVE PAGE (BLUE) */
+.bottom-nav .active{
+ color:#2874f0;
+ font-weight:bold;
+}
+
+/* PREVENT CONTENT HIDING */
+body{
+ padding-bottom:70px;
+}
+</style>
+</head>
+
+<body>
+
+  <div class="topbar">
+ <input type="search" placeholder="Search fashion..." onkeyup="search(this.value)">
+ <span class="cart" onclick="location.href='cart.html'">🛒</span>
+</div>
+ 
+<!-- ADS -->
+<div class="slider">
+ <img src="https://i.imgur.com/j6JWI5n.png">
+ <img src="https://i.imgur.com/3ZFgqAY.png">
+ <img src="https://i.imgur.com/M4bTgH1.png">
+</div>
+
+<h3 style="padding:10px">Chakula & afya Categories</h3>
+
+<div class="grid3">
+ <div class="cat" onclick="openType('mafuta')"><img src="https://i.postimg.cc/G3YW4rJF/kori4.jpg"><p>Mafuta</p></div>
+ <div class="cat" onclick="openType('sukari')"><img src="https://i.postimg.cc/WbBkpG8D/1kg.jpg"><p>Sukari</p></div>
+ <div class="cat" onclick="openType('masala')"><img src="https://i.postimg.cc/7P1nfYhs/muh26.jpg"><p>Masala</p></div>
+ <div class="cat" onclick="openType('cream')"><img src="https://i.postimg.cc/8Chjtcqw/ice9.jpg"><p>Ice cream</p></div>
+ <div class="cat" onclick="openType('drinks')"><img src="https://i.postimg.cc/4xvg0cxw/peps1.jpg"><p>Cold Drinks</p></div>
+ <div class="cat" onclick="openType('extra')"><img src="https://i.postimg.cc/15rSC6tG/blue-ban1.jpg"><p>Mengineyo</p></div>
+</div>
+
+ <div class="spotlight-section">
+
+  <div class="spotlight-header">
+    Trending In Food
+  </div>
+
+  <div class="spotlight-grid">
+
+    <div class="spotlight-card" onclick="location.href='agiza.html'">
+      <img src="https://i.postimg.cc/9M33YsQQ/Chumvi2.jpg">
+      <p>Agiza kwa haraka</p>
+    </div>
+
+    <div class="spotlight-card" onclick="location.href='ipo.html'">
+      <img src="https://i.postimg.cc/y6tQG2qg/coca-cola1.jpg">
+      <p>Ipo sana</p>
+    </div>
+
+    <div class="spotlight-card" onclick="location.href='offer.html'">
+      <img src="https://i.postimg.cc/Cx1Rfr5y/ice2.jpg">
+      <p>Best offer</p>
+    </div>
+
+    <div class="spotlight-card" onclick="location.href='most.html'">
+      <img src="https://i.postimg.cc/Jh7ChSzX/kori3.jpg">
+      <p>Most Neccesary</p>
+    </div>
+
+  </div>
+</div>
+
+<h3 style="padding:10px">Suggested For You</h3>
+<div class="grid2" id="suggested"></div>
+
+<h3 style="padding:10px">You May Also Like</h3>
+<div class="grid2" id="like"></div>
+
+<script>
+/* SLIDER */
+let s=0;
+setInterval(()=>{
+ let imgs=document.querySelectorAll(".slider img");
+ imgs.forEach(i=>i.style.display="none");
+ s=(s+1)%imgs.length;
+ imgs[s].style.display="block";
+},3000);
+
+/* FASHION DATA */
+const fashion=[
+ {id:100,name:"Mafuta Korie",price:12,img:"https://i.imgur.com/bI2cHtb.jpeg",
+ imgs:[
+   "https://i.imgur.com/g3hVvcA.jpeg",
+   "https://i.imgur.com/b4T6KVn.jpeg",
+   "https://i.imgur.com/DKQ0LxO.jpeg"
+ ],type:"mafuta",desc:"Good cooking oil"},
+ {id:101,name:"White T-Shirt",price:14,img:"https://i.imgur.com/F9T6D7U.jpeg",type:"tshirt"},
+ {id:102,name:"Sukari 1kg",price:30,img:"https://i.postimg.cc/WbBkpG8D/1kg.jpg",type:"sukari"},
+ {id:103,name:"Chumvi",price:30,img:"https://i.imgur.com/e4CXmHr.jpeg/200",type:"sukari",desc:"chumvi bora"},
+ {id:104,name:"Tomato sauce",price:20,img:"https://i.imgur.com/IqhRkL7.jpeg/200",type:"extra",desc:"Tomato sauce tamu"},
+ {id:105,name:"Soy sauce",price:10,img:"https://i.imgur.com/CqraWiO.jpeg/200",type:"masala",desc:"Jipatie soy sauce"},
+ {id:106,name:"Splash",price:12,img:"https://i.imgur.com/4ifKGQC.jpeg/200",type:"cream",desc:"Splash sweet flavour"},
+ {id:107,name:"Bubble gum",price:15,img:"https://i.imgur.com/jJyMg1u.jpeg/200",type:"cream",desc:"Bubble gum flavoured ice lolly"},
+ {id:108,name:"Ballcone",price:13,img:"https://i.imgur.com/YU7yVMc.jpeg/200",type:"cream",desc:"Ballcone flavoured ice cream"},
+ {id:109,name:"Cherry",price:13,img:"https://i.imgur.com/Ax4J2uH.jpeg/200",type:"cream",desc:"Cherry flavoured ice lolly"},
+ {id:110,name:"Cherry Bar",price:13,img:"https://i.imgur.com/QZ8B1VC.jpeg/200",type:"cream",desc:"Cherry flavoured ice bar"},
+ {id:111,name:"Caramello",price:13,img:"https://i.imgur.com/HgeHJvR.jpeg/200",type:"cream",desc:"Caramello flavoured ice cream"},
+ {id:112,name:"Coca Cola",price:23,img:"https://i.imgur.com/UYZ1dIH.jpeg/200",type:"drinks",desc:"Coca Cola"},
+ {id:113,name:"pepsi",price:23,img:"https://i.imgur.com/cGRn5OZ.jpeg/200",type:"drinks",desc:"pepsi"},
+ {id:114,name:"Afya Maji",price:23,img:"https://i.imgur.com/u9dkajs.jpeg/200",type:"drinks",desc:"Afya maji ya kunywa Baridi au Ya moto eka idadi HAPO chini"},
+ {id:115,name:"u-fresh orange",price:23,img:"https://i.imgur.com/k42X2gl.jpeg/200",type:"drinks",desc:"u-fresh baridi ipo weka idadi hapo chini"},
+ {id:116,name:"u-fresh power",price:23,img:"https://i.imgur.com/y1qJelw.jpeg/200",type:"drinks",desc:"u-fresh baridi ipo weka idadi hapo chini"},
+ {id:117,name:"u-fresh pineapple",price:23,img:"https://i.imgur.com/GcVEME3.jpeg/200",type:"drinks",desc:"u-fresh baridi ipo weka idadi hapo chini"},
+ {id:118,name:"u-fresh passion",price:20,img:"https://i.imgur.com/9uhn4hj.jpeg/200",type:"drinks",desc:"u-fresh baridi ipo weka idadi hapo chini"},
+ {id:119,name:"u-fresh cola",price:21,img:"https://i.imgur.com/FvMtoAL.jpeg/200",type:"drinks",desc:"u-fresh baridi ipo weka idadi hapo chini"},
+ {id:120,name:"Sneakers",price:40,img:"https://i.imgur.com/YU7yVMc.jpeg",type:"sneakers"},
+ {id:121,name:"Korie",price:30,img:"https://i.postimg.cc/zDKdhVhJ/kori4.jpg",type:"mafuta",desc:"Korie Cooking Oil 3ltr"},
+ {id:122,name:"Royco mchuzi mix",price:10,img:"https://i.postimg.cc/13LjR2gC/royco1.jpg",type:"masala",desc:"Spicy Beef Flavour"},
+ {id:123,name:"Chicken Masala",price:10,img:"https://i.postimg.cc/DzRb8VLY/chic-mas1.jpg",type:"masala",desc:"Spice Seasoning"},
+ {id:124,name:"Baking Powder",price:10,img:"https://i.postimg.cc/NfPGg61d/bakin1.jpg",type:"masala",desc:"Kwa Mandazi Baking Powder"},
+ {id:125,name:"Red Gold",price:10,img:"https://i.postimg.cc/636F2SKZ/red-gol1.jpg",type:"masala",desc:"Red Gold Tomato Paste"},
+ {id:126,name:"Tea Masala",price:10,img:"https://i.postimg.cc/dVH5N1Pb/tea-mas1.jpg",type:"masala",desc:"Spice seasoning"},
+ {id:127,name:"Pilau Masala",price:10,img:"https://i.postimg.cc/5tQSPSmq/pilau-masa.jpg",type:"masala",desc:"Spice seasoning"},
+ {id:128,name:"White Vinegar",price:10,img:"https://i.postimg.cc/9FN9vq0v/red-ven.jpg",type:"masala",desc:"RedGold White Vinegar "}
+];
+
+localStorage.setItem("allProducts",JSON.stringify(fashion));
+
+ function formatPrice(price){
+  return "TZS " + Number(price).toLocaleString() + "/=";
+}
+
+function draw(list,id){
+ document.getElementById(id).innerHTML=list.map(p=>`
+  <div class="card" onclick="openProduct(${p.id})">
+   <img src="${p.imgs ? p.imgs[0] : p.img}">
+   <p>${p.name}</p>
+   <b>${formatPrice(p.price)}</b>
+  </div>`).join("");
+}
+
+draw(fashion.slice(0,2),"suggested");
+draw(fashion.slice(1),"like");
+
+function openType(t){
+ localStorage.setItem("fashionType",t);
+ location.href="fashion-list.html";
+}
+
+function openProduct(id){
+ localStorage.setItem("pid",id);
+ location.href="product.html";
+}
+
+function search(v){
+ draw(fashion.filter(p=>p.name.toLowerCase().includes(v.toLowerCase())),"suggested");
+}
+
+ /* AUTO ACTIVE NAV */
+function setActiveNav(){
+
+  let path = window.location.pathname;
+
+  if(path.includes("index.html") || path === "/" ){
+    document.getElementById("nav-home").classList.add("active");
+  }
+  else if(path.includes("category") || path.includes("fashion")){
+    document.getElementById("nav-category").classList.add("active");
+  }
+  else if(path.includes("account")){
+    document.getElementById("nav-account").classList.add("active");
+  }
+  else if(path.includes("cart")){
+    document.getElementById("nav-cart").classList.add("active");
+  }
+}
+
+window.addEventListener("load", setActiveNav);
+</script>
+
+ <!-- BOTTOM NAV -->
+<div class="bottom-nav">
+
+  <a href="index.html" id="nav-home">
+    <i class="fa fa-home"></i>
+    Home
+  </a>
+
+  <a href="category.html" id="nav-category">
+    <i class="fa fa-th-large"></i>
+    Categories
+  </a>
+
+  <a href="account.html" id="nav-account">
+    <i class="fa fa-user"></i>
+    Account
+  </a>
+
+  <a href="cart.html" id="nav-cart">
+    <i class="fa fa-shopping-cart"></i>
+    Cart
+  </a>
+
+</div>
+
+</body>
+</html>
