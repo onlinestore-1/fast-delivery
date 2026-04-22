@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Umeme</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<style>
+body{
+ margin:0;
+ font-family:Arial;
+ background:#f4f4f4;
+ padding-top:70px;
+}
+
+/* TOP BAR */
+.topbar{
+ display:flex;
+ align-items:center;
+ background:linear-gradient(180deg, #87c7f3, #a8d8f8);
+ padding:10px;
+ color:white;
+ gap:10px;
+
+ position:fixed;
+ top:0;
+ left:0;
+ width:100%;
+ z-index:1000;
+
+  box-sizing:border-box;
+}
+.topbar input{
+ flex:1;
+ padding:8px;
+ border:none;
+ border-radius:4px;
+}
+.cart{font-size:22px;cursor:pointer}
+
+/* GRID */
+.grid{
+ display:grid;
+ grid-template-columns:repeat(2,1fr);
+ gap:10px;
+ padding:10px;
+}
+.card{
+ background:#fff;
+ padding:10px;
+ border-radius:6px;
+}
+.card img{width:100%}
+</style>
+</head>
+
+<body>
+
+<!-- SEARCH + CART -->
+<div class="topbar">
+ <input type="search" placeholder="Search products..." onkeyup="search(this.value)">
+ <span class="cart" onclick="location.href='cart.html'">🛒</span>
+</div>
+
+<h2 style="padding:10px">Electronics</h2>
+<div id="box" class="grid"></div>
+
+<script>
+const speakers = [
+ {id:400,name:"Smart Watches",price:12,img:"https://i.imgur.com/yIsxgJk.jpeg",type:"watches",desc:"Smart Watch for Men 50M Waterproof"},
+ {id:401,name:"SanDisk",price:14,img:"https://i.imgur.com/p4TuNyK.jpeg",type:"data",desc:"SanDisk Ultra Shift 32GB"},
+ {id:402,name:"Goboult",price:25,img:"https://i.imgur.com/d23TMP5.jpeg",type:"power",desc:"10000 mAH 22.5 W Power Bank"},
+ {id:403,name:"PlayStation",price:25,img:"https://i.imgur.com/ADKZfyn.jpeg",type:"pad",desc:"PlayStation Sony dualShock 4 Wireless Controller"},
+ {id:404,name:"HP Laptop",price:25,img:"https://i.imgur.com/S7hlTgj.jpeg",type:"laptop",desc:"HP ProBook 4540s 15.6 Laptop Notebook Intel i3"},
+ {id:405,name:"HP Laptop",price:25,img:"https://i.imgur.com/Y5W6m6J.jpeg",type:"laptop",desc:"HP ProBook 4530s 15.6 Laptop Notebook Intel i3"},
+ {id:406,name:"Pods",price:40,img:"https://i.imgur.com/bSBbTan.jpeg",type:"charger",desc:"Swiss Pods Bluetooth Headset"}
+];
+
+// FORMAT PRICE (TZS + comma)
+function formatPrice(price){
+ return "TZS " + Number(price).toLocaleString();
+}
+
+// LOAD EXISTING PRODUCTS
+let all = JSON.parse(localStorage.getItem("allProducts")) || [];
+
+// MERGE WITHOUT DUPLICATES
+speakers.forEach(sp => {
+ if (!all.some(p => p.id === sp.id)) {
+  all.push(sp);
+ }
+});
+
+localStorage.setItem("allProducts", JSON.stringify(all));
+
+// DISPLAY FUNCTION
+function draw(list){
+ document.getElementById("box").innerHTML = list.map(p=>`
+  <div class="card" onclick="openProduct(${p.id})">
+   <img src="${p.img}">
+   <p>${p.name}</p>
+   <b>${formatPrice(p.price)}</b>
+  </div>
+ `).join("");
+}
+
+// INITIAL LOAD
+draw(speakers);
+
+// SEARCH FUNCTION
+function search(value){
+ const filtered = speakers.filter(p =>
+  p.name.toLowerCase().includes(value.toLowerCase())
+ );
+ draw(filtered);
+}
+
+// OPEN PRODUCT
+function openProduct(id){
+ localStorage.setItem("pid", id);
+ location.href = "product.html";
+}
+</script>
+
+</body>
+</html>
