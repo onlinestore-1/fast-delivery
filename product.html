@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
   <meta charset="UTF-8">
   <title>Product Details</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -13,6 +15,53 @@
       background:#f4f4f4;
       padding:15px;
     }
+
+    /* TOP BAR */
+.top-bar{
+  position:fixed;
+  top:0;
+  left:0;
+  width:100%;
+  height:60px;
+  background:#e6f2fb;
+  display:flex;
+  align-items:center;
+  gap:10px;
+  padding:0 10px;
+  z-index:1000;
+  box-sizing:border-box;
+}
+
+/* ICONS */
+.top-bar i{
+  font-size:20px;
+  cursor:pointer;
+  min-width:30px;
+  text-align:center;
+}
+
+/* SEARCH BOX */
+.search-box{
+  flex:1;
+  background:#fff;
+  border:2px solid #3ea6ff;
+  border-radius:25px;
+  padding:8px 12px;
+  display:flex;
+  align-items:center;
+  gap:8px;
+  cursor:pointer;
+}
+
+.search-box span{
+  color:#777;
+  font-size:14px;
+}
+
+/* PREVENT CONTENT HIDING */
+body{
+  padding-top:70px;
+}
 
     .card{
       background:#fff;
@@ -44,12 +93,56 @@
 
     input{width:60px;padding:5px;font-size:16px;}
 
+/* SWIPE IMAGE SLIDER */
+.slider{
+  overflow:hidden;
+  position:relative;
+  border-radius:6px;
+}
+
+.slides{
+  display:flex;
+  transition:transform 0.3s ease;
+}
+
+.slides img{
+  width:100%;
+  flex-shrink:0;
+  border-radius:6px;
+}
+
+.similar-row{
+  display:grid;
+  grid-template-columns:repeat(8,1fr);
+  gap:8px;
+  overflow-x:auto;
+}
+
+.similar-item{
+  background:#fff;
+  padding:8px;
+  border-radius:6px;
+  cursor:pointer;
+  min-width:100px;
+}
+
+.similar-item img{
+  width:100%;
+  height:90px;
+  object-fit:cover;
+}
+
+.similar-item p{
+  font-size:12px;
+  margin:4px 0;
+}
+
     /* YOU MAY ALSO LIKE */
     h3{margin-top:25px;}
 
     .grid{
       display:grid;
-      grid-template-columns:repeat(2,1fr);
+      grid-template-columns:repeat(3,1fr);
       gap:10px;
     }
 
@@ -70,73 +163,249 @@
       margin:5px 0;
       font-size:14px;
     }
+
+.explore-grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:10px;
+}
+
+.explore-item{
+  background:#fff;
+  padding:10px;
+  border-radius:6px;
+  cursor:pointer;
+}
+
+.explore-item img{
+  width:100%;
+  height:140px;
+  object-fit:cover;
+}
+
+.explore-item p{
+  font-size:14px;
+  margin:5px 0;
+}
+
+/* SIZE CHART */
+.size-box{
+  display:flex;
+  gap:10px;
+  margin:10px 0;
+}
+
+.size{
+  padding:8px 12px;
+  border:1px solid #ccc;
+  border-radius:5px;
+  cursor:pointer;
+}
+
+.size.active{
+  border:2px solid #000;
+  font-weight:bold;
+}
+
+/* POPUP */
+.size-popup{
+  position:fixed;
+  bottom:0;
+  left:0;
+  width:100%;
+  background:#fff;
+  padding:15px;
+  box-shadow:0 -2px 10px rgba(0,0,0,0.2);
+  display:none;
+  z-index:2000;
+}
+
+.size-popup img{
+  width:80px;
+  border-radius:5px;
+}
+
+.popup-header{
+  display:flex;
+  gap:10px;
+  align-items:center;
+}
   </style>
 </head>
 
 <body>
 
+<!-- TOP BAR -->
+<div class="top-bar">
+  <!-- BACK BUTTON -->
+  <i class="fa fa-arrow-left" onclick="goBack()"></i>
+
+  <!-- SEARCH BAR -->
+  <div class="search-box" onclick="goSearch()">
+    <i class="fa fa-search"></i>
+    <span>Search for products</span>
+  </div>
+
+  <!-- CART ICON -->
+  <i class="fa fa-shopping-cart" onclick="goCart()"></i>
+</div>
+
 <div class="card" id="productBox"></div>
+
+<h3>Similar Products</h3>
+<div class="similar-row" id="similarBox"></div>
 
 <h3>You May Also Like</h3>
 <div class="grid" id="likeBox"></div>
 
+<h3>Explore More Like This</h3>
+<div class="explore-grid" id="exploreBox"></div>
+
 <script>
 const products = JSON.parse(localStorage.getItem("allProducts")) || [
-  {id:1,name:"Men T-shirt",price:12,img:"https://i.imgur.com/b4T6KVn.jpeg/200",desc:"Cotton T-shirt"},
-  {id:2,name:"Dress",price:22,img:"https://i.imgur.com/F9T6D7U.jpeg/200",desc:"Ladies dress"},
-  {id:3,name:"Sukari 1kg",price:30,img:"https://i.imgur.com/1EFgnRl.jpeg/200",desc:"Sukari 1kg"},
-  {id:4,name:"Mafuta ya kupikia",price:45,img:"https://i.imgur.com/4B7cTjc.jpeg/200",desc:"Pika kisasa na korie"},
-  {id:5,name:"Chumvi",price:30,img:"https://i.imgur.com/e4CXmHr.jpeg/200",desc:"chumvi bora"},
-  {id:6,name:"Blue Band",price:30,img:"https://i.imgur.com/PnEvGZN.jpeg/200",desc:"Blue Band bora"},
-  {id:7,name:"Tomato sauce",price:20,img:"https://i.imgur.com/IqhRkL7.jpeg/200",desc:"Tomato sauce tamu"},
-  {id:8,name:"Soy sauce",price:10,img:"https://i.imgur.com/CqraWiO.jpeg/200",desc:"Jipatie soy sauce"},
-  {id:9,name:"Baking powder",price:10,img:"https://i.imgur.com/WlfRjNu.jpeg/200",desc:"kwa mandazi"},
-  {id:10,name:"Royco",price:14,img:"https://i.imgur.com/rmXvXwO.jpeg/200",desc:"Royco mchuzi mix"},
-  {id:11,name:"Coca Cola",price:23,img:"https://i.imgur.com/UYZ1dIH.jpeg/200",desc:"Coca Cola"},
-  {id:12,name:"pepsi",price:23,img:"https://i.imgur.com/cGRn5OZ.jpeg/200",desc:"pepsi"},
-  {id:13,name:"Splash",price:12,img:"https://i.imgur.com/4ifKGQC.jpeg/200",desc:"Splash sweet flavour"},
-  {id:14,name:"Bubble gum",price:15,img:"https://i.imgur.com/jJyMg1u.jpeg/200",desc:"Bubble gum flavoured ice lolly"},
-  {id:15,name:"Ballcone",price:13,img:"https://i.imgur.com/YU7yVMc.jpeg/200",desc:"Ballcone flavoured ice cream"},
-  {id:16,name:"Cherry",price:13,img:"https://i.imgur.com/Ax4J2uH.jpeg/200",desc:"Cherry flavoured ice lolly"},
-  {id:17,name:"Cherry Bar",price:13,img:"https://i.imgur.com/QZ8B1VC.jpeg/200",desc:"Cherry flavoured ice bar"},
-  {id:18,name:"Caramello",price:13,img:"https://i.imgur.com/HgeHJvR.jpeg/200",desc:"Caramello flavoured ice cream"},
-  {id:19,name:"Doffi",price:17,img:"https://i.imgur.com/hD9g7L2.jpeg/200",desc:"Washing powder"},
-  {id:20,name:"Jet",price:19,img:"https://i.imgur.com/OoGiHtj.jpeg/200",desc:"Dish washing liquid soap"},
-  {id:21,name:"Jet",price:18,img:"https://i.imgur.com/q36RjQ2.jpeg/200",desc:"Dish washing liquid soap"},
-  {id:22,name:"Vaseline Jelly",price:14,img:"https://i.imgur.com/iFw39jh.jpeg/200",desc:"Body lotion"},
-  {id:23,name:"Rungu",price:14,img:"https://i.imgur.com/KIi9LUL.jpeg/200",desc:"Ya kuua wadudu warukao na wanaotambaa"},
-  {id:24,name:"Professor",price:15,img:"https://i.imgur.com/okplIfF.jpeg/200",desc:"Professor Counter Book 3Q"},
-  {id:25,name:"Vaseline",price:16,img:"https://i.imgur.com/2V7rzh7.jpeg/200",desc:"Pure petroleum jelly"},
-  {id:26,name:"Rexa",price:17,img:"https://i.imgur.com/3EPfv80.jpeg/200",desc:"Rexa toilet paper soft and white"},
-  {id:27,name:"Msomi",price:15,img:"https://i.imgur.com/zU2mjIE.jpeg/200",desc:"Msomi Exercise Book"},
-  {id:28,name:"OMO",price:18,img:"https://i.imgur.com/v0eeorr.jpeg/200",desc:"Ondoa madoa sugu"},
-  {id:29,name:"Niceone",price:18,img:"https://i.imgur.com/7nmPGbq.jpeg/200",desc:"Ondoa madoa sugu"},
-  {id:30,name:"Hiper razor",price:19,img:"https://i.imgur.com/zIJlaP3.jpeg/200",desc:"kiwembe bora"},
-  {id:31,name:"Afya Maji",price:23,img:"https://i.imgur.com/u9dkajs.jpeg/200",desc:"Afya maji ya kunywa Baridi au Ya moto eka idadi HAPO chini"},
-  {id:32,name:"u-fresh orange",price:23,img:"https://i.imgur.com/k42X2gl.jpeg/200",desc:"u-fresh baridi ipo weka idadi hapo chini"},
-  {id:33,name:"u-fresh power",price:23,img:"https://i.imgur.com/y1qJelw.jpeg/200",desc:"u-fresh baridi ipo weka idadi hapo chini"},
-  {id:34,name:"u-fresh pineapple",price:23,img:"https://i.imgur.com/GcVEME3.jpeg/200",desc:"u-fresh baridi ipo weka idadi hapo chini"},
-  {id:35,name:"Exercise Book",price:19,img:"https://i.imgur.com/AQrSAGW.jpeg/200",desc:"Daftari mistali mikubwa na midogo"},
-  {id:36,name:"Exercise Book",price:19,img:"https://i.imgur.com/ihIcg3h.jpeg/200",desc:"Daftari la kuandikia page 100"},
-  {id:37,name:"Exercise Book",price:17,img:"https://i.imgur.com/Hg8Aeea.jpeg/200",desc:"Daftari la kuandikia page 32"},
-  {id:38,name:"Hand soap",price:17,img:"https://i.imgur.com/Mi3AaMB.jpeg/200",desc:"Liduid hand wash"},
-  {id:39,name:"u-fresh passion",price:20,img:"https://i.imgur.com/9uhn4hj.jpeg/200",desc:"u-fresh baridi ipo weka idadi hapo chini"},
-  {id:40,name:"u-fresh cola",price:21,img:"https://i.imgur.com/FvMtoAL.jpeg/200",desc:"u-fresh baridi ipo weka idadi hapo chini"}
+ {id:1,name:"Blue T-Shirt",price:12,img:"https://i.imgur.com/M7lVvkH.jpeg",type:"tshirt",desc:"Men Washed Relaxed Fit Crew" },
+ {id:2,name:"NEONOMAD",price:14,img:"https://i.imgur.com/QlgHGCQ.jpeg",type:"tshirt",desc:"Men Embroidered Regular Fit"},
+ {id:3,name:"Indian Garage Co",price:32500,img:"https://i.imgur.com/0bMhAZJ.jpeg",type:"jeans",desc:"Slim Fit Flat-Front Cargo Trousers"},
+ {id:4,name:"Buda Jeans Co",price:25500,img:"https://i.imgur.com/HPRwTKJ.jpeg",type:"jeans",desc:"Men Slim Fit Mid-Rise Cargo Pants"},
+ {id:5,name:"Sneakers",price:40,img:"https://i.imgur.com/Oe0FdMT.jpeg",type:"sports",desc:"Nike Black Shox TL Sneakers"},
+ {id:6,name:"TECHNOSPORT",price:13000,img:"https://i.imgur.com/EptkNxj.jpeg",type:"tshirt",desc:"Men Slim Fit T Shirt"},
+ {id:7,name:"Buda Jeans Co",price:10000,img:"https://i.imgur.com/DuPhNKu.jpeg",type:"tshirt",desc:"Men Graphic Print Regular Fit"},
+ {id:8,name:"Alfaq",price:15000,img:"https://i.imgur.com/unw4MV3.jpeg",type:"tshirt",desc:"Men Graphic Print Oversized"},
+ {id:9,name:"Neonomad",price:12000,img:"https://i.imgur.com/zgyFKOe.jpeg",type:"tshirt",desc:"Men Graphic Print Oversized"},
+ {id:10,name:"Neonomad",price:12500,img:"https://i.imgur.com/tpYrddJ.jpeg",type:"tshirt",desc:"Men Graphic Print Oversized"},
+ {id:11,name:"Buda Jeans Co",price:12500,img:"https://i.imgur.com/bBde034.jpeg",type:"tshirt",desc:"Men Graphic Oversized Fit"},
+ {id:12,name:"Neonomad",price:12000,img:"https://i.imgur.com/NDAoZAr.jpeg",type:"tshirt",desc:"Men Graphic Print Oversized Fit"},
+ {id:13,name:"Buda Jeans Co",price:12000,img:"https://i.imgur.com/SSMbMl6.jpeg",type:"tshirt",desc:"Men Graphic Print Oversized Fit"},
+ {id:14,name:"lee cooper",price:10000,img:"https://i.imgur.com/3yuEsKY.jpeg",type:"tshirt",desc:"Men Brand Print oversized Fit"},
+ {id:15,name:"Yousta",price:6000,img:"https://i.imgur.com/3d3c22F.jpeg",type:"tshirt",desc:"Men Graphic Print Oversized Fit"},
+ {id:16,name:"Buda jeans Co",price:13000,img:"https://i.imgur.com/0kLhxU4.jpeg",type:"tshirt",desc:"Men Graphic Print Oversized Fit"},
+ {id:17,name:"T-Base",price:19000,img:"https://i.imgur.com/MkDOJUt.jpeg",type:"tshirt",desc:"Men Typographic Print Regular"},
+ {id:18,name:"Indian Garage Co",price:32000,img:"https://i.imgur.com/fJconnx.jpeg",type:"jeans",desc:"Slim Fit Flat-Front Cargo Trousers"},
+ {id:19,name:"Dnmx for trends select",price:33000,img:"https://i.imgur.com/2JaAcgr.jpeg",type:"jeans",desc:"Slim Fit Flat-Front Cargo Trousers"},
+ {id:20,name:"ECKO UNLTD",price:82500,img:"https://i.imgur.com/R3ZrzPW.jpeg",type:"jeans",desc:"Slim Fit Flat-Front Cargo Pants"},
+ {id:21,name:"STUDIO NEXX",price:74000,img:"https://i.imgur.com/8E1PQNH.jpeg",type:"jeans",desc:"Straight Fit Cargo Pants"},
+ {id:22,name:"Sneakers",price:40,img:"https://i.imgur.com/FVZ7qPJ.jpeg",type:"sports",desc:"Air Max 95 CDG Black"},
+ {id:23,name:"Gloves",price:15000,img:"https://i.imgur.com/bnxAhsJ.jpeg",type:"gloves",desc:"ZaySoo Anti-Slip Gym  Gloves for Professional Weightlifting,fitness Training and workout"},
+ {id:24,name:"Gloves",price:40,img:"https://i.imgur.com/SEkRfCe.jpeg",type:"gloves",desc:"Adidas Essential Training Gloves"},
+ {id:25,name:"Gloves",price:40,img:"https://i.imgur.com/bdRBRBf.jpeg",type:"gloves",desc:"Riding Gloves"},
+ {id:26,name:"Kofia",price:40,img:"https://i.imgur.com/a4J8TP1.jpeg",type:"kids",desc:"kofia"},
+ {id:27,name:"Kofia",price:40,img:"https://i.imgur.com/V8Z9QOn.jpeg",type:"kids",desc:"kofia"},
+ {id:28,name:"Air Force",price:40,img:"https://i.imgur.com/tsN4nxq.jpeg",type:"sports",desc:"Nike Air Force 1 07 Low Triple Black Shoes"},
+ {id:29,name:"iVOC",price:40000,img:"https://i.imgur.com/tgQnYlT.jpeg",type:"jeans",desc:"Solid Slim Fit Trouser"},
+ {id:30,name:"Manchester United",price:10000,img:"https://i.postimg.cc/D0f5GjC9/dr12.jpg",type:"jezi",desc:"Manchester United Home Kit 2025/26"},
+ {id:31,name:"Arsenal",price:10000,img:"https://i.postimg.cc/DfqfvrKf/ars1.jpg",type:"jezi",desc:"Arsenal Home Kit 2025/26"},
+ {id:32,name:"Arsenal",price:10000,img:"https://i.postimg.cc/x8gWkT5Y/ars2.jpg",type:"jezi",desc:"Arsenal Third Kit 2025/26"},
+ {id:33,name:"Manchester City",price:10000,img:"https://i.postimg.cc/vT9tjP1f/sport2.jpg",type:"jezi",desc:"Manchester City Home Shirt 25/26"},
+ {id:34,name:"Manchester United",price:10000,img:"https://i.postimg.cc/nLkDmH6x/dr11.jpg",type:"jezi",desc:"Manchester United Away Kit 2025/26"},
+ {id:35,name:"Atlético Madrid",price:10000,img:"https://i.postimg.cc/kGz2FDJ2/dr7.jpg",type:"jezi",desc:"Atlético Madrid 2025/26"},
+ {id:36,name:"Atlético Madrid",price:10000,img:"https://i.postimg.cc/N0nLw5XC/dr4.jpg",type:"jezi",desc:"Atlético Madrid 2025/26"},
+ {id:37,name:"Tanzania",price:10000,img:"https://i.postimg.cc/8kxk47Q0/aa64.jpg",type:"jezi",desc:"Tanzania jersey"},
+ {id:38,name:"Liverpool",price:10000,img:"https://i.postimg.cc/RCG1DnbG/liva1.jpg",type:"jezi",desc:"Liverpool Home Kit 2025/26"},
+ {id:39,name:"Louis Vuitton",price:10000,img:"https://i.postimg.cc/MTg8fy0X/a24.jpg",type:"sports",desc:"Louis Vuitton Sandal"},
+ {id:40,name:"Sendal",price:10000,img:"https://i.postimg.cc/VkCX4N2z/kia9.jpg",type:"sports",desc:"New Sandal"},
+ {id:41,name:"Sendal",price:10000,img:"https://i.imgur.com/dS333TG.jpeg",type:"sports",desc:"New Sandal"},
+ {id:42,name:"Sendal",price:10000,img:"https://i.imgur.com/4yT3Qoy.jpeg",type:"sports",desc:"New Sandal"},
+ {id:43,name:"Louis Vuitton",price:10000,img:"https://i.imgur.com/xBbd2gc.jpeg",type:"sports",desc:"Louis Vuitton Sandal"},
+ {id:44,name:"Louis Vuitton",price:10000,img:"https://i.imgur.com/x9nZ7hW.jpeg",type:"sports",desc:"Louis Vuitton Sandal"},
+ {id:45,name:"Louis Vuitton",price:10000,img:"https://i.imgur.com/FbKtweM.jpeg",type:"sports",desc:"Louis Vuitton Sandal"},
+ {id:46,name:"Louis Vuitton",price:10000,img:"https://i.imgur.com/d1BurlS.jpeg",type:"sports",desc:"Louis Vuitton Sandal"},
+ {id:100,name:"Mafuta Korie",price:12,img:"https://i.imgur.com/bI2cHtb.jpeg",
+ imgs:[
+   "https://i.imgur.com/g3hVvcA.jpeg",
+   "https://i.imgur.com/b4T6KVn.jpeg",
+   "https://i.imgur.com/DKQ0LxO.jpeg"
+ ],type:"mafuta",desc:"Good cooking oil"},
+ {id:101,name:"White T-Shirt",price:14,img:"https://i.imgur.com/F9T6D7U.jpeg",type:"tshirt"},
+ {id:102,name:"Sukari 1kg",price:30,img:"https://i.postimg.cc/WbBkpG8D/1kg.jpg",type:"sukari"},
+ {id:103,name:"Chumvi",price:30,img:"https://i.imgur.com/e4CXmHr.jpeg/200",type:"sukari",desc:"chumvi bora"},
+ {id:104,name:"Tomato sauce",price:20,img:"https://i.imgur.com/IqhRkL7.jpeg/200",type:"extra",desc:"Tomato sauce tamu"},
+ {id:105,name:"Soy sauce",price:10,img:"https://i.imgur.com/CqraWiO.jpeg/200",type:"masala",desc:"Jipatie soy sauce"},
+ {id:106,name:"Splash",price:12,img:"https://i.imgur.com/4ifKGQC.jpeg/200",type:"cream",desc:"Splash sweet flavour"},
+ {id:107,name:"Bubble gum",price:15,img:"https://i.imgur.com/jJyMg1u.jpeg/200",type:"cream",desc:"Bubble gum flavoured ice lolly"},
+ {id:108,name:"Ballcone",price:13,img:"https://i.imgur.com/YU7yVMc.jpeg/200",type:"cream",desc:"Ballcone flavoured ice cream"},
+ {id:109,name:"Cherry",price:13,img:"https://i.imgur.com/Ax4J2uH.jpeg/200",type:"cream",desc:"Cherry flavoured ice lolly"},
+ {id:110,name:"Cherry Bar",price:13,img:"https://i.imgur.com/QZ8B1VC.jpeg/200",type:"cream",desc:"Cherry flavoured ice bar"},
+ {id:111,name:"Caramello",price:13,img:"https://i.imgur.com/HgeHJvR.jpeg/200",type:"cream",desc:"Caramello flavoured ice cream"},
+ {id:112,name:"Coca Cola",price:23,img:"https://i.imgur.com/UYZ1dIH.jpeg/200",type:"drinks",desc:"Coca Cola"},
+ {id:113,name:"pepsi",price:23,img:"https://i.imgur.com/cGRn5OZ.jpeg/200",type:"drinks",desc:"pepsi"},
+ {id:114,name:"Afya Maji",price:23,img:"https://i.imgur.com/u9dkajs.jpeg/200",type:"drinks",desc:"Afya maji ya kunywa Baridi au Ya moto eka idadi HAPO chini"},
+ {id:115,name:"u-fresh orange",price:23,img:"https://i.imgur.com/k42X2gl.jpeg/200",type:"drinks",desc:"u-fresh baridi ipo weka idadi hapo chini"},
+ {id:116,name:"u-fresh power",price:23,img:"https://i.imgur.com/y1qJelw.jpeg/200",type:"drinks",desc:"u-fresh baridi ipo weka idadi hapo chini"},
+ {id:117,name:"u-fresh pineapple",price:23,img:"https://i.imgur.com/GcVEME3.jpeg/200",type:"drinks",desc:"u-fresh baridi ipo weka idadi hapo chini"},
+ {id:118,name:"u-fresh passion",price:20,img:"https://i.imgur.com/9uhn4hj.jpeg/200",type:"drinks",desc:"u-fresh baridi ipo weka idadi hapo chini"},
+ {id:119,name:"u-fresh cola",price:21,img:"https://i.imgur.com/FvMtoAL.jpeg/200",type:"drinks",desc:"u-fresh baridi ipo weka idadi hapo chini"},
+ {id:120,name:"Sneakers",price:40,img:"https://i.imgur.com/YU7yVMc.jpeg",type:"sneakers"},
+ {id:121,name:"Korie",price:30,img:"https://i.postimg.cc/zDKdhVhJ/kori4.jpg",type:"mafuta",desc:"Korie Cooking Oil 3ltr"},
+ {id:200,name:"Doffi",price:12,img:"https://i.imgur.com/wpJjs0L.jpeg",type:"sabuni"},
+ {id:201,name:"OMO",price:18,img:"https://i.imgur.com/v0eeorr.jpeg",type:"sabuni",desc:"Ondoa madoa sugu"},
+ {id:202,name:"Doffi",price:17,img:"https://i.imgur.com/hD9g7L2.jpeg/200",desc:"Washing powder"},
+ {id:203,name:"Niceone",price:18,img:"https://i.imgur.com/7nmPGbq.jpeg/200",type:"sabuni",desc:"Ondoa madoa sugu"},
+ {id:204,name:"Jet",price:19,img:"https://i.imgur.com/OoGiHtj.jpeg",type:"sabuni",desc:"Dish washing liquid soap"},
+ {id:205,name:"Jet",price:18,img:"https://i.imgur.com/q36RjQ2.jpeg",type:"sabuni",desc:"Dish washing liquid soap"},
+ {id:206,name:"Freedom Counter Book",price:14,img:"https://i.postimg.cc/50JG0SpM/free1.jpg",type:"book",desc:"Freedom Counter Book-2 Quire"},
+ {id:207,name:"Vaseline",price:25,img:"https://i.postimg.cc/TY2znxmq/a21.jpg",type:"oil",desc:"Vaseline Petroleum Jelly"},
+ {id:208,name:"Exercise Book",price:19,img:"https://i.imgur.com/AQrSAGW.jpeg/200",type:"book",desc:"Daftari mistali mikubwa na midogo"},
+ {id:209,name:"Exercise Book",price:19,img:"https://i.imgur.com/ihIcg3h.jpeg/200",type:"book",desc:"Daftari la kuandikia page 100"},
+ {id:210,name:"Exercise Book",price:17,img:"https://i.imgur.com/Hg8Aeea.jpeg/200",type:"book",desc:"Daftari la kuandikia page 32"},
+ {id:211,name:"Sneakers",price:40,img:"https://i.postimg.cc/XqdgtpTs/a17.jpg",type:"kids"},
+ {id:212,name:"Colgate",price:17,img:"https://i.postimg.cc/2547hzTB/a1.jpg/200",type:"tooth",desc:"With The Cool Mint Flavour"},
+ {id:213,name:"Crocs",price:17,img:"https://i.postimg.cc/T3PPnQ92/crocs2.jpg/200",type:"ziada",desc:"Crocs"},
+ {id:214,name:"Shoes",price:17,img:"https://i.postimg.cc/gJh5cB3N/a15.jpg/200",type:"kids",desc:"Viatu vya watoto wadogo"},
+ {id:215,name:"Shoes",price:17,img:"https://i.postimg.cc/kGncrjsW/a16.jpg/200",type:"kids",desc:"Viatu vya watoto wadogo"},
+ {id:216,name:"Shoes",price:17,img:"https://i.postimg.cc/sxXh9bws/a13.jpg/200",type:"kids",desc:"Viatu vya watoto wadogo"},
+ {id:217,name:"Herbal",price:17,img:"https://i.postimg.cc/2SkSqgjJ/a20.jpg/200",type:"oil",desc:"Herbal Petroleum Jelly"},
+ {id:218,name:"BodyLuxe",price:17,img:"https://i.postimg.cc/ydVMnC52/a19.jpg/200",type:"oil",desc:"BodyLuxe Petroleum Jelly"},
+ {id:219,name:"VESTLINE",price:17,img:"https://i.imgur.com/I9zrvTV.jpeg/200",type:"oil",desc:"Vestline Pure Petroleum Jelly"},
+ {id:220,name:"Whitedent",price:17,img:"https://i.imgur.com/U3VDK5W.jpeg/200",type:"tooth",desc:"Whitedent Herbal"},
+ {id:300,name:"Samsung Galaxy",price:480000,img:"https://i.postimg.cc/hG4NXd49/sam6.jpg",type:"samsung",desc:"Samsung Galaxy Note 20 Ultra 128Gb Black"},
+ {id:301,name:"Samsung Galaxy",price:480000,img:"https://i.postimg.cc/VN44pZ8H/sam2.jpg",type:"samsung",desc:"Samsung Galaxy Note 20 Ultra 128Gb pink"},
+ {id:302,name:"Samsung Galaxy",price:480000,img:"https://i.postimg.cc/yNCwsb2s/sam3.jpg",type:"samsung",desc:"Samsung Galaxy Note 20 Ultra 128Gb white"},
+ {id:303,name:"Apple iphone",price:14,img:"https://i.imgur.com/1eGOscP.jpeg",type:"apple",desc:"Apple iphone 15 Pro Max 256GB"},
+ {id:304,name:"Apple iphone",price:14,img:"https://i.imgur.com/CoMUqoa.jpeg",type:"apple",desc:"Apple iphone 13 Pro 128GB Sierra Blue"},
+ {id:305,name:"Infinix",price:14,img:"https://i.imgur.com/n6N2S5v.jpeg",type:"infinix",desc:"The Note 50 Pro 256GB"},
+ {id:306,name:"Infinix",price:14,img:"https://i.imgur.com/hvMxIYZ.jpeg",type:"infinix",desc:"infinix hot 60 pro plus 256GB 16RAM"},
+ {id:307,name:"Redmi",price:25,img:"https://i.imgur.com/1vZm3wE.jpeg",type:"xiaomi",desc:"Xiaomi Redmi 15C 8gb 256GB Midnight black"},
+ {id:308,name:"Redmi",price:25,img:"https://i.imgur.com/0JHAHqQ.jpeg",type:"xiaomi",desc:"Redmi 14c 5G 4GB 128GB"},
+ {id:309,name:"Google Pixel",price:40,img:"https://i.imgur.com/OrdCEN6.jpeg",type:"google",desc:"Google Pixel 6a 128GB"},
+ {id:310,name:"Sony Xperia",price:40,img:"https://i.imgur.com/xdWEj8z.jpeg",type:"sony",desc:"Sony Xperia 10 iii ROM 128GB RAM 6GB"}
 ];
 
 const pid = localStorage.getItem("pid");
-const p = products.find(x => x.id == pid);
+const p = products.find(x => x.id == pid) || products[0];
 
-  function formatTZS(amount){
-  return "TZS " + Number(amount).toLocaleString("en-US");
+const fashionTypes = ["tshirt","jeans","jezi"];
+const isFashion = fashionTypes.includes(p.type);
+  if(!p){
+  document.getElementById("productBox").innerHTML = `
+    <p style="color:red">Product not found ❌</p>
+  `;
+  throw new Error("Product not found");
 }
 
 // MAIN PRODUCT
 document.getElementById("productBox").innerHTML = `
-  <img src="${p.img}">
+  <div class="slider" id="slider">
+  <div class="slides" id="slides">
+    ${(p.imgs || [p.img]).map(img=>`
+      <img src="${img}">
+    `).join("")}
+  </div>
+</div>
   <h2>${p.name}</h2>
-  <p>${p.desc}</p>
-  <b>${formatTZS(p.price)}</b><br><br>
+  <p>${p.desc}</p> 
+ <b>${formatPrice(p.price)}</b><br><br>
+
+${isFashion ? `
+  <!-- SIZE CHART ONLY FOR FASHION -->
+  <div class="size-box">
+    <div class="size" onclick="selectSize(this,'S')">S</div>
+    <div class="size" onclick="selectSize(this,'M')">M</div>
+    <div class="size" onclick="selectSize(this,'L')">L</div>
+    <div class="size" onclick="selectSize(this,'XL')">XL</div>
+  </div>
+
+  <p id="selectedSizeText" style="font-size:14px;color:green;"></p>
+` : ``}
 
   Qty:
   <input id="qty" type="number" value="1" min="1"><br><br>
@@ -147,25 +416,92 @@ document.getElementById("productBox").innerHTML = `
 
 // YOU MAY ALSO LIKE (exclude current product)
 const likeBox = document.getElementById("likeBox");
-products.filter(x => x.id != pid).forEach(p2 => {
-  likeBox.innerHTML += `
-    <div class="mini" onclick="openProduct(${p2.id})">
-      <img src="${p2.img}">
-      <p>${p2.name}</p>
-      <b>${formatTZS(p2.price)}</b>
-    </div>
-  `;
-});
+const similarBox = document.getElementById("similarBox");
 
-function openProduct(id){
-  localStorage.setItem("pid", id);
-  location.reload(); // reload product page with new product
+ /* SIMILAR PRODUCTS (8) */
+const similar8 = products
+  .filter(x => x.type === p.type && x.id != p.id)
+  .slice(0,8);
+
+/* YOU MAY ALSO LIKE (DIFFERENT FROM SIMILAR) */
+const similarIds = similar8.map(x => x.id);
+
+const likeProducts = products
+  .filter(x => x.type === p.type && x.id != p.id && !similarIds.includes(x.id))
+  .slice(0,6);
+
+/* RENDER SIMILAR */
+similarBox.innerHTML = similar8.map(p2 => `
+  <div class="similar-item" onclick="openProductPage(${p2.id})">
+    <img src="${p2.img}">
+    <p>${p2.name}</p>
+    <b>${formatPrice(p2.price)}</b>
+  </div>
+`).join("");
+
+/* RENDER YOU MAY ALSO LIKE */
+likeBox.innerHTML = likeProducts.map(p2 => `
+  <div class="mini" onclick="openProductPage(${p2.id})">
+    <img src="${p2.img}">
+    <p>${p2.name}</p>
+    <b>${formatPrice(p2.price)}</b>
+  </div>
+`).join("");
+
+const exploreBox = document.getElementById("exploreBox");
+
+/* collect ALL used IDs */
+const usedIds = [
+  p.id,
+  ...similar8.map(x=>x.id),
+  ...likeProducts.map(x=>x.id)
+];
+
+/* pick completely different products */
+const exploreProducts = products
+  .filter(x => !usedIds.includes(x.id))
+  .sort(() => 0.5 - Math.random()) // optional randomness
+  .slice(0,10);
+
+/* render */
+exploreBox.innerHTML = exploreProducts.map(p2 => `
+  <div class="explore-item" onclick="openProductPage(${p2.id})">
+    <img src="${p2.img}">
+    <p>${p2.name}</p>
+    <b>${formatPrice(p2.price)}</b>
+  </div>
+`).join("");
+
+  function formatPrice(price){
+  return "TZS " + Number(price).toLocaleString() + "/=";
 }
 
-function buy(){
+ function openProductPage(id){
+  localStorage.setItem("pid", id);
+  window.location.href = "product.html"; // open again like new page
+}
+
+ function buy(){
   const qty = document.getElementById("qty").value;
-  localStorage.setItem("buy", JSON.stringify({...p, qty}));
-  location.href = "checkout.html";
+
+  // IF FASHION → REQUIRE SIZE
+  if(isFashion){
+    if(!selectedSize){
+      openSizePopup();
+      return;
+    }
+
+    proceedBuy(selectedSize);
+  } 
+  // IF NOT FASHION → NORMAL BUY
+  else{
+    localStorage.setItem("buy", JSON.stringify({
+      ...p,
+      qty
+    }));
+
+    location.href = "checkout.html";
+  }
 }
 
 function addCart(){
@@ -181,7 +517,130 @@ function addCart(){
   localStorage.setItem("cart", JSON.stringify(cart));
   alert("Added to cart ✅");
 }
+
+  let currentIndex = 0;
+let startX = 0;
+
+const slider = document.getElementById("slider");
+const slides = document.getElementById("slides");
+
+function showSlide(index){
+  slides.style.transform = `translateX(-${index * 100}%)`;
+}
+
+/* TOUCH EVENTS */
+slider.addEventListener("touchstart", e=>{
+  startX = e.touches[0].clientX;
+});
+
+slider.addEventListener("touchend", e=>{
+  let endX = e.changedTouches[0].clientX;
+  let diff = startX - endX;
+
+  if(diff > 50){ // swipe left → next
+    if(currentIndex < slides.children.length - 1){
+      currentIndex++;
+      showSlide(currentIndex);
+    }
+  }
+
+  if(diff < -50){ // swipe right → previous
+    if(currentIndex > 0){
+      currentIndex--;
+      showSlide(currentIndex);
+    }
+  }
+});
+
+function goBack(){
+  window.history.back(); // returns to previous page
+}
+
+function goSearch(){
+  window.location.href = "search.html";
+}
+
+function goCart(){
+  window.location.href = "cart.html";
+}
+
+let selectedSize = null;
+let popupSelectedSize = null;
+
+/* SELECT SIZE (MAIN PAGE) */
+function selectSize(el,size){
+  document.querySelectorAll(".size").forEach(s=>s.classList.remove("active"));
+  el.classList.add("active");
+  selectedSize = size;
+
+  document.getElementById("selectedSizeText").innerText =
+    "Size selected: " + size;
+}
+
+/* OPEN POPUP */
+function openSizePopup(){
+  if(!isFashion) return; // ❌ block for non-fashion
+
+  document.getElementById("sizePopup").style.display = "block";
+  document.getElementById("popupImg").src = p.img;
+  document.getElementById("popupName").innerText = p.name;
+  document.getElementById("popupPrice").innerText = formatPrice(p.price);
+}
+
+/* SELECT SIZE IN POPUP */
+function selectPopupSize(el,size){
+  document.querySelectorAll("#sizePopup .size").forEach(s=>s.classList.remove("active"));
+  el.classList.add("active");
+  popupSelectedSize = size;
+}
+
+/* CONFIRM SIZE */
+function confirmSize(){
+  if(!popupSelectedSize){
+    alert("Please select size");
+    return;
+  }
+
+  selectedSize = popupSelectedSize;
+  document.getElementById("sizePopup").style.display = "none";
+
+  proceedBuy(selectedSize);
+}
+
+/* FINAL BUY */
+function proceedBuy(size){
+  const qty = document.getElementById("qty").value;
+
+  localStorage.setItem("buy", JSON.stringify({
+    ...p,
+    qty,
+    size
+  }));
+
+  location.href = "checkout.html";
+}
 </script>
+
+  <div class="size-popup" id="sizePopup">
+  <div class="popup-header">
+    <img id="popupImg">
+    <div>
+      <h4 id="popupName"></h4>
+      <p id="popupPrice"></p>
+    </div>
+  </div>
+
+  <h4>Select Size</h4>
+
+  <div class="size-box">
+    <div class="size" onclick="selectPopupSize(this,'S')">S</div>
+    <div class="size" onclick="selectPopupSize(this,'M')">M</div>
+    <div class="size" onclick="selectPopupSize(this,'L')">L</div>
+    <div class="size" onclick="selectPopupSize(this,'XL')">XL</div>
+  </div>
+
+  <button class="buy" onclick="confirmSize()">Continue</button>
+</div>
 
 </body>
 </html>
