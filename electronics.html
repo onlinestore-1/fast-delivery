@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html>
+<head>
+ <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<meta charset="UTF-8">
+<title>Eletronics</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<style>
+ body{
+ margin:0;
+ font-family:Arial;
+ background:#f4f4f4;
+ padding-top:70px;
+}
+
+/* TOP */
+.topbar{
+ display:flex;
+ align-items:center;
+ background:linear-gradient(180deg, #87c7f3, #a8d8f8);
+ padding:10px;
+ color:white;
+ gap:10px;
+
+ position:fixed;
+ top:0;
+ left:0;
+ width:100%;
+ z-index:1000;
+
+  box-sizing:border-box;
+}
+.topbar input{
+ flex:1;
+ padding:8px;
+ border:none;
+ border-radius:4px;
+}
+.cart{font-size:22px;cursor:pointer}
+
+/* SLIDER */
+.slider img{width:100%;display:none}
+.slider img:first-child{display:block}
+
+/* CATEGORY GRID */
+.grid3{
+ display:grid;
+ grid-template-columns:repeat(3,1fr);
+ gap:10px;
+ padding:10px
+}
+.cat{
+ background:#fff;
+ padding:10px;
+ text-align:center;
+ border-radius:6px;
+ cursor:pointer
+}
+.cat img{width:100%;height:90px;object-fit:cover}
+
+/* PRODUCTS */
+.grid2{
+ display:grid;
+ grid-template-columns:repeat(2,1fr);
+ gap:10px;
+ padding:10px
+}
+.card{
+ background:#fff;
+ padding:10px;
+ border-radius:6px
+}
+.card img{width:100%}
+
+ /* BOTTOM NAVBAR */
+.bottom-nav{
+ position:fixed;
+ bottom:0;
+ left:0;
+ width:100%;
+ height:60px;
+ background:#fff;
+ display:flex;
+ justify-content:space-around;
+ align-items:center;
+ border-top:1px solid #ddd;
+ z-index:1000;
+}
+
+.bottom-nav a{
+ text-decoration:none;
+ text-align:center;
+ font-size:12px;
+ color:#777;
+}
+
+.bottom-nav i{
+ display:block;
+ font-size:20px;
+ margin-bottom:3px;
+}
+
+/* ACTIVE PAGE (BLUE) */
+.bottom-nav .active{
+ color:#2874f0;
+ font-weight:bold;
+}
+
+/* PREVENT CONTENT HIDING */
+body{
+ padding-bottom:70px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="topbar">
+ <input type="search" placeholder="Search fashion..." onkeyup="search(this.value)">
+ <span class="cart" onclick="location.href='cart.html'">🛒</span>
+</div>
+
+<!-- ADS -->
+<div class="slider">
+ <img src="https://i.imgur.com/j6JWI5n.png">
+ <img src="https://i.imgur.com/3ZFgqAY.png">
+ <img src="https://i.imgur.com/M4bTgH1.png">
+</div>
+
+<h3 style="padding:10px">Electronics Categories</h3>
+
+<div class="grid3">
+ <div class="cat" onclick="openType('laptop')"><img src="https://i.postimg.cc/2SBSHysb/b33.jpg"><p>Laptops</p></div>
+ <div class="cat" onclick="openType('charger')"><img src="https://i.postimg.cc/jS6hJxMf/aa47.jpg"><p>Charger&Pods</p></div>
+ <div class="cat" onclick="openType('pad')"><img src="https://i.postimg.cc/YqdFcvDs/b31.jpg"><p>Gaming pad</p></div>
+ <div class="cat" onclick="openType('watches')"><img src="https://i.postimg.cc/j29MvMfW/b14.jpg"><p>Watches</p></div>
+ <div class="cat" onclick="openType('data')"><img src="https://i.postimg.cc/7ZPN0vdQ/b27.jpg"><p>Data storage</p></div>
+ <div class="cat" onclick="openType('power')"><img src="https://i.postimg.cc/SsYdRW5v/b9.jpg"><p>Power Banks</p></div>
+</div>
+
+<h3 style="padding:10px">Suggested For You</h3>
+<div class="grid2" id="suggested"></div>
+
+<h3 style="padding:10px">You May Also Like</h3>
+<div class="grid2" id="like"></div>
+
+<script>
+/* SLIDER */
+let s=0;
+setInterval(()=>{
+ let imgs=document.querySelectorAll(".slider img");
+ imgs.forEach(i=>i.style.display="none");
+ s=(s+1)%imgs.length;
+ imgs[s].style.display="block";
+},3000);
+
+/* FASHION DATA */
+const fashion=[
+ {id:400,name:"Smart Watches",price:12,img:"https://i.imgur.com/yIsxgJk.jpeg",type:"watches",desc:"Smart Watch for Men 50M Waterproof"},
+ {id:401,name:"SanDisk",price:14,img:"https://i.imgur.com/p4TuNyK.jpeg",type:"data",desc:"SanDisk Ultra Shift 32GB"},
+ {id:402,name:"Goboult",price:25,img:"https://i.imgur.com/d23TMP5.jpeg",type:"power",desc:"10000 mAH 22.5 W Power Bank"},
+ {id:403,name:"PlayStation",price:25,img:"https://i.imgur.com/ADKZfyn.jpeg",type:"pad",desc:"PlayStation Sony dualShock 4 Wireless Controller"},
+ {id:404,name:"HP Laptop",price:25,img:"https://i.imgur.com/S7hlTgj.jpeg",type:"laptop",desc:"HP ProBook 4540s 15.6 Laptop Notebook Intel i3"},
+ {id:405,name:"HP Laptop",price:25,img:"https://i.imgur.com/Y5W6m6J.jpeg",type:"laptop",desc:"HP ProBook 4530s 15.6 Laptop Notebook Intel i3"},
+ {id:406,name:"Pods",price:40,img:"https://i.imgur.com/bSBbTan.jpeg",type:"charger",desc:"Swiss Pods Bluetooth Headset"},
+ {id:407,name:"Small Speaker",price:25,img:"https://i.postimg.cc/j2H3TfLz/aa85.jpg",type:"power",desc:"Small Bluetooth Speaker"},
+ {id:408,name:"ZEBRONICS Astra",price:25,img:"https://i.postimg.cc/rFyNs3Hv/aa81.jpg",type:"power",desc:"Portable Bluetooth Speaker"},
+ {id:409,name:"Small Speaker",price:25,img:"https://i.postimg.cc/DwMMYkjL/aa86.jpg",type:"power",desc:"Small Bluetooth Speaker"},
+ {id:410,name:"ZEBRONICS Sound",price:25,img:"https://i.postimg.cc/FsQsxQm4/aa83.jpg",type:"power",desc:"Zebronics Sound Feast50"},
+ {id:411,name:"Motorola Moto",price:40,img:"https://i.postimg.cc/nL965CYk/a37.jpg",type:"charger",desc:"Buds Loop TWS"},
+ {id:412,name:"Smart Watches",price:12,img:"https://i.postimg.cc/d0KnGnNk/a41.jpg",type:"watches",desc:"Ulta Max Smart Watch"},
+ {id:413,name:"Smart Watches",price:12,img:"https://i.postimg.cc/XvH8t3Nt/a42.jpg",type:"watches",desc:"Black Ulta Max Smart Watch"},
+ {id:414,name:"Smart Watches",price:12,img:"https://i.postimg.cc/PfmDwTsw/a40.jpg",type:"watches",desc:"Max Smart Watch"},
+ {id:415,name:"Smart Watches",price:12,img:"https://i.postimg.cc/c1mHWHGB/b10.jpg",type:"watches",desc:"Best Max Smart Watch"},
+ {id:416,name:"Smart Watches",price:12,img:"https://i.postimg.cc/QtSr2FKD/b12.jpg",type:"watches",desc:"Ulta Max Smart Watch"},
+ {id:417,name:"Bestor RGB",price:40,img:"https://i.postimg.cc/DZHLrP7K/a44.jpg",type:"charger",desc:"Bestor rgb wired Gaming Headset"},
+ {id:418,name:"PunnkFunnk",price:40,img:"https://i.postimg.cc/T1k8N1H2/a45.jpg",type:"charger",desc:"PunkFunnk BattleKiller"},
+ {id:419,name:"Lexolt Astra",price:40,img:"https://i.postimg.cc/3RnbY6j4/a46.jpg",type:"charger",desc:"Lexolt Astra 45ms"}
+];
+
+localStorage.setItem("allProducts",JSON.stringify(fashion));
+
+ function formatPrice(price){
+  return "TZS " + Number(price).toLocaleString() + "/=";
+}
+
+function draw(list,id){
+ document.getElementById(id).innerHTML=list.map(p=>`
+  <div class="card" onclick="openProduct(${p.id})">
+   <img src="${p.img}">
+   <p>${p.name}</p>
+   <b>${formatPrice(p.price)}</b>
+  </div>`).join("");
+}
+
+draw(fashion.slice(0,2),"suggested");
+draw(fashion.slice(1),"like");
+
+function openType(t){
+ localStorage.setItem("fashionType",t);
+ location.href="fashion-list.html";
+}
+
+function openProduct(id){
+ localStorage.setItem("pid",id);
+ location.href="product.html";
+}
+
+function search(v){
+ draw(fashion.filter(p=>p.name.toLowerCase().includes(v.toLowerCase())),"suggested");
+}
+
+ /* AUTO ACTIVE NAV */
+function setActiveNav(){
+
+  let path = window.location.pathname;
+
+  if(path.includes("index.html") || path === "/" ){
+    document.getElementById("nav-home").classList.add("active");
+  }
+  else if(path.includes("category") || path.includes("fashion")){
+    document.getElementById("nav-category").classList.add("active");
+  }
+  else if(path.includes("account")){
+    document.getElementById("nav-account").classList.add("active");
+  }
+  else if(path.includes("cart")){
+    document.getElementById("nav-cart").classList.add("active");
+  }
+}
+
+window.addEventListener("load", setActiveNav);
+</script>
+
+ <!-- BOTTOM NAV -->
+<div class="bottom-nav">
+
+  <a href="index.html" id="nav-home">
+    <i class="fa fa-home"></i>
+    Home
+  </a>
+
+  <a href="category.html" id="nav-category">
+    <i class="fa fa-th-large"></i>
+    Categories
+  </a>
+
+  <a href="account.html" id="nav-account">
+    <i class="fa fa-user"></i>
+    Account
+  </a>
+
+  <a href="cart.html" id="nav-cart">
+    <i class="fa fa-shopping-cart"></i>
+    Cart
+  </a>
+
+</div>
+
+</body>
+</html>
