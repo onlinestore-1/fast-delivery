@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Sports</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<style>
+body{
+ margin:0;
+ font-family:Arial;
+ background:#f4f4f4;
+ padding-top:70px;
+}
+
+/* TOP BAR */
+.topbar{
+ display:flex;
+ align-items:center;
+ background:linear-gradient(180deg, #87c7f3, #a8d8f8);
+ padding:10px;
+ color:white;
+ gap:10px;
+
+ position:fixed;
+ top:0;
+ left:0;
+ width:100%;
+ z-index:1000;
+
+  box-sizing:border-box;
+}
+.topbar input{
+ flex:1;
+ padding:8px;
+ border:none;
+ border-radius:4px;
+}
+.cart{font-size:22px;cursor:pointer}
+
+/* GRID */
+.grid{
+ display:grid;
+ grid-template-columns:repeat(2,1fr);
+ gap:10px;
+ padding:10px;
+}
+.card{
+ background:#fff;
+ padding:10px;
+ border-radius:6px;
+}
+.card img{width:100%}
+</style>
+</head>
+
+<body>
+
+<!-- SEARCH + CART -->
+<div class="topbar">
+ <input type="search" placeholder="Search products..." onkeyup="search(this.value)">
+ <span class="cart" onclick="location.href='cart.html'">🛒</span>
+</div>
+
+<h2 style="padding:10px">Jezi</h2>
+<div id="box" class="grid"></div>
+
+<script>
+const speakers = [
+ {id:30,name:"Manchester United",price:10000,img:"https://i.postimg.cc/D0f5GjC9/dr12.jpg",type:"jezi",desc:"Manchester United Home Kit 2025/26"},
+ {id:31,name:"Arsenal",price:10000,img:"https://i.postimg.cc/DfqfvrKf/ars1.jpg",type:"jezi",desc:"Arsenal Home Kit 2025/26"},
+ {id:32,name:"Arsenal",price:10000,img:"https://i.postimg.cc/x8gWkT5Y/ars2.jpg",type:"jezi",desc:"Arsenal Third Kit 2025/26"},
+ {id:33,name:"Manchester City",price:10000,img:"https://i.postimg.cc/vT9tjP1f/sport2.jpg",type:"jezi",desc:"Manchester City Home Shirt 25/26"},
+ {id:34,name:"Manchester United",price:10000,img:"https://i.postimg.cc/nLkDmH6x/dr11.jpg",type:"jezi",desc:"Manchester United Away Kit 2025/26"},
+ {id:35,name:"Atlético Madrid",price:10000,img:"https://i.postimg.cc/kGz2FDJ2/dr7.jpg",type:"jezi",desc:"Atlético Madrid 2025/26"},
+ {id:36,name:"Atlético Madrid",price:10000,img:"https://i.postimg.cc/N0nLw5XC/dr4.jpg",type:"jezi",desc:"Atlético Madrid 2025/26"},
+ {id:37,name:"Tanzania",price:10000,img:"https://i.postimg.cc/8kxk47Q0/aa64.jpg",type:"jezi",desc:"Tanzania jersey"},
+ {id:38,name:"Liverpool",price:10000,img:"https://i.postimg.cc/RCG1DnbG/liva1.jpg",type:"jezi",desc:"Liverpool Home Kit 2025/26"}
+];
+
+// FORMAT PRICE (TZS + comma)
+function formatPrice(price){
+ return "TZS " + Number(price).toLocaleString();
+}
+
+// LOAD EXISTING PRODUCTS
+let all = JSON.parse(localStorage.getItem("allProducts")) || [];
+
+// MERGE WITHOUT DUPLICATES
+speakers.forEach(sp => {
+ if (!all.some(p => p.id === sp.id)) {
+  all.push(sp);
+ }
+});
+
+localStorage.setItem("allProducts", JSON.stringify(all));
+
+// DISPLAY FUNCTION
+function draw(list){
+ document.getElementById("box").innerHTML = list.map(p=>`
+  <div class="card" onclick="openProduct(${p.id})">
+   <img src="${p.img}">
+   <p>${p.name}</p>
+   <b>${formatPrice(p.price)}</b>
+  </div>
+ `).join("");
+}
+
+// INITIAL LOAD
+draw(speakers);
+
+// SEARCH FUNCTION
+function search(value){
+ const filtered = speakers.filter(p =>
+  p.name.toLowerCase().includes(value.toLowerCase())
+ );
+ draw(filtered);
+}
+
+// OPEN PRODUCT
+function openProduct(id){
+ localStorage.setItem("pid", id);
+ location.href = "product.html";
+}
+</script>
+
+</body>
+</html>
