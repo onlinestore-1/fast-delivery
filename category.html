@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<meta charset="UTF-8">
+<title>Categories</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<style>
+body{
+  margin:0;
+  font-family:Arial, sans-serif;
+  background:#f4f4f4;
+}
+
+/* TOP BAR */
+.top-bar{
+  position:fixed;
+  top:0;
+  left:0;
+  width:100%;
+  height:60px;
+  background:#fff;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:0 15px;
+  border-bottom:1px solid #ddd;
+  z-index:1000;
+  box-sizing:border-box;
+}
+
+.top-bar .left{
+  display:flex;
+  align-items:center;
+}
+
+.top-bar a{
+  text-decoration:none;
+  color:black;
+  font-size:18px;
+  margin-right:10px;
+}
+
+.top-bar h3{
+  margin:0;
+  font-size:18px;
+}
+
+/* RIGHT ICONS */
+.right-icons{
+  display:flex;
+  align-items:center;
+  gap:15px;
+}
+
+.right-icons i{
+  font-size:20px;
+  cursor:pointer;
+  color:#333;
+}
+
+/* MAIN LAYOUT */
+.container{
+  display:flex;
+  margin-top:60px;
+  height:calc(100vh - 60px);
+}
+
+/* LEFT SIDE */
+.sidebar{
+  width:28%;
+  background:#fff;
+  border-right:1px solid #ddd;
+  overflow-y:auto;
+}
+
+ .category{
+  padding:12px 5px;
+  display:flex;
+  flex-direction:column;   /* stack image + text */
+  align-items:center;
+  justify-content:center;
+  cursor:pointer;
+  border-bottom:1px solid #eee;
+  font-size:12px;
+  color:#555;
+  text-align:center;
+}
+
+/* CATEGORY IMAGE */
+.category img{
+  width:50px;
+  height:50px;
+  object-fit:cover;
+  border-radius:12px;
+  margin-bottom:5px;
+}
+
+/* ACTIVE CATEGORY */
+.category.active{
+  font-weight:bold;
+  color:#000;
+  background:#f5f5f5;
+  position:relative;
+}
+
+/* BLUE DOT */
+.category.active::before{
+  content:"";
+  width:6px;
+  height:6px;
+  background:#007bff;
+  border-radius:50%;
+  position:absolute;
+  left:5px;
+  top:50%;
+  transform:translateY(-50%);
+}
+
+/* RIGHT SIDE */
+.content{
+  width:72%;
+  padding:15px;
+  overflow-y:auto;
+}
+
+/* GRID */
+.grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:15px;
+}
+
+.card{
+  background:#fff;
+  padding:10px;
+  border-radius:10px;
+  text-align:center;
+  cursor:pointer;
+}
+
+.card img{
+  width:100%;
+  height:100px;
+  object-fit:cover;
+  border-radius:10px;
+}
+
+.card p{
+  margin:8px 0 0;
+  font-size:13px;
+}
+
+/* RESPONSIVE */
+@media(max-width:600px){
+  .card img{
+    height:90px;
+  }
+}
+
+/* RECENTLY VIEWED (RIGHT SIDE) */
+.recent-section{
+  margin-top:15px;
+}
+
+.recent-title{
+  font-size:16px;
+  font-weight:bold;
+  margin-bottom:10px;
+}
+
+.recent-row{
+  display:flex;
+  overflow-x:auto;
+  gap:10px;
+}
+
+.recent-row::-webkit-scrollbar{
+  display:none;
+}
+
+.recent-card{
+  min-width:100px;
+  max-width:100px;
+  background:#fff;
+  border-radius:10px;
+  padding:6px;
+  text-align:center;
+  flex-shrink:0;
+  cursor:pointer;
+}
+
+.recent-card img{
+  width:100%;
+  height:80px;
+  object-fit:cover;
+  border-radius:8px;
+}
+
+.recent-card p{
+  font-size:11px;
+  margin:4px 0;
+}
+
+/* SUGGESTED FOR YOU (GRID 3x2) */
+.suggested-section{
+  margin-top:15px;
+}
+
+.suggested-title{
+  font-size:16px;
+  font-weight:bold;
+  margin-bottom:10px;
+}
+
+.suggested-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:10px;
+}
+
+.suggested-card{
+  background:#fff;
+  border-radius:10px;
+  padding:6px;
+  text-align:center;
+  cursor:pointer;
+}
+
+.suggested-card img{
+  width:100%;
+  height:80px;
+  object-fit:cover;
+  border-radius:8px;
+}
+
+.suggested-card p{
+  font-size:12px;
+  margin:4px 0;
+}
+
+/* BOTTOM NAVBAR */
+.bottom-nav{
+ position:fixed;
+ bottom:0;
+ left:0;
+ width:100%;
+ height:60px;
+ background:#fff;
+ display:flex;
+ justify-content:space-around;
+ align-items:center;
+ border-top:1px solid #ddd;
+ z-index:1000;
+}
+
+.bottom-nav a{
+ text-decoration:none;
+ text-align:center;
+ font-size:12px;
+ color:#777;
+}
+
+.bottom-nav i{
+ display:block;
+ font-size:20px;
+ margin-bottom:3px;
+}
+
+/* ACTIVE PAGE (BLUE) */
+.bottom-nav .active{
+ color:#2874f0;
+ font-weight:bold;
+}
+
+/* PREVENT CONTENT HIDING */
+body{
+ padding-bottom:70px;
+}
+</style>
+</head>
+
+<body>
+
+ <!-- TOP BAR -->
+<div class="top-bar">
+
+  <!-- LEFT SIDE -->
+  <div class="left">
+    <a href="index.html">&#8592;</a>
+    <h3>All Categories</h3>
+  </div>
+
+  <!-- RIGHT SIDE -->
+  <div class="right-icons">
+    <i class="fa fa-search" onclick="location.href='search.html'"></i>
+    <i class="fa fa-shopping-cart" onclick="location.href='cart.html'"></i>
+  </div>
+
+</div>
+
+<div class="container">
+
+  <!-- LEFT SIDE -->
+ <div class="sidebar">
+
+  <div class="category active" onclick="loadCategory('foryou', this)">
+    <img src="https://i.postimg.cc/JhVymbWd/a64.jpg/60">
+    <span>For You</span>
+  </div>
+
+  <div class="category" onclick="loadCategory('fashion', this)">
+    <img src="https://i.postimg.cc/m2K1cQ76/a55.jpg/60">
+    <span>Fashion</span>
+  </div>
+
+  <div class="category" onclick="loadCategory('appliances', this)">
+    <img src="https://i.postimg.cc/9Q3zXchH/a45.jpg/60">
+    <span>Appliances</span>
+  </div>
+
+  <div class="category" onclick="loadCategory('mobiles', this)">
+    <img src="https://i.postimg.cc/VNff56HS/gg13.jpg/60">
+    <span>Mobiles</span>
+  </div>
+
+  <div class="category" onclick="loadCategory('electronics', this)">
+    <img src="https://i.postimg.cc/rwc0CqYh/aa81.jpg/60">
+    <span>Electronics</span>
+  </div>
+
+  <div class="category" onclick="loadCategory('gadgets', this)">
+    <img src="https://i.postimg.cc/fRBLcmdy/aa72.jpg/60">
+    <span>Smart Gadgets</span>
+  </div>
+
+  <div class="category" onclick="loadCategory('home', this)">
+    <img src="https://i.postimg.cc/NjztG4TD/Chumvi2.jpg/60">
+    <span>Home</span>
+  </div>
+
+  <div class="category" onclick="loadCategory('beauty', this)">
+    <img src="https://i.postimg.cc/SRy3f2Cq/a3.jpg/60">
+    <span>Beauty & Personal Care</span>
+  </div>
+
+  <div class="category" onclick="loadCategory('toys', this)">
+    <img src="https://i.postimg.cc/YSKXxLwq/bag2.jpg/60">
+    <span>Toys & Baby Care</span>
+  </div>
+
+  <div class="category" onclick="loadCategory('food', this)">
+    <img src="https://i.postimg.cc/1zmFPyGp/coca-cola1.jpg/60">
+    <span>Food & Health Care</span>
+  </div>
+
+  <div class="category" onclick="loadCategory('furniture', this)">
+    <img src="https://i.postimg.cc/pV8wbvq5/a35.jpg/60">
+    <span>Furniture</span>
+  </div>
+
+</div>
+
+  <!-- RIGHT SIDE -->
+  <div class="content">
+  <div id="contentArea"></div>
+
+  <!-- RECENTLY VIEWED -->
+  <div class="recent-section">
+    <div class="recent-title">Recently Viewed</div>
+    <div id="recentViewed" class="recent-row"></div>
+  </div>
+
+  <!-- SUGGESTED FOR YOU -->
+  <div class="suggested-section">
+    <div class="suggested-title">Suggested For You</div>
+    <div id="suggestedBox" class="suggested-grid"></div>
+  </div>
+
+</div>
+
+<script>
+
+/* CATEGORY DATA */
+const data = {
+  foryou: [
+    {img:"https://i.postimg.cc/43rmycjg/kori4.jpg/150", name:"Recommended 1", link:"for.html"},
+    {img:"https://i.postimg.cc/rw8CJBhh/aa15.jpg/150", name:"Recommended 2", link:"for.html"}
+  ],
+  fashion: [
+    {img:"https://i.postimg.cc/Hnd4hFY7/a53.jpg/150", name:"Men Wear", link:"design.html"},
+    {img:"https://i.postimg.cc/FFpjKWFc/aa35.jpg/150", name:"Women Wear", link:"design.html"}
+  ],
+  appliances: [
+    {img:"https://i.postimg.cc/BvzVRSkX/a46.jpg/150", name:"Washing Machine", link:"appliances.html"},
+    {img:"https://i.postimg.cc/J0LPWGQP/a47.jpg/150", name:"Fridge", link:"appliances.html"}
+  ],
+  mobiles: [
+    {img:"https://i.postimg.cc/8CG5MGtg/xia3.jpg/150", name:"Smartphones", link:"phone.html"},
+    {img:"https://i.postimg.cc/c6qZW7zr/inf1.jpg/150", name:"Accessories", link:"phone.html"}
+  ],
+  electronics: [
+    {img:"https://i.postimg.cc/XqptpZ58/aa85.jpg/150", name:"TV", link:"wire.html"},
+    {img:"https://i.postimg.cc/65DLs75P/b10.jpg/150", name:"Laptop", link:"wire.html"}
+  ],
+  gadgets: [
+    {img:"https://i.postimg.cc/x1vmWtZd/aa69.jpg/150", name:"Smart Watch", link:"gadgets.html"},
+    {img:"https://i.postimg.cc/3Rc0g6kB/aa70.jpg/150", name:"Earbuds", link:"gadgets.html"}
+  ],
+  home: [
+    {img:"https://i.postimg.cc/NjztG4TD/Chumvi2.jpg/150", name:"Kitchen", link:"home.html"},
+    {img:"https://i.postimg.cc/MTmqwjSt/muh6.jpg/150", name:"Decor", link:"home.html"}
+  ],
+  beauty: [
+    {img:"https://i.postimg.cc/SRy3f2Cq/a3.jpg/150", name:"Makeup", link:"beauty.html"},
+    {img:"https://i.postimg.cc/3JCTcmxL/a21.jpg/150", name:"Skincare", link:"beauty.html"}
+  ],
+  toys: [
+    {img:"https://i.postimg.cc/bYmrF7V0/a16.jpg/150", name:"Kids Toys", link:"toys.html"},
+    {img:"https://i.postimg.cc/VNwzNgZV/muh20.jpg/150", name:"Baby Care", link:"toys.html"}
+  ],
+  food: [
+    {img:"https://i.postimg.cc/pdJ1JJVM/u5.jpg/150", name:"Groceries", link:"food.html"},
+    {img:"https://i.postimg.cc/fRwHT0jf/ice4.jpg/150", name:"Health Products", link:"food.html"}
+  ],
+  furniture: [
+    {img:"https://i.postimg.cc/YqtN1BGK/cab2.jpg/150", name:"Sofa", link:"furniture.html"},
+    {img:"https://i.postimg.cc/TwX5fnn5/a34.jpg/150", name:"Bed", link:"furniture.html"}
+  ]
+};
+
+/* LOAD CATEGORY */
+function loadCategory(cat, el){
+
+  // remove active
+  document.querySelectorAll('.category').forEach(c=>c.classList.remove('active'));
+
+  // set active
+  el.classList.add('active');
+
+  const content = document.getElementById("contentArea");
+  content.innerHTML = "";
+
+  const grid = document.createElement("div");
+  grid.className = "grid";
+
+  data[cat].forEach(item=>{
+    const card = document.createElement("div");
+    card.className = "card";
+    card.onclick = ()=> window.location.href = item.link;
+
+    card.innerHTML = `
+      <img src="${item.img}">
+      <p>${item.name}</p>
+    `;
+
+    grid.appendChild(card);
+  });
+
+  content.appendChild(grid);
+}
+
+/* DEFAULT LOAD */
+window.onload = ()=>{
+  loadCategory('foryou', document.querySelector('.category'));
+};
+
+  /* AUTO ACTIVE NAV */
+function setActiveNav(){
+
+  let path = window.location.pathname;
+
+  if(path.includes("index.html") || path === "/" ){
+    document.getElementById("nav-home").classList.add("active");
+  }
+  else if(path.includes("category") || path.includes("fashion")){
+    document.getElementById("nav-category").classList.add("active");
+  }
+  else if(path.includes("account")){
+    document.getElementById("nav-account").classList.add("active");
+  }
+  else if(path.includes("cart")){
+    document.getElementById("nav-cart").classList.add("active");
+  }
+}
+
+window.addEventListener("load", setActiveNav);
+
+  function openProduct(id){
+
+  localStorage.setItem("pid", id);
+
+  let viewed = JSON.parse(localStorage.getItem("lastViewed")) || [];
+
+  viewed = viewed.filter(p => p != id);
+  viewed.unshift(id);
+  viewed = viewed.slice(0,10);
+
+  localStorage.setItem("lastViewed", JSON.stringify(viewed));
+
+  // refresh UI instantly
+  showRecentlyViewed();
+
+  location.href = "product.html";
+}
+
+  function formatPrice(price){
+  return "TZS " + Number(price).toLocaleString() + "/=";
+}
+
+function showRecentlyViewed(){
+
+  let products = JSON.parse(localStorage.getItem("allProducts")) || [];
+  let viewed = JSON.parse(localStorage.getItem("lastViewed")) || [];
+
+  let result = [];
+
+  viewed.forEach(id=>{
+    let p = products.find(x=>x.id == id);
+    if(p){
+      result.push(p);
+    }
+  });
+
+  // limit to 7
+  result = result.slice(0,7);
+
+  document.getElementById("recentViewed").innerHTML =
+    result.map(p=>`
+      <div class="recent-card" onclick="openProduct(${p.id})">
+        <img src="${p.img}">
+        <p>${p.name}</p>
+        <b>${formatPrice(p.price)}</b>
+      </div>
+    `).join("");
+}
+
+function showSuggestedCategory(){
+
+  let products = JSON.parse(localStorage.getItem("allProducts")) || [];
+
+  // shuffle like index
+  let shuffled = [...products].sort(()=>0.5 - Math.random());
+
+  // take ONLY 6 products
+  let selected = shuffled.slice(0,6);
+
+  document.getElementById("suggestedBox").innerHTML =
+    selected.map(p=>`
+      <div class="suggested-card" onclick="openProduct(${p.id})">
+        <img src="${p.img}">
+        <p>${p.name}</p>
+        <b>${formatPrice(p.price)}</b>
+      </div>
+    `).join("");
+}
+
+function autoUpdateRecent(){
+  showRecentlyViewed();
+}
+
+window.addEventListener("load", autoUpdateRecent);
+window.addEventListener("pageshow", autoUpdateRecent);
+window.addEventListener("storage", autoUpdateRecent);
+
+function autoUpdateSuggested(){
+  showSuggestedCategory();
+}
+
+window.addEventListener("load", autoUpdateSuggested);
+window.addEventListener("pageshow", autoUpdateSuggested);
+window.addEventListener("storage", autoUpdateSuggested);
+
+/* optional refresh like index */
+setInterval(showSuggestedCategory, 60000);
+
+</script>
+
+  <!-- BOTTOM NAV -->
+<div class="bottom-nav">
+
+  <a href="index.html" id="nav-home">
+    <i class="fa fa-home"></i>
+    Home
+  </a>
+
+  <a href="category.html" id="nav-category">
+    <i class="fa fa-th-large"></i>
+    Categories
+  </a>
+
+  <a href="account.html" id="nav-account">
+    <i class="fa fa-user"></i>
+    Account
+  </a>
+
+  <a href="cart.html" id="nav-cart">
+    <i class="fa fa-shopping-cart"></i>
+    Cart
+  </a>
+
+</div>
+
+</body>
+</html>
