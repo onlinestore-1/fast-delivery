@@ -57,7 +57,7 @@ button{background:#2874f0;color:#fff;border:none}
   <!-- ORDER PREVIEW -->
   <div id="orderPreview" style="margin-bottom:15px;"></div>
 
-  <form action="https://formsubmit.co/damasrphl2001@gmail.com" method="POST">
+   <form onsubmit="saveOrder()" action="https://formsubmit.co/damasrphl2001@gmail.com" method="POST">
 
     <input type="hidden" name="_subject" value="New Order">
     <input type="hidden" name="_captcha" value="false">
@@ -132,6 +132,28 @@ document.getElementById("order").value = orderText;
 
  function goBack(){
    window.history.back();
+}
+
+function saveOrder(){
+
+  let item = JSON.parse(localStorage.getItem("buy"));
+
+  if(!item) return;
+
+  let orders = JSON.parse(localStorage.getItem("orders")) || [];
+
+  orders.push({
+    id: item.id,
+    name: item.name,
+    img: item.img,
+    qty: item.qty,
+    size: item.size || ""
+  });
+
+  localStorage.setItem("orders", JSON.stringify(orders));
+
+  // OPTIONAL: clear current buy
+  localStorage.removeItem("buy");
 }
 </script>
 
