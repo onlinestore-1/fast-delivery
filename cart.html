@@ -168,6 +168,152 @@
 body{
  padding-bottom:70px;
 }
+
+    /* ITEM LAYOUT */
+.item{
+  background:#fff;
+  padding:10px;
+  margin:10px 0;
+  border-radius:8px;
+  display:flex;
+  gap:10px;
+  align-items:flex-start;
+}
+
+/* LEFT SIDE */
+.left{
+  width:90px;
+}
+
+.left img{
+  width:100%;
+  height:90px;
+  object-fit:cover;
+  border-radius:6px;
+}
+
+/* QTY */
+.qty-box{
+  margin-top:6px;
+}
+
+.qty-box select{
+  width:100%;
+  padding:5px;
+  border-radius:5px;
+}
+
+/* RIGHT SIDE */
+.info{
+  flex:1;
+}
+
+.price{
+  font-weight:bold;
+  margin:5px 0;
+}
+
+/* ACTION BUTTONS */
+.action-row{
+  display:flex;
+  border-top:1px solid #eee;
+  margin-top:10px;
+}
+
+.action-btn{
+  flex:1;
+  text-align:center;
+  padding:10px;
+  font-size:14px;
+  cursor:pointer;
+}
+
+.remove{
+  color:#555;
+  border-right:1px solid #eee;
+}
+
+.buy-now{
+  color:#ff9f00;
+  font-weight:bold;
+}
+
+/* TOAST */
+.toast{
+  position:fixed;
+  bottom:90px;
+  left:50%;
+  transform:translateX(-50%);
+  background:#000;
+  color:#fff;
+  padding:10px 20px;
+  border-radius:6px;
+  display:none;
+  z-index:5000;
+}
+
+/* PRICE DETAILS */
+.price-box{
+  background:#fff;
+  padding:15px;
+  border-radius:8px;
+  margin-top:10px;
+}
+
+/* STICKY FOOTER */
+.bottom-checkout{
+  position:fixed;
+  bottom:60px;
+  left:0;
+  width:100%;
+  background:#fff;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:10px 15px;
+  border-top:1px solid #ddd;
+}
+
+.place-btn{
+  background:#ffcc00;
+  border:none;
+  padding:10px 20px;
+  border-radius:5px;
+  font-weight:bold;
+}
+
+    .empty-cart{
+  text-align:center;
+  margin-top:60px;
+  padding:40px 10px;
+}
+
+.empty-icon{
+  font-size:80px;
+  color:#ccc;
+  margin-bottom:20px;
+}
+
+.empty-cart h2{
+  font-size:22px;
+  margin-bottom:20px;
+}
+
+.login-btn{
+  background:#2874f0;
+  color:#fff;
+  border:none;
+  padding:10px 40px;
+  border-radius:6px;
+  font-size:16px;
+  margin-bottom:15px;
+}
+
+.continue{
+  color:#2874f0;
+  font-size:16px;
+  cursor:pointer;
+}
   </style>
 </head>
 
@@ -240,26 +386,77 @@ let products = JSON.parse(localStorage.getItem("allProducts")) || [
 let recent = JSON.parse(localStorage.getItem("recent")) || [];
 
 /* CART */
+ cartBox.innerHTML = "";
+let total = 0;
+
 if(cart.length === 0){
+
   cartBox.innerHTML = `
-    <div class="empty">
-      <p>Your cart is empty</p>
+    <div class="empty-cart">
+      <i class="fa fa-shopping-cart empty-icon"></i>
+      <h2>Missing Cart items?</h2>
+      <button class="login-btn">Login</button>
+      <p class="continue" onclick="goHome()">Continue Shopping</p>
     </div>
   `;
+
 }else{
-  cart.forEach((c, i) => {
+
+  cart.forEach((c,i)=>{
+
+    // ✅ FIX: ensure image exists
+    let product = products.find(p => p.id == c.id);
+    let img = c.img || (product ? product.img : "");
+
+    total += c.price * c.qty;
+
     cartBox.innerHTML += `
       <div class="item">
-        <img src="${c.img}">
+
+        <div class="left">
+          <img src="${img}">
+
+          <div class="qty-box">
+            <select onchange="changeQty(${i},this.value)">
+              ${[1,2,3,4,5].map(q=>`
+                <option ${c.qty==q?"selected":""}>${q}</option>
+              `).join("")}
+            </select>
+          </div>
+        </div>
+
         <div class="info">
           <b>${c.name}</b>
-          Price: ${formatPrice(c.price)}<br>
-          Qty: ${c.qty}
-          <button class="buy" onclick="buyNow(${i})">Buy Now</button>
+
+          ${c.desc ? `<p>${c.desc}</p>` : ""}
+          ${c.size ? `<p>Size: ${c.size}</p>` : ""}
+
+          <div class="price">${formatPrice(c.price)}</div>
+
+          <div class="action-row">
+            <div class="action-btn remove" onclick="removeItem(${i})">
+              <i class="fa fa-trash"></i> Remove
+            </div>
+
+            <div class="action-btn buy-now" onclick="buyNow(${i})">
+              Buy Now
+            </div>
+          </div>
+
         </div>
       </div>
     `;
   });
+
+  // ✅ PRICE BOX only when items exist
+  cartBox.innerHTML += `
+    <div class="price-box">
+      <h3>Price Details</h3>
+      <p>Price (${cart.length} items): ${formatPrice(total)}</p>
+      <hr>
+      <b>Total Amount: ${formatPrice(total)}</b>
+    </div>
+  `;
 }
 
  /* SHUFFLE FUNCTION */
@@ -296,8 +493,33 @@ nextDeals.forEach(p=>{
   `;
 });
 
+ function changeQty(index, qty){
+  cart[index].qty = Number(qty);
+  localStorage.setItem("cart", JSON.stringify(cart));
+  location.reload();
+}
+
+function removeItem(index){
+  cart.splice(index,1);
+  localStorage.setItem("cart", JSON.stringify(cart));
+  showToast("Item removed from cart");
+  setTimeout(()=>location.reload(),500);
+}
+
 function buyNow(index){
   localStorage.setItem("buy", JSON.stringify(cart[index]));
+  location.href = "checkout.html";
+}
+
+/* BUY ALL */
+ function placeOrder(){
+
+  if(cart.length === 0){
+    showToast("Your cart is empty");
+    return; // ❌ STOP here (no redirect)
+  }
+
+  localStorage.setItem("buy", JSON.stringify(cart));
   location.href = "checkout.html";
 }
 
@@ -330,6 +552,32 @@ window.addEventListener("load", setActiveNav);
 function goHome(){
   location.href = "index.html";
 }
+
+function showToast(msg){
+  const t = document.getElementById("toast");
+  t.innerText = msg;
+  t.style.display = "block";
+
+  setTimeout(()=>{
+    t.style.display = "none";
+  },2000);
+}
+
+ const placeBtn = document.querySelector(".place-btn");
+
+if(cart.length > 0){
+  document.getElementById("totalPrice").innerText = formatPrice(total);
+  document.querySelector(".bottom-checkout").style.display = "flex";
+
+  placeBtn.disabled = false;
+  placeBtn.style.opacity = "1";
+
+}else{
+  document.querySelector(".bottom-checkout").style.display = "none";
+
+  placeBtn.disabled = true;
+  placeBtn.style.opacity = "0.5";
+}
 </script>
 
   <!-- BOTTOM NAV -->
@@ -356,6 +604,13 @@ function goHome(){
   </a>
 
 </div>
+
+  <div class="bottom-checkout">
+  <b id="totalPrice"></b>
+  <button class="place-btn" onclick="placeOrder()">Place Order</button>
+</div>
+
+<div class="toast" id="toast"></div>
 
 </body>
 </html>
