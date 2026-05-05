@@ -1,130 +1,99 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-  <meta charset="UTF-8">
-  <title>My Orders</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="referrer" content="strict-origin-when-cross-origin">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Account</title>
 
-  <style>
-    body{
-      margin:0;
-      font-family: Arial, sans-serif;
-      background:white;
-      padding:10px;
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
-      padding-top:70px;
-    }
-
-    header{
-      background:white;
-      color:black;
-      padding:12px;
-      text-align:center;
-      font-size:18px;
-    }
-
-    .orders{
-      max-width:600px;
-      margin:auto;
-    }
-
-    .order{
-      background:#fff;
-      padding:10px;
-      margin:10px 0;
-      border-radius:8px;
-      display:flex;
-      gap:10px;
-      align-items:center;
-      cursor:pointer;
-    }
-
-    .order img{
-      width:80px;
-      height:80px;
-      object-fit:cover;
-      border-radius:6px;
-    }
-
-    .order-name{
-      font-size:16px;
-      font-weight:bold;
-    }
-
-    .empty{
-      text-align:center;
-      margin-top:40px;
-      color:#777;
-    }
-
-    /* TOP BAR (LIKE IMAGE) */
-.top-bar{
-  position:fixed;
-  top:0;
-  left:0;
-  width:100%;
-  height:60px;
-  background:#fff;
-  display:flex;
-  align-items:center;
-  gap:10px;
-  padding:0 15px;
-  border-bottom:1px solid #ddd;
-  z-index:1000;
+<style>
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  background: #f1f3f6;
 }
 
-.top-bar span{
-  font-size:22px;
-  cursor:pointer;
+/* HEADER */
+.header {
+  background: #fff;
+  padding: 15px;
+  font-size: 20px;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
 }
 
-.top-bar h3{
-  margin:0;
-  font-size:18px;
+/* SECTION */
+.section {
+  background: #fff;
+  margin-top: 10px;
+  padding: 15px;
 }
 
-/* PUSH CONTENT DOWN */
-body{
-  padding-top:70px;
+/* PRODUCTS ROW */
+ .products {
+  display: flex;
+  overflow-x: auto;
+  gap: 10px;
 }
 
-/* YOU MAY ALSO LIKE */
-.like-section{
-  margin-top:20px;
+.products::-webkit-scrollbar{
+  display:none;
 }
 
-.like-title{
-  font-size:18px;
-  font-weight:bold;
-  margin-bottom:10px;
+.product {
+  min-width: 100px;   /* 10 items visible */
+  max-width: 100px;
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  text-align: center;
+  padding: 10px;
+  cursor: pointer;
+  flex-shrink: 0;
 }
 
-.like-grid{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:10px;
+.product img {
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
 }
 
-.like-card{
-  background:#fff;
-  border-radius:8px;
-  padding:6px;
-  text-align:center;
-  cursor:pointer;
+/* LANGUAGE BUTTONS */
+.lang-btn {
+  border: 1px solid #ccc;
+  padding: 6px 12px;
+  border-radius: 20px;
+  margin-right: 10px;
+  cursor: pointer;
 }
 
-.like-card img{
-  width:100%;
-  height:90px;
-  object-fit:cover;
-  border-radius:6px;
+/* LIST ITEMS */
+.list-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 0;
+  border-bottom: 1px solid #eee;
+  cursor: pointer;
 }
 
-.like-card p{
-  font-size:12px;
-  margin:4px 0;
+.list-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.footer {
+  background: #fff;
+  margin-top: 10px;
+  padding: 15px;
+}
+
+.footer div {
+  padding: 8px 0;
+  cursor: pointer;
 }
 
 /* BOTTOM NAVBAR */
@@ -165,103 +134,143 @@ body{
 body{
  padding-bottom:70px;
 }
-  </style>
-</head>
+</style>
 
+</head>
 <body>
 
-<div class="top-bar">
-  <span onclick="goHome()">&#8592;</span>
-  <h3>Account</h3>
+<!-- HEADER -->
+<div class="header">
+  <i class="fa fa-arrow-left" onclick="goHome()" style="cursor:pointer"></i>
+  &nbsp;
+  <span id="accountText">Account</span>
 </div>
 
-<div class="orders" id="ordersBox"></div>
+<!-- RECENTLY VIEWED -->
+<div class="section">
+ <h3 id="recentText">Suggested For You</h3>
+<div class="products" id="suggestedProducts"></div>
+</div>
 
-<!-- YOU MAY ALSO LIKE -->
-<div class="like-section">
-  <div class="like-title">You May Also Like</div>
-  <div id="likeBox" class="like-grid"></div>
+<!-- LANGUAGE -->
+<div class="section">
+  <h3 id="langTitle">Try Plus+ Online in your language</h3>
+
+  <span class="lang-btn" onclick="setLanguage('sw')">Swahili</span>
+  <span class="lang-btn" onclick="setLanguage('en')">English</span>
+</div>
+
+<!-- ACCOUNT SETTINGS -->
+<div class="section">
+  <h3 id="settingsText">Account Settings</h3>
+
+  <div class="list-item" onclick="location.href='language.html'">
+    <div class="list-left">
+      <i class="fa fa-language"></i>
+      <span id="selectLang">Select Language</span>
+    </div>
+    <i class="fa fa-chevron-right"></i>
+  </div>
+
+  <div class="list-item" onclick="location.href='notifications.html'">
+    <div class="list-left">
+      <i class="fa fa-bell"></i>
+      <span id="notifyText">Notification Settings</span>
+    </div>
+    <i class="fa fa-chevron-right"></i>
+  </div>
+
+  <div class="list-item" onclick="location.href='help.html'">
+    <div class="list-left">
+      <i class="fa fa-headset"></i>
+      <span id="helpText">Help Center</span>
+    </div>
+    <i class="fa fa-chevron-right"></i>
+  </div>
+</div>
+
+<!-- EARN -->
+<div class="section">
+  <h3 id="earnText">Earn with Plus+ Online</h3>
+
+  <div class="list-item" onclick="location.href='sell.html'">
+    <div class="list-left">
+      <i class="fa fa-store"></i>
+      <span id="sellText">Sell on Plus+ Online</span>
+    </div>
+    <i class="fa fa-chevron-right"></i>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<div class="footer">
+  <div onclick="location.href='terms.html'" id="termsText">Terms</div>
+  <div onclick="location.href='policies.html'" id="policyText">Policies</div>
+  <div onclick="location.href='faq.html'" id="faqText">Browse FAQs</div>
 </div>
 
 <script>
-let orders = JSON.parse(localStorage.getItem("orders")) || [];
-const box = document.getElementById("ordersBox");
+const container = document.getElementById("suggestedProducts");
 
-if(orders.length === 0){
-  box.innerHTML = `
-    <div class="empty">
-      <p>No orders yet</p>
+function showSuggestedProducts(){
+
+  let allProducts = JSON.parse(localStorage.getItem("allProducts")) || [];
+
+  // shuffle products randomly
+  let shuffled = [...allProducts].sort(() => 0.5 - Math.random());
+
+  // pick 10 products
+  let selected = shuffled.slice(0, 10);
+
+  container.innerHTML = selected.map(p => `
+    <div class="product" onclick="openProduct(${p.id})">
+      <img src="${p.img}">
+      <div>${p.name}</div>
     </div>
-  `;
-}
+  `).join("");
 
-orders.forEach(o => {
-  box.innerHTML += `
-    <div class="order" onclick="rebuy(${o.id})">
-      <img src="${o.img}">
-      <div class="order-name">${o.name}</div>
-    </div>
-  `;
-});
-
-function rebuy(id){
-  localStorage.setItem("pid", id);
-  location.href = "product.html";
+  if(selected.length === 0){
+    container.innerHTML = "<p>No products available</p>";
+  }
 }
 
 function openProduct(id){
-
   localStorage.setItem("pid", id);
-
-  let viewed = JSON.parse(localStorage.getItem("lastViewed")) || [];
-
-  viewed = viewed.filter(p => p != id);
-  viewed.unshift(id);
-  viewed = viewed.slice(0,10);
-
-  localStorage.setItem("lastViewed", JSON.stringify(viewed));
-
   location.href = "product.html";
 }
 
-function formatPrice(price){
-  return "TZS " + Number(price).toLocaleString() + "/=";
+/* =========================
+   LANGUAGE SWITCH
+========================= */
+function setLanguage(lang){
+  if(lang === "sw"){
+    document.getElementById("accountText").innerText = "Akaunti";
+    document.getElementById("recentText").innerText = "Uliyotazama Hivi Karibuni";
+    document.getElementById("langTitle").innerText = "Jaribu Plus+ Online kwa lugha yako";
+    document.getElementById("settingsText").innerText = "Mipangilio ya Akaunti";
+    document.getElementById("selectLang").innerText = "Chagua Lugha";
+    document.getElementById("notifyText").innerText = "Mipangilio ya Taarifa";
+    document.getElementById("helpText").innerText = "Kituo cha Msaada";
+    document.getElementById("earnText").innerText = "Pata na Plus+ Online";
+    document.getElementById("sellText").innerText = "Uza kwenye Plus+ Online";
+    document.getElementById("termsText").innerText = "Masharti";
+    document.getElementById("policyText").innerText = "Sera";
+    document.getElementById("faqText").innerText = "Maswali";
+  } else {
+    location.reload(); // reset to English
+  }
 }
-
-function showYouMayAlsoLike(){
-
-  let products = JSON.parse(localStorage.getItem("allProducts")) || [];
-
-  // shuffle like index
-  let shuffled = [...products].sort(()=>0.5 - Math.random());
-
-  // take ONLY 6
-  let selected = shuffled.slice(0,6);
-
-  document.getElementById("likeBox").innerHTML =
-    selected.map(p=>`
-      <div class="like-card" onclick="openProduct(${p.id})">
-        <img src="${p.img}">
-        <p>${p.name}</p>
-        <b>${formatPrice(p.price)}</b>
-      </div>
-    `).join("");
-}
-
-function autoUpdateLike(){
-  showYouMayAlsoLike();
-}
-
-window.addEventListener("load", autoUpdateLike);
-window.addEventListener("pageshow", autoUpdateLike);
-window.addEventListener("storage", autoUpdateLike);
-
-/* optional refresh like homepage */
-setInterval(showYouMayAlsoLike, 60000);
 
 function goHome(){
   location.href = "index.html";
 }
+
+// load on page open
+window.addEventListener("load", showSuggestedProducts);
+window.addEventListener("pageshow", showSuggestedProducts);
+
+// auto refresh every 60 seconds
+setInterval(showSuggestedProducts, 60000);
 
 /* AUTO ACTIVE NAV */
 function setActiveNav(){
