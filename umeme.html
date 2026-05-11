@@ -1,1 +1,480 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sunglasses</title>
 
+<style>
+*{
+ margin:0;
+ padding:0;
+ box-sizing:border-box;
+ font-family:Arial,sans-serif;
+}
+
+body{
+ background:#f5f5f5;
+ padding-top:120px;
+}
+
+/* TOP BAR */
+.topbar{
+ position:fixed;
+ top:0;
+ left:0;
+ width:100%;
+ height:65px;
+ background:#fff;
+ display:flex;
+ align-items:center;
+ justify-content:space-between;
+ padding:0 14px;
+ border-bottom:1px solid #ddd;
+ z-index:1000;
+}
+
+.top-left{
+ display:flex;
+ align-items:center;
+ gap:14px;
+}
+
+.back{
+ font-size:30px;
+ cursor:pointer;
+}
+
+.logo{
+ width:38px;
+ height:38px;
+ border-radius:50%;
+ background:#ffde00;
+ display:flex;
+ align-items:center;
+ justify-content:center;
+ font-size:28px;
+ color:#1877f2;
+ font-weight:bold;
+}
+
+.title{
+ font-size:22px;
+}
+
+.top-icons{
+ display:flex;
+ align-items:center;
+ gap:20px;
+}
+
+.icon{
+ font-size:30px;
+ cursor:pointer;
+ position:relative;
+}
+
+.cart-badge{
+ position:absolute;
+ top:-6px;
+ right:-8px;
+ background:red;
+ color:#fff;
+ width:18px;
+ height:18px;
+ border-radius:50%;
+ font-size:11px;
+ display:flex;
+ align-items:center;
+ justify-content:center;
+}
+
+/* FILTER BAR */
+.filter-bar{
+ position:fixed;
+ top:65px;
+ left:0;
+ width:100%;
+ background:#fff;
+ display:flex;
+ height:55px;
+ border-bottom:1px solid #ddd;
+ z-index:999;
+}
+
+.filter-btn{
+ flex:1;
+ display:flex;
+ align-items:center;
+ justify-content:center;
+ gap:10px;
+ font-size:18px;
+ font-weight:bold;
+}
+
+.divider{
+ width:1px;
+ background:#ddd;
+ margin:10px 0;
+}
+
+/* TAGS */
+.tags{
+ display:flex;
+ gap:14px;
+ overflow-x:auto;
+ padding:14px;
+ background:#fff;
+}
+
+.tags::-webkit-scrollbar{
+ display:none;
+}
+
+.tag{
+ min-width:140px;
+ background:#fff;
+ border:1px solid #ddd;
+ border-radius:10px;
+ padding:10px;
+ display:flex;
+ align-items:center;
+ gap:10px;
+}
+
+.tag-icon{
+ width:40px;
+ height:40px;
+ border-radius:50%;
+ background:#f1e7ff;
+ display:flex;
+ align-items:center;
+ justify-content:center;
+ font-size:22px;
+}
+
+.tag-text{
+ font-size:16px;
+}
+
+/* DESCRIPTION */
+.desc{
+ background:#fff;
+ padding:0 14px 18px;
+ line-height:1.5;
+ color:#555;
+ font-size:17px;
+}
+
+.readmore{
+ color:#3565d9;
+ margin-top:10px;
+ display:inline-block;
+ font-size:16px;
+}
+
+/* PRODUCTS */
+.products{
+ display:grid;
+ grid-template-columns:repeat(2,1fr);
+ gap:12px;
+ padding:12px;
+}
+
+.card{
+ background:#fff;
+ border-radius:14px;
+ overflow:hidden;
+ position:relative;
+ cursor:pointer;
+}
+
+.card img{
+ width:100%;
+ height:260px;
+ object-fit:cover;
+ background:#eee;
+}
+
+.ad{
+ position:absolute;
+ top:10px;
+ left:10px;
+ background:#eee;
+ color:#666;
+ font-size:13px;
+ padding:3px 6px;
+ border-radius:6px;
+}
+
+.wishlist{
+ position:absolute;
+ top:10px;
+ right:10px;
+ width:40px;
+ height:40px;
+ border-radius:50%;
+ background:#fff;
+ display:flex;
+ align-items:center;
+ justify-content:center;
+ font-size:24px;
+}
+
+.info{
+ padding:12px;
+}
+
+.name{
+ font-size:18px;
+ font-weight:bold;
+ margin-bottom:6px;
+}
+
+.sub{
+ color:#777;
+ font-size:15px;
+ margin-bottom:10px;
+}
+
+.price-row{
+ display:flex;
+ align-items:center;
+ gap:8px;
+ flex-wrap:wrap;
+}
+
+.discount{
+ color:green;
+ font-size:17px;
+ font-weight:bold;
+}
+
+.old{
+ color:#888;
+ text-decoration:line-through;
+ font-size:16px;
+}
+
+.new{
+ font-size:18px;
+ font-weight:bold;
+}
+
+.offer{
+ margin-top:10px;
+ color:#1c2f7a;
+ font-size:15px;
+ font-weight:bold;
+}
+
+.rating{
+ position:absolute;
+ bottom:110px;
+ left:10px;
+ background:#fff;
+ padding:4px 8px;
+ border-radius:8px;
+ font-size:14px;
+}
+</style>
+</head>
+
+<body>
+
+<!-- TOP BAR -->
+<div class="topbar">
+
+ <div class="top-left">
+  <div class="back" onclick="location.href='index.html'">←</div>
+
+  <div class="logo">f</div>
+
+  <div class="title">Sunglasses</div>
+ </div>
+
+ <div class="top-icons">
+
+  <div class="icon" onclick="location.href='search.html'">
+   🔍
+  </div>
+
+  <div class="icon" onclick="location.href='cart.html'">
+   🛒
+   <div class="cart-badge">2</div>
+  </div>
+
+ </div>
+
+</div>
+
+<!-- FILTER BAR -->
+<div class="filter-bar">
+
+ <div class="filter-btn">
+  ⇅ Sort
+ </div>
+
+ <div class="divider"></div>
+
+ <div class="filter-btn">
+  ⚙️ Filter
+ </div>
+
+</div>
+
+<!-- TAGS -->
+<div class="tags">
+
+ <div class="tag">
+  <div class="tag-icon">💯</div>
+  <div class="tag-text">Sale Pe Sale</div>
+ </div>
+
+ <div class="tag">
+  <div class="tag-icon">🔥</div>
+  <div class="tag-text">Latest Trends</div>
+ </div>
+
+ <div class="tag">
+  <div class="tag-icon">⭐</div>
+  <div class="tag-text">Top Rated</div>
+ </div>
+
+</div>
+
+<!-- DESCRIPTION -->
+<div class="desc">
+ <b>Sunglasses</b> are not just any other stylish accessory to amp up your look, but also protect your eyes from harmful UV rays.
+
+ <br><br>
+
+ <span class="readmore">Read More</span>
+</div>
+
+<!-- PRODUCTS -->
+<div class="products" id="products"></div>
+
+<script>
+
+const products = [
+
+{
+ id:1,
+ name:"HONUFU EYEWEAR",
+ desc:"UV Protection, Riding Glasses",
+ oldPrice:"1,299",
+ price:"142",
+ discount:"89%",
+ img:"https://i.imgur.com/eG7QmDW.jpeg"
+},
+
+{
+ id:2,
+ name:"ROADWAY",
+ desc:"UV Protection Rectangular",
+ oldPrice:"1,499",
+ price:"159",
+ discount:"89%",
+ img:"https://i.imgur.com/sqN7p8m.jpeg"
+},
+
+{
+ id:3,
+ name:"BLACK STYLE",
+ desc:"Fashion Square Sunglasses",
+ oldPrice:"1,199",
+ price:"199",
+ discount:"83%",
+ img:"https://i.imgur.com/nR6qM2C.jpeg"
+},
+
+{
+ id:4,
+ name:"LUXURY GOLD",
+ desc:"Premium Rimless Sunglasses",
+ oldPrice:"1,899",
+ price:"299",
+ discount:"84%",
+ img:"https://i.imgur.com/G4W9Y5L.jpeg"
+},
+
+{
+ id:5,
+ name:"CLASSIC BLACK",
+ desc:"Men UV Protection Sunglasses",
+ oldPrice:"999",
+ price:"179",
+ discount:"82%",
+ img:"https://i.imgur.com/6mKQ0bM.jpeg"
+},
+
+{
+ id:6,
+ name:"MODERN GLASS",
+ desc:"Latest Trending Sunglasses",
+ oldPrice:"1,599",
+ price:"249",
+ discount:"85%",
+ img:"https://i.imgur.com/fy9q0wT.jpeg"
+}
+
+];
+
+function drawProducts(){
+
+ document.getElementById("products").innerHTML =
+ products.map(p=>`
+
+ <div class="card" onclick="openProduct(${p.id})">
+
+  <div class="ad">AD</div>
+
+  <div class="wishlist">♡</div>
+
+  <img src="${p.img}">
+
+  <div class="rating">4⭐ | 4k</div>
+
+  <div class="info">
+
+   <div class="name">${p.name}</div>
+
+   <div class="sub">${p.desc}</div>
+
+   <div class="price-row">
+
+    <span class="discount">↓${p.discount}</span>
+
+    <span class="old">₹${p.oldPrice}</span>
+
+    <span class="new">₹${p.price}</span>
+
+   </div>
+
+   <div class="offer">
+    WOW! ₹92 with 2 offers
+   </div>
+
+  </div>
+
+ </div>
+
+ `).join("");
+
+}
+
+function openProduct(id){
+
+ localStorage.setItem("pid",id);
+
+ location.href="product.html";
+
+}
+
+drawProducts();
+
+</script>
+
+</body>
+</html>
