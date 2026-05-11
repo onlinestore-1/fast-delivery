@@ -142,26 +142,11 @@ function formatPrice(price){
  return "TZS " + Number(price).toLocaleString() + "/=";
 }
 
-// LOAD SAVED PRODUCTS
-let all = JSON.parse(localStorage.getItem("allProducts")) || [];
-
-// ADD NEW PRODUCTS WITHOUT DUPLICATES
-speakers.forEach(sp => {
- if (!all.some(p => p.id === sp.id)) {
-  all.push(sp);
- }
-});
-
-// SAVE UPDATED PRODUCTS
-localStorage.setItem("allProducts", JSON.stringify(all));
-
-// DRAW ALL PRODUCTS
+// DRAW PRODUCTS
 function drawThisProduct(){
 
- let products = JSON.parse(localStorage.getItem("allProducts")) || [];
-
  document.getElementById("thisProduct").innerHTML =
-  products.map(p=>`
+  speakers.map(p=>`
    <div class="card" onclick="openProduct(${p.id})">
     <img src="${p.img}">
     <p>${p.name}</p>
@@ -170,12 +155,10 @@ function drawThisProduct(){
   `).join("");
 }
 
-// SEARCH
+// SEARCH FUNCTION
 function search(value){
 
- const products = JSON.parse(localStorage.getItem("allProducts")) || [];
-
- const filtered = products.filter(p =>
+ const filtered = speakers.filter(p =>
   p.name.toLowerCase().includes(value.toLowerCase())
  );
 
@@ -195,13 +178,8 @@ function openProduct(id){
  location.href = "product.html";
 }
 
-// INITIAL LOAD
+// LOAD PRODUCTS
 drawThisProduct();
-
-// AUTO REFRESH PRODUCTS
-setInterval(()=>{
- drawThisProduct();
-},5000);
 </script>
 
 </body>
