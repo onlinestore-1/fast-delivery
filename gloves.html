@@ -17,9 +17,9 @@ body{
 .topbar{
  display:flex;
  align-items:center;
- background:linear-gradient(180deg, #87c7f3, #a8d8f8);
+ background:white;
  padding:10px;
- color:white;
+ color:black;
  gap:10px;
 
  position:fixed;
@@ -28,7 +28,7 @@ body{
  width:100%;
  z-index:1000;
 
-  box-sizing:border-box;
+ box-sizing:border-box;
 }
 .topbar input{
  flex:1;
@@ -37,6 +37,55 @@ body{
  border-radius:4px;
 }
 .cart{font-size:22px;cursor:pointer}
+
+ .title{
+ flex:1;
+ font-size:16px;
+ font-weight:bold;
+}
+
+/* SMALL GAP */
+.section-title{
+ padding:6px 10px;
+ margin:0;
+ font-size:18px;
+}
+
+/* THIS PRODUCT (2 COLUMN) */
+.two-grid{
+ display:grid;
+ grid-template-columns:repeat(2,1fr);
+ gap:10px;
+ padding:10px;
+}
+
+/* HORIZONTAL SCROLL ROW */
+.scroll-row{
+ display:flex;
+ overflow-x:auto;
+ gap:12px;
+ padding:10px;
+}
+.scroll-row::-webkit-scrollbar{
+ display:none;
+}
+
+.scroll-card{
+ min-width:130px;
+ max-width:130px;
+ background:#fff;
+ border-radius:8px;
+ padding:8px;
+ flex-shrink:0;
+ text-align:center;
+}
+
+.scroll-card img{
+ width:100%;
+ height:100px;
+ object-fit:cover;
+ border-radius:6px;
+}
 
 /* GRID */
 .grid{
@@ -57,65 +106,74 @@ body{
 <body>
 
 <!-- SEARCH + CART -->
-<div class="topbar">
- <input type="search" placeholder="Search products..." onkeyup="search(this.value)">
- <span class="cart" onclick="location.href='cart.html'">🛒</span>
+ <div class="topbar">
+  <span onclick="history.back()" style="font-size:22px;cursor:pointer;">←</span>
+
+  <h3 class="title">Continue Your Shopping</h3>
+
+  <span style="font-size:20px;cursor:pointer;" onclick="location.href='search.html'">🔍</span>
+  <span class="cart" onclick="location.href='cart.html'">🛒</span>
 </div>
 
-<h2 style="padding:10px">Gloves</h2>
-<div id="box" class="grid"></div>
+ <!-- THIS PRODUCT -->
+<h3 class="section-title">This Sandals</h3>
+<div id="thisProduct" class="two-grid"></div>
 
-<script>
+ <script>
 const speakers = [
- {id:23,name:"Gloves",price:15000,img:"https://i.imgur.com/bnxAhsJ.jpeg",type:"gloves",desc:"ZaySoo Anti-Slip Gym  Gloves for Professional Weightlifting,fitness Training and workout"},
- {id:24,name:"Gloves",price:40,img:"https://i.imgur.com/SEkRfCe.jpeg",type:"gloves",desc:"Adidas Essential Training Gloves"},
- {id:25,name:"Gloves",price:40,img:"https://i.imgur.com/bdRBRBf.jpeg",type:"gloves",desc:"Riding Gloves"}
+ {id:39,name:"Zara Brown",price:32000,img:"https://i.postimg.cc/dVWyHGSG/ab16.jpg",type:"sports",desc:"Brown leather Zara Sandals"},
+ {id:40,name:"Zara Leather Black",price:32000,img:"https://i.postimg.cc/tTss7TyS/ab18.jpg",type:"sports",desc:"Black Leather Zara Comfortable Cross"},
+ {id:41,name:"Brown Leather",price:20000,img:"https://i.postimg.cc/VsD4Q0Ty/ab17.jpg",type:"sports",desc:"Brown leather Slides"},
+ {id:42,name:"Prada black",price:20000,img:"https://i.postimg.cc/7LD1CSQm/ab19.jpg",type:"sports",desc:"Prada black patent leather sandals"},
+ {id:43,name:"Black Fendi",price:10000,img:"https://i.postimg.cc/G3xvNXzv/ab23.jpg",type:"sports",desc:"Black Fendi Women sandals"},
+ {id:44,name:"Brown Mosssimo",price:28000,img:"https://i.postimg.cc/7ht3R6Dk/ab24.jpg",type:"sports",desc:"Mossimo sandals with a crisscross strap"},
+ {id:45,name:"Gold Modish Slides",price:15000,img:"https://i.postimg.cc/9M8b61Yz/ab25.jpg",type:"sports",desc:"Gold Modish Slides Sendals"},
+ {id:46,name:"Burberry black Canvas",price:15000,img:"https://i.postimg.cc/sD6B5qDs/ab26.jpg",type:"sports",desc:"Burberry canvas and leather Honour sandals"}
 ];
 
-// FORMAT PRICE (TZS + comma)
+// FORMAT PRICE
 function formatPrice(price){
  return "TZS " + Number(price).toLocaleString() + "/=";
 }
 
-// LOAD EXISTING PRODUCTS
-let all = JSON.parse(localStorage.getItem("allProducts")) || [];
+// DRAW PRODUCTS
+function drawThisProduct(){
 
-// MERGE WITHOUT DUPLICATES
-speakers.forEach(sp => {
- if (!all.some(p => p.id === sp.id)) {
-  all.push(sp);
- }
-});
-
-localStorage.setItem("allProducts", JSON.stringify(all));
-
-// DISPLAY FUNCTION
-function draw(list){
- document.getElementById("box").innerHTML = list.map(p=>`
-  <div class="card" onclick="openProduct(${p.id})">
-   <img src="${p.img}">
-   <p>${p.name}</p>
-   <b>${formatPrice(p.price)}</b>
-  </div>
- `).join("");
+ document.getElementById("thisProduct").innerHTML =
+  speakers.map(p=>`
+   <div class="card" onclick="openProduct(${p.id})">
+    <img src="${p.img}">
+    <p>${p.name}</p>
+    <b>${formatPrice(p.price)}</b>
+   </div>
+  `).join("");
 }
-
-// INITIAL LOAD
-draw(speakers);
 
 // SEARCH FUNCTION
 function search(value){
+
  const filtered = speakers.filter(p =>
   p.name.toLowerCase().includes(value.toLowerCase())
  );
- draw(filtered);
+
+ document.getElementById("thisProduct").innerHTML =
+  filtered.map(p=>`
+   <div class="card" onclick="openProduct(${p.id})">
+    <img src="${p.img}">
+    <p>${p.name}</p>
+    <b>${formatPrice(p.price)}</b>
+   </div>
+  `).join("");
 }
 
-// OPEN PRODUCT
+// OPEN PRODUCT PAGE
 function openProduct(id){
  localStorage.setItem("pid", id);
  location.href = "product.html";
 }
+
+// LOAD PRODUCTS
+drawThisProduct();
 </script>
 
 </body>
