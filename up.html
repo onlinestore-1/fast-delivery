@@ -128,27 +128,18 @@ body{
 <div id="trending" class="scroll-row"></div>
 
 <script>
-const speakers = [
- {id:122,name:"Royco mchuzi mix",price:10,img:"https://i.postimg.cc/13LjR2gC/royco1.jpg",type:"masala",desc:"Spicy Beef Flavour"},
- {id:123,name:"Chicken Masala",price:10,img:"https://i.postimg.cc/DzRb8VLY/chic-mas1.jpg",type:"masala",desc:"Spice Seasoning"},
- {id:124,name:"Baking Powder",price:10,img:"https://i.postimg.cc/NfPGg61d/bakin1.jpg",type:"masala",desc:"Kwa Mandazi Baking Powder"},
- {id:125,name:"Red Gold",price:10,img:"https://i.postimg.cc/636F2SKZ/red-gol1.jpg",type:"masala",desc:"Red Gold Tomato Paste"},
- {id:126,name:"Tea Masala",price:10,img:"https://i.postimg.cc/dVH5N1Pb/tea-mas1.jpg",type:"masala",desc:"Spice seasoning"},
- {id:127,name:"Pilau Masala",price:10,img:"https://i.postimg.cc/5tQSPSmq/pilau-masa.jpg",type:"masala",desc:"Spice seasoning"},
- {id:128,name:"White Vinegar",price:10,img:"https://i.postimg.cc/9FN9vq0v/red-ven.jpg",type:"masala",desc:"RedGold White Vinegar "},
- {id:111,name:"Caramello",price:13,img:"https://i.imgur.com/HgeHJvR.jpeg/200",type:"cream",desc:"Caramello flavoured ice cream"},
- {id:112,name:"Coca Cola",price:23,img:"https://i.imgur.com/UYZ1dIH.jpeg/200",type:"drinks",desc:"Coca Cola"},
- {id:200,name:"Doffi",price:12,img:"https://i.imgur.com/wpJjs0L.jpeg",type:"sabuni"},
- {id:201,name:"OMO",price:18,img:"https://i.imgur.com/v0eeorr.jpeg",type:"sabuni",desc:"Ondoa madoa sugu"},
- {id:202,name:"Doffi",price:17,img:"https://i.imgur.com/hD9g7L2.jpeg/200",desc:"Washing powder"},
- {id:203,name:"Niceone",price:18,img:"https://i.imgur.com/7nmPGbq.jpeg/200",type:"sabuni",desc:"Ondoa madoa sugu"},
- {id:204,name:"Jet",price:19,img:"https://i.imgur.com/OoGiHtj.jpeg",type:"sabuni",desc:"Dish washing liquid soap"},
- {id:205,name:"Jet",price:18,img:"https://i.imgur.com/q36RjQ2.jpeg",type:"sabuni",desc:"Dish washing liquid soap"},
- {id:206,name:"Freedom Counter Book",price:14,img:"https://i.postimg.cc/50JG0SpM/free1.jpg",type:"book",desc:"Freedom Counter Book-2 Quire"},
- {id:207,name:"Vaseline",price:25,img:"https://i.postimg.cc/TY2znxmq/a21.jpg",type:"oil",desc:"Vaseline Petroleum Jelly"},
- {id:208,name:"Exercise Book",price:19,img:"https://i.imgur.com/AQrSAGW.jpeg/200",type:"book",desc:"Daftari mistali mikubwa na midogo"},
- {id:209,name:"Exercise Book",price:19,img:"https://i.imgur.com/ihIcg3h.jpeg/200",type:"book",desc:"Daftari la kuandikia page 100"},
- {id:210,name:"Exercise Book",price:17,img:"https://i.imgur.com/Hg8Aeea.jpeg/200",type:"book",desc:"Daftari la kuandikia page 32"}
+const speakers = [ 
+ {id:122,name:"Royco mchuzi mix(200g)",price:2200,img:"https://i.postimg.cc/13LjR2gC/royco1.jpg",type:"masala",desc:"Spicy Beef Flavour"},
+ {id:123,name:"Chicken Masala(100g)",price:2850,img:"https://i.postimg.cc/DzRb8VLY/chic-mas1.jpg",type:"masala",desc:"Spice Seasoning"},
+ {id:120,name:"Korie(3ltr)",price:16150,img:"https://i.postimg.cc/76vjPdmk/ab32.jpg",type:"mafuta"},
+ {id:121,name:"Korie(900ml)",price:5250,img:"https://i.postimg.cc/zDKdhVhJ/kori4.jpg",type:"mafuta",desc:"Korie Cooking Oil"},
+ {id:124,name:"Baking Powder(100g)",price:750,img:"https://i.postimg.cc/NfPGg61d/bakin1.jpg",type:"masala",desc:"Kwa Mandazi Baking Powder"},
+ {id:125,name:"Red Gold(400g)",price:1750,img:"https://i.postimg.cc/636F2SKZ/red-gol1.jpg",type:"masala",desc:"Red Gold Tomato Paste"},
+ {id:126,name:"Tea Masala(100g)",price:4250,img:"https://i.postimg.cc/dVH5N1Pb/tea-mas1.jpg",type:"masala",desc:"Spice seasoning"},
+ {id:127,name:"Pilau Masala(100g)",price:6050,img:"https://i.postimg.cc/5tQSPSmq/pilau-masa.jpg",type:"masala",desc:"Spice seasoning"},
+ {id:128,name:"White Vinegar 965ml",price:1150,img:"https://i.postimg.cc/9FN9vq0v/red-ven.jpg",type:"masala",desc:"RedGold White Vinegar "},
+ {id:129,name:"Blue Band 100g",price:1300,img:"https://i.postimg.cc/k461vX42/ab47.jpg/200",type:"extra",desc:"Blue Band 100g"},
+ {id:130,name:"Swahili Honey 500g",price:9000,img:"https://i.postimg.cc/kGR0Gv8Z/ab48.jpg/200",type:"extra",desc:"Swahili Honey"}
 ];
 
 // FORMAT PRICE (TZS + comma)
