@@ -17,9 +17,9 @@ body{
 .topbar{
  display:flex;
  align-items:center;
- background:linear-gradient(180deg, #87c7f3, #a8d8f8);
+ background:white;
  padding:10px;
- color:white;
+ color:black;
  gap:10px;
 
  position:fixed;
@@ -28,7 +28,7 @@ body{
  width:100%;
  z-index:1000;
 
-  box-sizing:border-box;
+ box-sizing:border-box;
 }
 .topbar input{
  flex:1;
@@ -37,6 +37,55 @@ body{
  border-radius:4px;
 }
 .cart{font-size:22px;cursor:pointer}
+
+ .title{
+ flex:1;
+ font-size:16px;
+ font-weight:bold;
+}
+
+/* SMALL GAP */
+.section-title{
+ padding:6px 10px;
+ margin:0;
+ font-size:18px;
+}
+
+/* THIS PRODUCT (2 COLUMN) */
+.two-grid{
+ display:grid;
+ grid-template-columns:repeat(2,1fr);
+ gap:10px;
+ padding:10px;
+}
+
+/* HORIZONTAL SCROLL ROW */
+.scroll-row{
+ display:flex;
+ overflow-x:auto;
+ gap:12px;
+ padding:10px;
+}
+.scroll-row::-webkit-scrollbar{
+ display:none;
+}
+
+.scroll-card{
+ min-width:130px;
+ max-width:130px;
+ background:#fff;
+ border-radius:8px;
+ padding:8px;
+ flex-shrink:0;
+ text-align:center;
+}
+
+.scroll-card img{
+ width:100%;
+ height:100px;
+ object-fit:cover;
+ border-radius:6px;
+}
 
 /* GRID */
 .grid{
@@ -57,73 +106,72 @@ body{
 <body>
 
 <!-- SEARCH + CART -->
-<div class="topbar">
- <input type="search" placeholder="Search products..." onkeyup="search(this.value)">
- <span class="cart" onclick="location.href='cart.html'">🛒</span>
+ <div class="topbar">
+  <span onclick="history.back()" style="font-size:22px;cursor:pointer;">←</span>
+
+  <h3 class="title">Continue Your Shopping</h3>
+
+  <span style="font-size:20px;cursor:pointer;" onclick="location.href='search.html'">🔍</span>
+  <span class="cart" onclick="location.href='cart.html'">🛒</span>
 </div>
 
-<h2 style="padding:10px">Gloves</h2>
-<div id="box" class="grid"></div>
+ <!-- THIS PRODUCT -->
+<h3 class="section-title">This Pants</h3>
+<div id="thisProduct" class="two-grid"></div>
 
-<script>
+ <script>
 const speakers = [
- {id:300,name:"Samsung Galaxy",price:480000,img:"https://i.postimg.cc/hG4NXd49/sam6.jpg",type:"samsung",desc:"Samsung Galaxy Note 20 Ultra 128Gb Black"},
- {id:301,name:"Samsung Galaxy",price:480000,img:"https://i.postimg.cc/VN44pZ8H/sam2.jpg",type:"samsung",desc:"Samsung Galaxy Note 20 Ultra 128Gb pink"},
- {id:302,name:"Samsung Galaxy",price:480000,img:"https://i.postimg.cc/yNCwsb2s/sam3.jpg",type:"samsung",desc:"Samsung Galaxy Note 20 Ultra 128Gb white"},
- {id:303,name:"Apple iphone",price:14,img:"https://i.imgur.com/1eGOscP.jpeg",type:"apple",desc:"Apple iphone 15 Pro Max 256GB"},
- {id:304,name:"Apple iphone",price:14,img:"https://i.imgur.com/CoMUqoa.jpeg",type:"apple",desc:"Apple iphone 13 Pro 128GB Sierra Blue"},
- {id:305,name:"Infinix",price:14,img:"https://i.imgur.com/n6N2S5v.jpeg",type:"infinix",desc:"The Note 50 Pro 256GB"},
- {id:306,name:"Infinix",price:14,img:"https://i.imgur.com/hvMxIYZ.jpeg",type:"infinix",desc:"infinix hot 60 pro plus 256GB 16RAM"},
- {id:307,name:"Redmi",price:25,img:"https://i.imgur.com/1vZm3wE.jpeg",type:"xiaomi",desc:"Xiaomi Redmi 15C 8gb 256GB Midnight black"},
- {id:308,name:"Redmi",price:25,img:"https://i.imgur.com/0JHAHqQ.jpeg",type:"xiaomi",desc:"Redmi 14c 5G 4GB 128GB"},
- {id:309,name:"Google Pixel",price:40,img:"https://i.imgur.com/OrdCEN6.jpeg",type:"google",desc:"Google Pixel 6a 128GB"},
- {id:310,name:"Sony Xperia",price:40,img:"https://i.imgur.com/xdWEj8z.jpeg",type:"sony",desc:"Sony Xperia 10 iii ROM 128GB RAM 6GB"}
+ {id:18,name:"Indian Garage Co Pant",price:32000,img:"https://i.imgur.com/fJconnx.jpeg",type:"jeans",desc:"Slim Fit Flat-Front Cargo Trousers"},
+ {id:19,name:"Dnmx for trends select",price:33000,img:"https://i.imgur.com/2JaAcgr.jpeg",type:"jeans",desc:"Slim Fit Flat-Front Cargo Trousers"},
+ {id:20,name:"ECKO UNLTD",price:82500,img:"https://i.imgur.com/R3ZrzPW.jpeg",type:"jeans",desc:"Slim Fit Flat-Front Cargo Pants"},
+ {id:21,name:"STUDIO NEXX",price:74000,img:"https://i.imgur.com/8E1PQNH.jpeg",type:"jeans",desc:"Straight Fit Cargo Pants"},
+ {id:3,name:"Slim Indian Garage Co",price:32500,img:"https://i.imgur.com/0bMhAZJ.jpeg",type:"jeans",desc:"Slim Fit Flat-Front Cargo Trousers"},
+ {id:4,name:"Buda Jeans Co Pant",price:25500,img:"https://i.imgur.com/HPRwTKJ.jpeg",type:"jeans",desc:"Men Slim Fit Mid-Rise Cargo Pants"}
 ];
 
-// FORMAT PRICE (TZS + comma)
+// FORMAT PRICE
 function formatPrice(price){
  return "TZS " + Number(price).toLocaleString() + "/=";
 }
 
-// LOAD EXISTING PRODUCTS
-let all = JSON.parse(localStorage.getItem("allProducts")) || [];
+// DRAW PRODUCTS
+function drawThisProduct(){
 
-// MERGE WITHOUT DUPLICATES
-speakers.forEach(sp => {
- if (!all.some(p => p.id === sp.id)) {
-  all.push(sp);
- }
-});
-
-localStorage.setItem("allProducts", JSON.stringify(all));
-
-// DISPLAY FUNCTION
-function draw(list){
- document.getElementById("box").innerHTML = list.map(p=>`
-  <div class="card" onclick="openProduct(${p.id})">
-   <img src="${p.img}">
-   <p>${p.name}</p>
-   <b>${formatPrice(p.price)}</b>
-  </div>
- `).join("");
+ document.getElementById("thisProduct").innerHTML =
+  speakers.map(p=>`
+   <div class="card" onclick="openProduct(${p.id})">
+    <img src="${p.img}">
+    <p>${p.name}</p>
+    <b>${formatPrice(p.price)}</b>
+   </div>
+  `).join("");
 }
-
-// INITIAL LOAD
-draw(speakers);
 
 // SEARCH FUNCTION
 function search(value){
+
  const filtered = speakers.filter(p =>
   p.name.toLowerCase().includes(value.toLowerCase())
  );
- draw(filtered);
+
+ document.getElementById("thisProduct").innerHTML =
+  filtered.map(p=>`
+   <div class="card" onclick="openProduct(${p.id})">
+    <img src="${p.img}">
+    <p>${p.name}</p>
+    <b>${formatPrice(p.price)}</b>
+   </div>
+  `).join("");
 }
 
-// OPEN PRODUCT
+// OPEN PRODUCT PAGE
 function openProduct(id){
  localStorage.setItem("pid", id);
  location.href = "product.html";
 }
+
+// LOAD PRODUCTS
+drawThisProduct();
 </script>
 
 </body>
