@@ -10,7 +10,7 @@ body{
  margin:0;
  font-family:Arial;
  background:#f4f4f4;
- padding-top:70px;
+ padding-top:60px; /* reduced top spacing */
 }
 
 /* TOP BAR */
@@ -28,29 +28,45 @@ body{
  width:100%;
  z-index:1000;
 
-  box-sizing:border-box;
+ box-sizing:border-box;
 }
+
 .topbar input{
  flex:1;
  padding:8px;
  border:none;
  border-radius:4px;
 }
-.cart{font-size:22px;cursor:pointer}
+
+.cart{
+ font-size:22px;
+ cursor:pointer;
+}
+
+/* HEADING */
+.page-title{
+ padding:4px 10px 2px; /* very small space */
+ margin:0;
+ font-size:22px;
+}
 
 /* GRID */
 .grid{
  display:grid;
  grid-template-columns:repeat(2,1fr);
  gap:10px;
- padding:10px;
+ padding:4px 10px 10px; /* smaller top space */
 }
+
 .card{
  background:#fff;
  padding:10px;
  border-radius:6px;
 }
-.card img{width:100%}
+
+.card img{
+ width:100%;
+}
 </style>
 </head>
 
@@ -62,7 +78,8 @@ body{
  <span class="cart" onclick="location.href='cart.html'">🛒</span>
 </div>
 
-<h2 style="padding:10px">Wireless</h2>
+<h2 class="page-title">Wireless</h2>
+
 <div id="box" class="grid"></div>
 
 <script>
