@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Gloves</title>
+<title>Wireless</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 <style>
@@ -10,17 +10,17 @@ body{
  margin:0;
  font-family:Arial;
  background:#f4f4f4;
- padding-top:70px;
+ padding-top:60px;
 }
 
 /* TOP BAR */
 .topbar{
  display:flex;
+ justify-content:space-between;
  align-items:center;
  background:white;
- padding:10px;
+ padding:12px 10px;
  color:black;
- gap:10px;
 
  position:fixed;
  top:0;
@@ -30,61 +30,38 @@ body{
 
  box-sizing:border-box;
 }
-.topbar input{
- flex:1;
- padding:8px;
- border:none;
- border-radius:4px;
-}
-.cart{font-size:22px;cursor:pointer}
 
- .title{
- flex:1;
- font-size:16px;
+/* LEFT SIDE */
+.back-area{
+ display:flex;
+ align-items:center;
+ gap:6px;
+ cursor:pointer;
+ font-size:15px;
  font-weight:bold;
 }
 
-/* SMALL GAP */
-.section-title{
- padding:6px 10px;
- margin:0;
- font-size:18px;
+.back-arrow{
+ font-size:22px;
 }
 
-/* THIS PRODUCT (2 COLUMN) */
-.two-grid{
- display:grid;
- grid-template-columns:repeat(2,1fr);
- gap:10px;
- padding:10px;
-}
-
-/* HORIZONTAL SCROLL ROW */
-.scroll-row{
+/* RIGHT SIDE */
+.top-icons{
  display:flex;
- overflow-x:auto;
- gap:12px;
- padding:10px;
-}
-.scroll-row::-webkit-scrollbar{
- display:none;
+ align-items:center;
+ gap:18px;
 }
 
-.scroll-card{
- min-width:130px;
- max-width:130px;
- background:#fff;
- border-radius:8px;
- padding:8px;
- flex-shrink:0;
- text-align:center;
+.icon{
+ font-size:22px;
+ cursor:pointer;
 }
 
-.scroll-card img{
- width:100%;
- height:100px;
- object-fit:cover;
- border-radius:6px;
+/* HEADING */
+.page-title{
+ padding:4px 10px 2px;
+ margin:0;
+ font-size:22px;
 }
 
 /* GRID */
@@ -92,83 +69,92 @@ body{
  display:grid;
  grid-template-columns:repeat(2,1fr);
  gap:10px;
- padding:10px;
+ padding:4px 10px 10px;
 }
+
 .card{
  background:#fff;
  padding:10px;
  border-radius:6px;
 }
-.card img{width:100%}
+
+.card img{
+ width:100%;
+}
 </style>
 </head>
 
 <body>
 
-<!-- SEARCH + CART -->
- <div class="topbar">
-  <span onclick="history.back()" style="font-size:22px;cursor:pointer;">←</span>
+<!-- TOP BAR -->
+<div class="topbar">
 
-  <h3 class="title">Continue Your Shopping</h3>
+ <!-- LEFT -->
+ <div class="back-area" onclick="location.href='index.html'">
+  <span class="back-arrow">←</span>
+  <span>Continue Shopping</span>
+ </div>
 
-  <span style="font-size:20px;cursor:pointer;" onclick="location.href='search.html'">🔍</span>
-  <span class="cart" onclick="location.href='cart.html'">🛒</span>
+ <!-- RIGHT -->
+ <div class="top-icons">
+  <span class="icon" onclick="location.href='search.html'">🔍</span>
+  <span class="icon" onclick="location.href='cart.html'">🛒</span>
+ </div>
+
 </div>
 
- <!-- THIS PRODUCT -->
-<h3 class="section-title">Buy Here Gloves</h3>
-<div id="thisProduct" class="two-grid"></div>
+<h2 class="page-title">Buy Here Gloves</h2>
 
- <script>
-const speakers = [ 
- {id:23,name:"Gloves ZaySoo",price:13000,img:"https://i.imgur.com/bnxAhsJ.jpeg",type:"gloves",desc:"ZaySoo Anti-Slip Gym  Gloves for Professional Weightlifting,fitness Training and workout"},
- {id:24,name:"Gloves Adidas",price:15000,img:"https://i.imgur.com/SEkRfCe.jpeg",type:"gloves",desc:"Adidas Essential Training Gloves"},
- {id:25,name:"Riding Gloves",price:12000,img:"https://i.imgur.com/bdRBRBf.jpeg",type:"gloves",desc:"Riding Gloves"}
+<div id="box" class="grid"></div>
+
+<script>
+const speakers = [
+ {id:39,name:"Zara Brown",price:32000,img:"https://i.postimg.cc/dVWyHGSG/ab16.jpg",type:"sports",desc:"Brown leather Zara Sandals"},
+ {id:40,name:"Zara Leather Black",price:32000,img:"https://i.postimg.cc/tTss7TyS/ab18.jpg",type:"sports",desc:"Black Leather Zara Comfortable Cross"},
+ {id:41,name:"Brown Leather",price:20000,img:"https://i.postimg.cc/VsD4Q0Ty/ab17.jpg",type:"sports",desc:"Brown leather Slides"},
+ {id:42,name:"Prada black",price:20000,img:"https://i.postimg.cc/7LD1CSQm/ab19.jpg",type:"sports",desc:"Prada black patent leather sandals"},
+ {id:43,name:"Black Fendi",price:10000,img:"https://i.postimg.cc/G3xvNXzv/ab23.jpg",type:"sports",desc:"Black Fendi Women sandals"},
+ {id:44,name:"Brown Mosssimo",price:28000,img:"https://i.postimg.cc/7ht3R6Dk/ab24.jpg",type:"sports",desc:"Mossimo sandals with a crisscross strap"},
+ {id:45,name:"Gold Modish Slides",price:15000,img:"https://i.postimg.cc/9M8b61Yz/ab25.jpg",type:"sports",desc:"Gold Modish Slides Sendals"},
+ {id:46,name:"Burberry black Canvas",price:15000,img:"https://i.postimg.cc/sD6B5qDs/ab26.jpg",type:"sports",desc:"Burberry canvas and leather Honour sandals"}
 ];
 
 // FORMAT PRICE
 function formatPrice(price){
- return "TZS " + Number(price).toLocaleString() + "/=";
+ return "TZS " + Number(price).toLocaleString();
 }
 
-// DRAW PRODUCTS
-function drawThisProduct(){
+// LOAD EXISTING PRODUCTS
+let all = JSON.parse(localStorage.getItem("allProducts")) || [];
 
- document.getElementById("thisProduct").innerHTML =
-  speakers.map(p=>`
-   <div class="card" onclick="openProduct(${p.id})">
-    <img src="${p.img}">
-    <p>${p.name}</p>
-    <b>${formatPrice(p.price)}</b>
-   </div>
-  `).join("");
+// MERGE WITHOUT DUPLICATES
+speakers.forEach(sp => {
+ if (!all.some(p => p.id === sp.id)) {
+  all.push(sp);
+ }
+});
+
+localStorage.setItem("allProducts", JSON.stringify(all));
+
+// DISPLAY PRODUCTS
+function draw(list){
+ document.getElementById("box").innerHTML = list.map(p=>`
+  <div class="card" onclick="openProduct(${p.id})">
+   <img src="${p.img}">
+   <p>${p.name}</p>
+   <b>${formatPrice(p.price)}</b>
+  </div>
+ `).join("");
 }
 
-// SEARCH FUNCTION
-function search(value){
+// INITIAL LOAD
+draw(speakers);
 
- const filtered = speakers.filter(p =>
-  p.name.toLowerCase().includes(value.toLowerCase())
- );
-
- document.getElementById("thisProduct").innerHTML =
-  filtered.map(p=>`
-   <div class="card" onclick="openProduct(${p.id})">
-    <img src="${p.img}">
-    <p>${p.name}</p>
-    <b>${formatPrice(p.price)}</b>
-   </div>
-  `).join("");
-}
-
-// OPEN PRODUCT PAGE
+// OPEN PRODUCT
 function openProduct(id){
  localStorage.setItem("pid", id);
  location.href = "product.html";
 }
-
-// LOAD PRODUCTS
-drawThisProduct();
 </script>
 
 </body>
