@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Gloves</title>
+<title>Wireless</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 <style>
@@ -10,17 +10,17 @@ body{
  margin:0;
  font-family:Arial;
  background:#f4f4f4;
- padding-top:70px;
+ padding-top:60px;
 }
 
 /* TOP BAR */
 .topbar{
  display:flex;
+ justify-content:space-between;
  align-items:center;
  background:white;
- padding:10px;
+ padding:12px 10px;
  color:black;
- gap:10px;
 
  position:fixed;
  top:0;
@@ -30,61 +30,38 @@ body{
 
  box-sizing:border-box;
 }
-.topbar input{
- flex:1;
- padding:8px;
- border:none;
- border-radius:4px;
-}
-.cart{font-size:22px;cursor:pointer}
 
- .title{
- flex:1;
- font-size:16px;
+/* LEFT SIDE */
+.back-area{
+ display:flex;
+ align-items:center;
+ gap:6px;
+ cursor:pointer;
+ font-size:15px;
  font-weight:bold;
 }
 
-/* SMALL GAP */
-.section-title{
- padding:6px 10px;
- margin:0;
- font-size:18px;
+.back-arrow{
+ font-size:22px;
 }
 
-/* THIS PRODUCT (2 COLUMN) */
-.two-grid{
- display:grid;
- grid-template-columns:repeat(2,1fr);
- gap:10px;
- padding:10px;
-}
-
-/* HORIZONTAL SCROLL ROW */
-.scroll-row{
+/* RIGHT SIDE */
+.top-icons{
  display:flex;
- overflow-x:auto;
- gap:12px;
- padding:10px;
-}
-.scroll-row::-webkit-scrollbar{
- display:none;
+ align-items:center;
+ gap:18px;
 }
 
-.scroll-card{
- min-width:130px;
- max-width:130px;
- background:#fff;
- border-radius:8px;
- padding:8px;
- flex-shrink:0;
- text-align:center;
+.icon{
+ font-size:22px;
+ cursor:pointer;
 }
 
-.scroll-card img{
- width:100%;
- height:100px;
- object-fit:cover;
- border-radius:6px;
+/* HEADING */
+.page-title{
+ padding:4px 10px 2px;
+ margin:0;
+ font-size:22px;
 }
 
 /* GRID */
@@ -92,86 +69,95 @@ body{
  display:grid;
  grid-template-columns:repeat(2,1fr);
  gap:10px;
- padding:10px;
+ padding:4px 10px 10px;
 }
+
 .card{
  background:#fff;
  padding:10px;
  border-radius:6px;
 }
-.card img{width:100%}
+
+.card img{
+ width:100%;
+}
 </style>
 </head>
 
 <body>
 
-<!-- SEARCH + CART -->
- <div class="topbar">
-  <span onclick="history.back()" style="font-size:22px;cursor:pointer;">←</span>
+<!-- TOP BAR -->
+<div class="topbar">
 
-  <h3 class="title">Continue Your Shopping</h3>
+ <!-- LEFT -->
+ <div class="back-area" onclick="location.href='index.html'">
+  <span class="back-arrow">←</span>
+  <span>Continue Shopping</span>
+ </div>
 
-  <span style="font-size:20px;cursor:pointer;" onclick="location.href='search.html'">🔍</span>
-  <span class="cart" onclick="location.href='cart.html'">🛒</span>
+ <!-- RIGHT -->
+ <div class="top-icons">
+  <span class="icon" onclick="location.href='search.html'">🔍</span>
+  <span class="icon" onclick="location.href='cart.html'">🛒</span>
+ </div>
+
 </div>
 
- <!-- THIS PRODUCT -->
-<h3 class="section-title">This Pants</h3>
-<div id="thisProduct" class="two-grid"></div>
+<h2 class="page-title">Brand & New Cargo Pants</h2>
 
- <script>
+<div id="box" class="grid"></div>
+
+<script>
 const speakers = [
- {id:18,name:"Indian Garage Co Pant",price:32000,img:"https://i.imgur.com/fJconnx.jpeg",type:"jeans",desc:"Slim Fit Flat-Front Cargo Trousers"},
- {id:19,name:"Dnmx for trends select",price:33000,img:"https://i.imgur.com/2JaAcgr.jpeg",type:"jeans",desc:"Slim Fit Flat-Front Cargo Trousers"},
- {id:20,name:"ECKO UNLTD",price:82500,img:"https://i.imgur.com/R3ZrzPW.jpeg",type:"jeans",desc:"Slim Fit Flat-Front Cargo Pants"},
- {id:21,name:"STUDIO NEXX",price:74000,img:"https://i.imgur.com/8E1PQNH.jpeg",type:"jeans",desc:"Straight Fit Cargo Pants"},
- {id:3,name:"Slim Indian Garage Co",price:32500,img:"https://i.imgur.com/0bMhAZJ.jpeg",type:"jeans",desc:"Slim Fit Flat-Front Cargo Trousers"},
- {id:4,name:"Buda Jeans Co Pant",price:25500,img:"https://i.imgur.com/HPRwTKJ.jpeg",type:"jeans",desc:"Men Slim Fit Mid-Rise Cargo Pants"}
+ {id:309,name:"Google Pixel 6a",price:390000,img:"https://i.imgur.com/OrdCEN6.jpeg",type:"google",desc:"Google Pixel 6a 128GB Gray"},
+ {id:310,name:"Sony Xperia 10 iii",price:260000,img:"https://i.imgur.com/xdWEj8z.jpeg",type:"sony",desc:"Used Sony Xperia 10 iii ROM 128GB RAM 6GB"},
+ {id:306,name:"Infinix Hot 60 Pro+",price:350000,img:"https://i.imgur.com/hvMxIYZ.jpeg",type:"infinix",desc:"infinix hot 60 pro plus 128GB 8RAM"},
+ {id:307,name:"Redmi 15C Black",price:350000,img:"https://i.imgur.com/1vZm3wE.jpeg",type:"xiaomi",desc:"Xiaomi Redmi 15C 8gb 256GB Midnight black"},
+ {id:300,name:"Samsung Galaxy Black",price:480000,img:"https://i.postimg.cc/hG4NXd49/sam6.jpg",type:"samsung",desc:"Samsung Galaxy Note 20 Ultra 128Gb Black"},
+ {id:301,name:"Samsung Galaxy Pink",price:480000,img:"https://i.postimg.cc/VN44pZ8H/sam2.jpg",type:"samsung",desc:"Samsung Galaxy Note 20 Ultra 128Gb pink"},
+ {id:302,name:"Samsung Galaxy White",price:480000,img:"https://i.postimg.cc/yNCwsb2s/sam3.jpg",type:"samsung",desc:"Samsung Galaxy Note 20 Ultra 128Gb white"},
+ {id:303,name:"Apple iphone 15 Pro Max",price:2200000,img:"https://i.imgur.com/1eGOscP.jpeg",type:"apple",desc:"New Apple iphone 15 Pro Max 256GB Gray"},
+ {id:304,name:"Apple iphone 13 pro",price:1180000,img:"https://i.imgur.com/CoMUqoa.jpeg",type:"apple",desc:"New Apple iphone 13 Pro 128GB Sierra Blue"},
+ {id:305,name:"Infinix Note 50 Pro",price:680000,img:"https://i.imgur.com/n6N2S5v.jpeg",type:"infinix",desc:"New infinix Note 50 Pro 256GB"},
+ {id:308,name:"Redmi 14C Black",price:280000,img:"https://i.imgur.com/0JHAHqQ.jpeg",type:"xiaomi",desc:"New Xiaomi Redmi 14c 4GB 128GB Black"}
 ];
 
 // FORMAT PRICE
 function formatPrice(price){
- return "TZS " + Number(price).toLocaleString() + "/=";
+ return "TZS " + Number(price).toLocaleString();
 }
 
-// DRAW PRODUCTS
-function drawThisProduct(){
+// LOAD EXISTING PRODUCTS
+let all = JSON.parse(localStorage.getItem("allProducts")) || [];
 
- document.getElementById("thisProduct").innerHTML =
-  speakers.map(p=>`
-   <div class="card" onclick="openProduct(${p.id})">
-    <img src="${p.img}">
-    <p>${p.name}</p>
-    <b>${formatPrice(p.price)}</b>
-   </div>
-  `).join("");
+// MERGE WITHOUT DUPLICATES
+speakers.forEach(sp => {
+ if (!all.some(p => p.id === sp.id)) {
+  all.push(sp);
+ }
+});
+
+localStorage.setItem("allProducts", JSON.stringify(all));
+
+// DISPLAY PRODUCTS
+function draw(list){
+ document.getElementById("box").innerHTML = list.map(p=>`
+  <div class="card" onclick="openProduct(${p.id})">
+   <img src="${p.img}">
+   <p>${p.name}</p>
+   <b>${formatPrice(p.price)}</b>
+  </div>
+ `).join("");
 }
 
-// SEARCH FUNCTION
-function search(value){
+// INITIAL LOAD
+draw(speakers);
 
- const filtered = speakers.filter(p =>
-  p.name.toLowerCase().includes(value.toLowerCase())
- );
-
- document.getElementById("thisProduct").innerHTML =
-  filtered.map(p=>`
-   <div class="card" onclick="openProduct(${p.id})">
-    <img src="${p.img}">
-    <p>${p.name}</p>
-    <b>${formatPrice(p.price)}</b>
-   </div>
-  `).join("");
-}
-
-// OPEN PRODUCT PAGE
+// OPEN PRODUCT
 function openProduct(id){
  localStorage.setItem("pid", id);
  location.href = "product.html";
 }
-
-// LOAD PRODUCTS
-drawThisProduct();
 </script>
 
 </body>
