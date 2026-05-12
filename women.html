@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Dress</title>
+<title>Wireless</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 <style>
@@ -10,17 +10,17 @@ body{
  margin:0;
  font-family:Arial;
  background:#f4f4f4;
- padding-top:70px;
+ padding-top:60px;
 }
 
 /* TOP BAR */
 .topbar{
  display:flex;
+ justify-content:space-between;
  align-items:center;
- background:linear-gradient(180deg, #87c7f3, #a8d8f8);
- padding:10px;
- color:white;
- gap:10px;
+ background:white;
+ padding:12px 10px;
+ color:black;
 
  position:fixed;
  top:0;
@@ -28,54 +28,96 @@ body{
  width:100%;
  z-index:1000;
 
-  box-sizing:border-box;
+ box-sizing:border-box;
 }
-.topbar input{
- flex:1;
- padding:8px;
- border:none;
- border-radius:4px;
+
+/* LEFT SIDE */
+.back-area{
+ display:flex;
+ align-items:center;
+ gap:6px;
+ cursor:pointer;
+ font-size:15px;
+ font-weight:bold;
 }
-.cart{font-size:22px;cursor:pointer}
+
+.back-arrow{
+ font-size:22px;
+}
+
+/* RIGHT SIDE */
+.top-icons{
+ display:flex;
+ align-items:center;
+ gap:18px;
+}
+
+.icon{
+ font-size:22px;
+ cursor:pointer;
+}
+
+/* HEADING */
+.page-title{
+ padding:4px 10px 2px;
+ margin:0;
+ font-size:22px;
+}
 
 /* GRID */
 .grid{
  display:grid;
  grid-template-columns:repeat(2,1fr);
  gap:10px;
- padding:10px;
+ padding:4px 10px 10px;
 }
+
 .card{
  background:#fff;
  padding:10px;
  border-radius:6px;
 }
-.card img{width:100%}
+
+.card img{
+ width:100%;
+}
 </style>
 </head>
 
 <body>
 
-<!-- SEARCH + CART -->
+<!-- TOP BAR -->
 <div class="topbar">
- <input type="search" placeholder="Search products..." onkeyup="search(this.value)">
- <span class="cart" onclick="location.href='cart.html'">🛒</span>
+
+ <!-- LEFT -->
+ <div class="back-area" onclick="location.href='index.html'">
+  <span class="back-arrow">←</span>
+  <span>Continue Shopping</span>
+ </div>
+
+ <!-- RIGHT -->
+ <div class="top-icons">
+  <span class="icon" onclick="location.href='search.html'">🔍</span>
+  <span class="icon" onclick="location.href='cart.html'">🛒</span>
+ </div>
+
 </div>
 
-<h2 style="padding:10px">International dress</h2>
+<h2 class="page-title">Wireless</h2>
+
 <div id="box" class="grid"></div>
 
 <script>
 const speakers = [
- {id:600,name:"Mini Boost",price:35000,img:"https://i.imgur.com/DKQ0LxO.jpeg",desc:"Portable speaker",cat:"Speakers"},
- {id:601,name:"Samsung Mix",price:55000,img:"https://i.imgur.com/6ZJ4nZy.jpeg",desc:"Deep bass speaker",cat:"Speakers"},
- {id:602,name:"Fitric M3",price:42000,img:"https://i.imgur.com/VZ9z9lL.jpeg",desc:"Wireless speaker",cat:"Speakers"},
- {id:603,name:"JBL Go",price:38000,img:"https://i.imgur.com/jxZpFfK.jpeg",desc:"Mini powerful sound",cat:"Speakers"},
- {id:604,name:"Royco",price:14000,img:"https://i.imgur.com/rmXvXwO.jpeg/200",cat:"Chakula & afya"},
- {id:605,name:"Sukari 1kg",price:30000,img:"https://i.imgur.com/1EFgnRl.jpeg"}
+ {id:700,name:"Mini Boost",price:35000,img:"https://i.imgur.com/DKQ0LxO.jpeg",desc:"Portable speaker",cat:"Speakers"},
+ {id:701,name:"Samsung Mix",price:55000,img:"https://i.imgur.com/6ZJ4nZy.jpeg",desc:"Deep bass speaker",cat:"Speakers"},
+ {id:702,name:"Fitric M3",price:42000,img:"https://i.imgur.com/VZ9z9lL.jpeg",desc:"Wireless speaker",cat:"Speakers"},
+ {id:703,name:"JBL Go",price:38000,img:"https://i.imgur.com/jxZpFfK.jpeg",desc:"Mini powerful sound",cat:"Speakers"},
+ {id:704,name:"Royco",price:14000,img:"https://i.imgur.com/rmXvXwO.jpeg/200",cat:"Chakula & afya"},
+ {id:705,name:"Sukari 1kg",price:30000,img:"https://i.imgur.com/1EFgnRl.jpeg"}
 ];
 
-// FORMAT PRICE (TZS + comma)
+// FORMAT PRICE
 function formatPrice(price){
  return "TZS " + Number(price).toLocaleString();
 }
@@ -92,7 +134,7 @@ speakers.forEach(sp => {
 
 localStorage.setItem("allProducts", JSON.stringify(all));
 
-// DISPLAY FUNCTION
+// DISPLAY PRODUCTS
 function draw(list){
  document.getElementById("box").innerHTML = list.map(p=>`
   <div class="card" onclick="openProduct(${p.id})">
@@ -105,14 +147,6 @@ function draw(list){
 
 // INITIAL LOAD
 draw(speakers);
-
-// SEARCH FUNCTION
-function search(value){
- const filtered = speakers.filter(p =>
-  p.name.toLowerCase().includes(value.toLowerCase())
- );
- draw(filtered);
-}
 
 // OPEN PRODUCT
 function openProduct(id){
