@@ -105,9 +105,6 @@ body{
     <!-- hidden textarea for sending data -->
     <textarea name="order" id="order" hidden></textarea>
 
-   <!-- ✅ HTTPS REDIRECT (VERY IMPORTANT) -->
-    <input type="hidden" name="_next" value="https://www.jafar-otto.com/success.html">
-
     <button type="submit">Place Order</button>
   </form>
 
@@ -215,9 +212,7 @@ await saveOrderToFirebase(customer);
 
 localStorage.removeItem("buy");
 
-  alert("Order placed successfully!");
-
-  window.location.href = "success.html";
+  window.location.replace("success.html");
 
 });
 
