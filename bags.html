@@ -108,11 +108,37 @@ body{
 <div id="box" class="grid"></div>
 
 <script>
-const speakers = [
- {id:55,name:"Girls Backpack",price:68000,img:"https://i.postimg.cc/ZKcYmDmQ/bag2.jpg",type:"gloves",desc:"Backpack for Girls"},
- {id:56,name:"MD Black Backpack",price:68000,img:"https://i.postimg.cc/ZK1G18vt/bag3.jpg",type:"gloves",desc:"MD laptop Backpack"},
- {id:57,name:"Cellphone Mall",price:68000,img:"https://i.postimg.cc/9Fwq12jW/bag4.jpg",type:"gloves",desc:"Cellphone Mall Men Travel Backpacks"},
- {id:58,name:"Kids School bag",price:25000,img:"https://i.postimg.cc/tJZH02XM/bag1.jpg",type:"gloves",desc:"SpiderMan Backpack"}
+/* AUTO DELIVERY DATE = TODAY + 7 DAYS */
+function getDeliveryDate(days = 7){
+
+  const months = [
+    "January","February","March","April","May","June",
+    "July","August","September","October","November","December"
+  ];
+
+  const daysName = [
+    "Sun","Mon","Tue","Wed","Thu","Fri","Sat"
+  ];
+
+  let d = new Date();
+
+  d.setDate(d.getDate() + days);
+
+  let day = d.getDate();
+  let month = months[d.getMonth()];
+  let weekDay = daysName[d.getDay()];
+
+  return `Delivery by ${day} ${month}, ${weekDay}`;
+}
+
+const autoDelivery = getDeliveryDate(7);
+
+/* FASHION DATA */
+const fashion=[
+ {id:55,name:"Girls Backpack",price:68000,img:"https://i.postimg.cc/ZKcYmDmQ/bag2.jpg",type:"gloves",desc:"Backpack for Girls",delivery:autoDelivery},
+ {id:56,name:"MD Black Backpack",price:68000,img:"https://i.postimg.cc/ZK1G18vt/bag3.jpg",type:"gloves",desc:"MD laptop Backpack",delivery:autoDelivery},
+ {id:57,name:"Cellphone Mall",price:68000,img:"https://i.postimg.cc/9Fwq12jW/bag4.jpg",type:"gloves",desc:"Cellphone Mall Men Travel Backpacks",delivery:autoDelivery},
+ {id:58,name:"Kids School bag",price:25000,img:"https://i.postimg.cc/tJZH02XM/bag1.jpg",type:"gloves",desc:"SpiderMan Backpack",delivery:autoDelivery}
 ];
 
 // FORMAT PRICE
