@@ -431,6 +431,11 @@ if(cart.length === 0){
           ${c.desc ? `<p>${c.desc}</p>` : ""}
           ${c.size ? `<p>Size: ${c.size}</p>` : ""}
 
+<p style="color:#2874f0;font-weight:bold;">
+  <i class="fa fa-truck"></i>
+  ${c.delivery || "Delivery by 25 May, Mon"}
+</p>
+
           <div class="price">${formatPrice(c.price)}</div>
 
           <div class="action-row">
