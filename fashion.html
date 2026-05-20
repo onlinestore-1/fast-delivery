@@ -192,65 +192,91 @@ setInterval(()=>{
 },3000);
 
 /* FASHION DATA */
+/* AUTO DELIVERY DATE = TODAY + 7 DAYS */
+function getDeliveryDate(days = 7){
+
+  const months = [
+    "January","February","March","April","May","June",
+    "July","August","September","October","November","December"
+  ];
+
+  const daysName = [
+    "Sun","Mon","Tue","Wed","Thu","Fri","Sat"
+  ];
+
+  let d = new Date();
+
+  d.setDate(d.getDate() + days);
+
+  let day = d.getDate();
+  let month = months[d.getMonth()];
+  let weekDay = daysName[d.getDay()];
+
+  return `Delivery by ${day} ${month}, ${weekDay}`;
+}
+
+const autoDelivery = getDeliveryDate(7);
+
+/* FASHION DATA */
 const fashion=[
- {id:1,name:"Blue T-Shirt",price:18000,img:"https://i.imgur.com/M7lVvkH.jpeg",type:"tshirt",desc:"Men Washed Relaxed Fit Crew" },
- {id:2,name:"NEONOMAD Fit",price:18000,img:"https://i.imgur.com/QlgHGCQ.jpeg",type:"tshirt",desc:"Men Embroidered Regular Fit"},
- {id:3,name:"Slim Indian Garage Co",price:32500,img:"https://i.imgur.com/0bMhAZJ.jpeg",type:"jeans",desc:"Slim Fit Flat-Front Cargo Trousers"},
- {id:4,name:"Buda Jeans Co Pant",price:25500,img:"https://i.imgur.com/HPRwTKJ.jpeg",type:"jeans",desc:"Men Slim Fit Mid-Rise Cargo Pants"},
- {id:5,name:"Common Men",price:17000,img:"https://i.postimg.cc/Yq9jyfd2/ab15.jpg",type:"tshirt",desc:"House of Common Polo Neck"},
- {id:6,name:"TECHNOSPORT",price:13000,img:"https://i.imgur.com/EptkNxj.jpeg",type:"tshirt",desc:"Men Slim Fit T Shirt"},
- {id:7,name:"Surprise Buda Jeans Co",price:10000,img:"https://i.imgur.com/DuPhNKu.jpeg",type:"tshirt",desc:"Men Graphic Print Regular Fit"},
- {id:8,name:"Alfaq",price:15000,img:"https://i.imgur.com/unw4MV3.jpeg",type:"tshirt",desc:"Men Graphic Print Oversized"},
- {id:9,name:"Black Neonomad Street ",price:12000,img:"https://i.imgur.com/zgyFKOe.jpeg",type:"tshirt",desc:"Men Graphic Print Oversized"},
- {id:10,name:"Neonomad Urban",price:12500,img:"https://i.imgur.com/tpYrddJ.jpeg",type:"tshirt",desc:"Men Graphic Print Oversized"},
- {id:11,name:"Buda Jeans Co Race",price:12500,img:"https://i.imgur.com/bBde034.jpeg",type:"tshirt",desc:"Men Graphic Oversized Fit"},
- {id:12,name:"Black Neonomad",price:12000,img:"https://i.imgur.com/NDAoZAr.jpeg",type:"tshirt",desc:"Men Graphic Print Oversized Fit"},
- {id:13,name:"Blue Buda Jeans Co",price:12000,img:"https://i.imgur.com/SSMbMl6.jpeg",type:"tshirt",desc:"Men Graphic Print Oversized Fit"},
- {id:14,name:"lee cooper",price:10000,img:"https://i.imgur.com/3yuEsKY.jpeg",type:"tshirt",desc:"Men Brand Print oversized Fit"},
- {id:15,name:"Yousta",price:6000,img:"https://i.imgur.com/3d3c22F.jpeg",type:"tshirt",desc:"Men Graphic Print Oversized Fit"},
- {id:16,name:"Marvel Buda jeans Co",price:13000,img:"https://i.imgur.com/0kLhxU4.jpeg",type:"tshirt",desc:"Men Graphic Print Oversized Fit"},
- {id:17,name:"T-Base",price:19000,img:"https://i.imgur.com/MkDOJUt.jpeg",type:"tshirt",desc:"Men Typographic Print Regular"},
- {id:18,name:"Indian Garage Co Pant",price:32000,img:"https://i.imgur.com/fJconnx.jpeg",type:"jeans",desc:"Slim Fit Flat-Front Cargo Trousers"},
- {id:19,name:"Dnmx for trends select",price:33000,img:"https://i.imgur.com/2JaAcgr.jpeg",type:"jeans",desc:"Slim Fit Flat-Front Cargo Trousers"},
- {id:20,name:"ECKO UNLTD",price:82500,img:"https://i.imgur.com/R3ZrzPW.jpeg",type:"jeans",desc:"Slim Fit Flat-Front Cargo Pants"},
- {id:21,name:"STUDIO NEXX",price:74000,img:"https://i.imgur.com/8E1PQNH.jpeg",type:"jeans",desc:"Straight Fit Cargo Pants"},
- {id:22,name:"Black Air Max 95cdg",price:55000,img:"https://i.imgur.com/FVZ7qPJ.jpeg",type:"sports",desc:"Air Max 95 CDG Black"},
- {id:23,name:"Gloves ZaySoo",price:13000,img:"https://i.imgur.com/bnxAhsJ.jpeg",type:"gloves",desc:"ZaySoo Anti-Slip Gym  Gloves for Professional Weightlifting,fitness Training and workout"},
- {id:24,name:"Gloves Adidas",price:15000,img:"https://i.imgur.com/SEkRfCe.jpeg",type:"gloves",desc:"Adidas Essential Training Gloves"},
- {id:25,name:"Riding Gloves",price:12000,img:"https://i.imgur.com/bdRBRBf.jpeg",type:"gloves",desc:"Riding Gloves"},
- {id:26,name:"Military Corps Hat",price:66000,img:"https://i.imgur.com/a4J8TP1.jpeg",type:"kids",desc:"Military Corps Hat Flat Top Cap"},
- {id:27,name:"Army Cap Black",price:66000,img:"https://i.imgur.com/V8Z9QOn.jpeg",type:"kids",desc:"Glamorstar Unisex Cadet Army Cap"},
- {id:28,name:"Air Force nike 1 07low",price:45000,img:"https://i.imgur.com/tsN4nxq.jpeg",type:"sports",desc:"Nike Air Force 1 07 Low Triple Black Shoes"},
- {id:29,name:"iVOC",price:40000,img:"https://i.imgur.com/tgQnYlT.jpeg",type:"jeans",desc:"Solid Slim Fit Trouser"},
- {id:47,name:"psg Home",price:27000,img:"https://i.postimg.cc/Sx9yW3Ch/ab3.jpg",type:"jezi",desc:"psg Home Kit 2025/26"},
- {id:48,name:"psg Away",price:27000,img:"https://i.postimg.cc/0QQFCKFt/ab2.jpg",type:"jezi",desc:"psg Kit 2025/26"},
- {id:30,name:"Manchester United",price:27000,img:"https://i.postimg.cc/D0f5GjC9/dr12.jpg",type:"jezi",desc:"Manchester United Home Kit 2025/26"},
- {id:31,name:"Arsenal",price:27000,img:"https://i.postimg.cc/DfqfvrKf/ars1.jpg",type:"jezi",desc:"Arsenal Home Kit 2025/26"},
- {id:32,name:"Arsenal",price:27000,img:"https://i.postimg.cc/x8gWkT5Y/ars2.jpg",type:"jezi",desc:"Arsenal Third Kit 2025/26"},
- {id:33,name:"Manchester City",price:27000,img:"https://i.postimg.cc/vT9tjP1f/sport2.jpg",type:"jezi",desc:"Manchester City Home Shirt 25/26"},
- {id:34,name:"Manchester United",price:27000,img:"https://i.postimg.cc/nLkDmH6x/dr11.jpg",type:"jezi",desc:"Manchester United Away Kit 2025/26"},
- {id:35,name:"Atlético Madrid",price:27000,img:"https://i.postimg.cc/kGz2FDJ2/dr7.jpg",type:"jezi",desc:"Atlético Madrid 2025/26"},
- {id:36,name:"Atlético Madrid",price:27000,img:"https://i.postimg.cc/N0nLw5XC/dr4.jpg",type:"jezi",desc:"Atlético Madrid 2025/26"},
- {id:37,name:"Tanzania",price:27000,img:"https://i.postimg.cc/8kxk47Q0/aa64.jpg",type:"jezi",desc:"Tanzania jersey"},
- {id:38,name:"Liverpool",price:27000,img:"https://i.postimg.cc/RCG1DnbG/liva1.jpg",type:"jezi",desc:"Liverpool Home Kit 2025/26"},
- {id:39,name:"Zara Brown",price:32000,img:"https://i.postimg.cc/dVWyHGSG/ab16.jpg",type:"sports",desc:"Brown leather Zara Sandals"},
- {id:40,name:"Zara Leather Black",price:32000,img:"https://i.postimg.cc/tTss7TyS/ab18.jpg",type:"sports",desc:"Black Leather Zara Comfortable Cross"},
- {id:41,name:"Brown Leather",price:20000,img:"https://i.postimg.cc/VsD4Q0Ty/ab17.jpg",type:"sports",desc:"Brown leather Slides"},
- {id:42,name:"Prada black",price:20000,img:"https://i.postimg.cc/7LD1CSQm/ab19.jpg",type:"sports",desc:"Prada black patent leather sandals"},
- {id:43,name:"Black Fendi",price:10000,img:"https://i.postimg.cc/G3xvNXzv/ab23.jpg",type:"sports",desc:"Black Fendi Women sandals"},
- {id:44,name:"Brown Mosssimo",price:28000,img:"https://i.postimg.cc/7ht3R6Dk/ab24.jpg",type:"sports",desc:"Mossimo sandals with a crisscross strap"},
- {id:45,name:"Gold Modish Slides",price:15000,img:"https://i.postimg.cc/9M8b61Yz/ab25.jpg",type:"sports",desc:"Gold Modish Slides Sendals"},
- {id:46,name:"Burberry black Canvas",price:15000,img:"https://i.postimg.cc/sD6B5qDs/ab26.jpg",type:"sports",desc:"Burberry canvas and leather Honour sandals"},
- {id:49,name:"Clogs sandal Navy",price:15000,img:"https://i.postimg.cc/PqJw0wRc/a49.jpg",type:"sports",desc:"Navy Back Strap Clogs"},
- {id:50,name:"Red Tape",price:13000,img:"https://i.postimg.cc/tRMmc3vD/a53.jpg",type:"sports",desc:"Red Tape Clogs"},
- {id:51,name:"Red Tape Grey",price:12000,img:"https://i.postimg.cc/1tNJhTjM/a55.jpg",type:"sports",desc:"Kapani Fashion Flipflops,Slipper"},
- {id:52,name:"Slip On Clogs navy",price:12000,img:"https://i.postimg.cc/VLSGjJgL/a54.jpg",type:"sports",desc:"Casual Slip On Clogs"},
- {id:53,name:"Stylish Clogs Black",price:12000,img:"https://i.postimg.cc/7607HyMc/a56.jpg",type:"sports",desc:"Stylish Slip On Clogs"},
- {id:54,name:"Wugatti",price:22000,img:"https://i.postimg.cc/sf0yjZ1Q/a58.jpg",type:"sports",desc:"Wugatti Comfort Sendals"},
- {id:55,name:"Girls Backpack",price:68000,img:"https://i.postimg.cc/ZKcYmDmQ/bag2.jpg",type:"gloves",desc:"Backpack for Girls"},
- {id:56,name:"MD Black Backpack",price:68000,img:"https://i.postimg.cc/ZK1G18vt/bag3.jpg",type:"gloves",desc:"MD laptop Backpack"},
- {id:57,name:"Cellphone Mall",price:68000,img:"https://i.postimg.cc/9Fwq12jW/bag4.jpg",type:"gloves",desc:"Cellphone Mall Men Travel Backpacks"},
- {id:58,name:"Kids School bag",price:25000,img:"https://i.postimg.cc/tJZH02XM/bag1.jpg",type:"gloves",desc:"SpiderMan Backpack"},
+ {id:1,name:"Blue T-Shirt",price:18000,img:"https://i.imgur.com/M7lVvkH.jpeg",type:"tshirt",desc:"Men Washed Relaxed Fit Crew",delivery:autoDelivery},
+ {id:2,name:"NEONOMAD Fit",price:18000,img:"https://i.imgur.com/QlgHGCQ.jpeg",type:"tshirt",desc:"Men Embroidered Regular Fit",delivery:autoDelivery},
+ {id:3,name:"Slim Indian Garage Co",price:32500,img:"https://i.imgur.com/0bMhAZJ.jpeg",type:"jeans",desc:"Slim Fit Flat-Front Cargo Trousers",delivery:autoDelivery},
+ {id:4,name:"Buda Jeans Co Pant",price:25500,img:"https://i.imgur.com/HPRwTKJ.jpeg",type:"jeans",desc:"Men Slim Fit Mid-Rise Cargo Pants",delivery:autoDelivery},
+ {id:5,name:"Common Men",price:17000,img:"https://i.postimg.cc/Yq9jyfd2/ab15.jpg",type:"tshirt",desc:"House of Common Polo Neck",delivery:autoDelivery},
+ {id:6,name:"TECHNOSPORT",price:13000,img:"https://i.imgur.com/EptkNxj.jpeg",type:"tshirt",desc:"Men Slim Fit T Shirt",delivery:autoDelivery},
+ {id:7,name:"Surprise Buda Jeans Co",price:10000,img:"https://i.imgur.com/DuPhNKu.jpeg",type:"tshirt",desc:"Men Graphic Print Regular Fit",delivery:autoDelivery},
+ {id:8,name:"Alfaq",price:15000,img:"https://i.imgur.com/unw4MV3.jpeg",type:"tshirt",desc:"Men Graphic Print Oversized",delivery:autoDelivery},
+ {id:9,name:"Black Neonomad Street ",price:12000,img:"https://i.imgur.com/zgyFKOe.jpeg",type:"tshirt",desc:"Men Graphic Print Oversized",delivery:autoDelivery},
+ {id:10,name:"Neonomad Urban",price:12500,img:"https://i.imgur.com/tpYrddJ.jpeg",type:"tshirt",desc:"Men Graphic Print Oversized",delivery:autoDelivery},
+ {id:11,name:"Buda Jeans Co Race",price:12500,img:"https://i.imgur.com/bBde034.jpeg",type:"tshirt",desc:"Men Graphic Oversized Fit",delivery:autoDelivery},
+ {id:12,name:"Black Neonomad",price:12000,img:"https://i.imgur.com/NDAoZAr.jpeg",type:"tshirt",desc:"Men Graphic Print Oversized Fit",delivery:autoDelivery},
+ {id:13,name:"Blue Buda Jeans Co",price:12000,img:"https://i.imgur.com/SSMbMl6.jpeg",type:"tshirt",desc:"Men Graphic Print Oversized Fit",delivery:autoDelivery},
+ {id:14,name:"lee cooper",price:10000,img:"https://i.imgur.com/3yuEsKY.jpeg",type:"tshirt",desc:"Men Brand Print oversized Fit",delivery:autoDelivery},
+ {id:15,name:"Yousta",price:6000,img:"https://i.imgur.com/3d3c22F.jpeg",type:"tshirt",desc:"Men Graphic Print Oversized Fit",delivery:autoDelivery},
+ {id:16,name:"Marvel Buda jeans Co",price:13000,img:"https://i.imgur.com/0kLhxU4.jpeg",type:"tshirt",desc:"Men Graphic Print Oversized Fit",delivery:autoDelivery},
+ {id:17,name:"T-Base",price:19000,img:"https://i.imgur.com/MkDOJUt.jpeg",type:"tshirt",desc:"Men Typographic Print Regular",delivery:autoDelivery},
+ {id:18,name:"Indian Garage Co Pant",price:32000,img:"https://i.imgur.com/fJconnx.jpeg",type:"jeans",desc:"Slim Fit Flat-Front Cargo Trousers",delivery:autoDelivery},
+ {id:19,name:"Dnmx for trends select",price:33000,img:"https://i.imgur.com/2JaAcgr.jpeg",type:"jeans",desc:"Slim Fit Flat-Front Cargo Trousers",delivery:autoDelivery},
+ {id:20,name:"ECKO UNLTD",price:82500,img:"https://i.imgur.com/R3ZrzPW.jpeg",type:"jeans",desc:"Slim Fit Flat-Front Cargo Pants",delivery:autoDelivery},
+ {id:21,name:"STUDIO NEXX",price:74000,img:"https://i.imgur.com/8E1PQNH.jpeg",type:"jeans",desc:"Straight Fit Cargo Pants",delivery:autoDelivery},
+ {id:22,name:"Black Air Max 95cdg",price:55000,img:"https://i.imgur.com/FVZ7qPJ.jpeg",type:"sports",desc:"Air Max 95 CDG Black",delivery:autoDelivery},
+ {id:23,name:"Gloves ZaySoo",price:13000,img:"https://i.imgur.com/bnxAhsJ.jpeg",type:"gloves",desc:"ZaySoo Anti-Slip Gym  Gloves for Professional Weightlifting,fitness Training and workout",delivery:autoDelivery},
+ {id:24,name:"Gloves Adidas",price:15000,img:"https://i.imgur.com/SEkRfCe.jpeg",type:"gloves",desc:"Adidas Essential Training Gloves",delivery:autoDelivery},
+ {id:25,name:"Riding Gloves",price:12000,img:"https://i.imgur.com/bdRBRBf.jpeg",type:"gloves",desc:"Riding Gloves",delivery:autoDelivery},
+ {id:26,name:"Military Corps Hat",price:66000,img:"https://i.imgur.com/a4J8TP1.jpeg",type:"kids",desc:"Military Corps Hat Flat Top Cap",delivery:autoDelivery},
+ {id:27,name:"Army Cap Black",price:66000,img:"https://i.imgur.com/V8Z9QOn.jpeg",type:"kids",desc:"Glamorstar Unisex Cadet Army Cap",delivery:autoDelivery},
+ {id:28,name:"Air Force nike 1 07low",price:45000,img:"https://i.imgur.com/tsN4nxq.jpeg",type:"sports",desc:"Nike Air Force 1 07 Low Triple Black Shoes",delivery:autoDelivery},
+ {id:29,name:"iVOC",price:40000,img:"https://i.imgur.com/tgQnYlT.jpeg",type:"jeans",desc:"Solid Slim Fit Trouser",delivery:autoDelivery},
+ {id:47,name:"psg Home",price:27000,img:"https://i.postimg.cc/Sx9yW3Ch/ab3.jpg",type:"jezi",desc:"psg Home Kit 2025/26",delivery:autoDelivery},
+ {id:48,name:"psg Away",price:27000,img:"https://i.postimg.cc/0QQFCKFt/ab2.jpg",type:"jezi",desc:"psg Kit 2025/26",delivery:autoDelivery},
+ {id:30,name:"Manchester United",price:27000,img:"https://i.postimg.cc/D0f5GjC9/dr12.jpg",type:"jezi",desc:"Manchester United Home Kit 2025/26",delivery:autoDelivery},
+ {id:31,name:"Arsenal",price:27000,img:"https://i.postimg.cc/DfqfvrKf/ars1.jpg",type:"jezi",desc:"Arsenal Home Kit 2025/26",delivery:autoDelivery},
+ {id:32,name:"Arsenal",price:27000,img:"https://i.postimg.cc/x8gWkT5Y/ars2.jpg",type:"jezi",desc:"Arsenal Third Kit 2025/26",delivery:autoDelivery},
+ {id:33,name:"Manchester City",price:27000,img:"https://i.postimg.cc/vT9tjP1f/sport2.jpg",type:"jezi",desc:"Manchester City Home Shirt 25/26",delivery:autoDelivery},
+ {id:34,name:"Manchester United",price:27000,img:"https://i.postimg.cc/nLkDmH6x/dr11.jpg",type:"jezi",desc:"Manchester United Away Kit 2025/26",delivery:autoDelivery},
+ {id:35,name:"Atlético Madrid",price:27000,img:"https://i.postimg.cc/kGz2FDJ2/dr7.jpg",type:"jezi",desc:"Atlético Madrid 2025/26",delivery:autoDelivery},
+ {id:36,name:"Atlético Madrid",price:27000,img:"https://i.postimg.cc/N0nLw5XC/dr4.jpg",type:"jezi",desc:"Atlético Madrid 2025/26",delivery:autoDelivery},
+ {id:37,name:"Tanzania",price:27000,img:"https://i.postimg.cc/8kxk47Q0/aa64.jpg",type:"jezi",desc:"Tanzania jersey",delivery:autoDelivery},
+ {id:38,name:"Liverpool",price:27000,img:"https://i.postimg.cc/RCG1DnbG/liva1.jpg",type:"jezi",desc:"Liverpool Home Kit 2025/26",delivery:autoDelivery},
+ {id:39,name:"Zara Brown",price:32000,img:"https://i.postimg.cc/dVWyHGSG/ab16.jpg",type:"sports",desc:"Brown leather Zara Sandals",delivery:autoDelivery},
+ {id:40,name:"Zara Leather Black",price:32000,img:"https://i.postimg.cc/tTss7TyS/ab18.jpg",type:"sports",desc:"Black Leather Zara Comfortable Cross",delivery:autoDelivery},
+ {id:41,name:"Brown Leather",price:20000,img:"https://i.postimg.cc/VsD4Q0Ty/ab17.jpg",type:"sports",desc:"Brown leather Slides",delivery:autoDelivery},
+ {id:42,name:"Prada black",price:20000,img:"https://i.postimg.cc/7LD1CSQm/ab19.jpg",type:"sports",desc:"Prada black patent leather sandals",delivery:autoDelivery},
+ {id:43,name:"Black Fendi",price:10000,img:"https://i.postimg.cc/G3xvNXzv/ab23.jpg",type:"sports",desc:"Black Fendi Women sandals",delivery:autoDelivery},
+ {id:44,name:"Brown Mosssimo",price:28000,img:"https://i.postimg.cc/7ht3R6Dk/ab24.jpg",type:"sports",desc:"Mossimo sandals with a crisscross strap",delivery:autoDelivery},
+ {id:45,name:"Gold Modish Slides",price:15000,img:"https://i.postimg.cc/9M8b61Yz/ab25.jpg",type:"sports",desc:"Gold Modish Slides Sendals",delivery:autoDelivery},
+ {id:46,name:"Burberry black Canvas",price:15000,img:"https://i.postimg.cc/sD6B5qDs/ab26.jpg",type:"sports",desc:"Burberry canvas and leather Honour sandals",delivery:autoDelivery},
+ {id:49,name:"Clogs sandal Navy",price:15000,img:"https://i.postimg.cc/PqJw0wRc/a49.jpg",type:"sports",desc:"Navy Back Strap Clogs",delivery:autoDelivery},
+ {id:50,name:"Red Tape",price:13000,img:"https://i.postimg.cc/tRMmc3vD/a53.jpg",type:"sports",desc:"Red Tape Clogs",delivery:autoDelivery},
+ {id:51,name:"Red Tape Grey",price:12000,img:"https://i.postimg.cc/1tNJhTjM/a55.jpg",type:"sports",desc:"Kapani Fashion Flipflops,Slipper",delivery:autoDelivery},
+ {id:52,name:"Slip On Clogs navy",price:12000,img:"https://i.postimg.cc/VLSGjJgL/a54.jpg",type:"sports",desc:"Casual Slip On Clogs",delivery:autoDelivery},
+ {id:53,name:"Stylish Clogs Black",price:12000,img:"https://i.postimg.cc/7607HyMc/a56.jpg",type:"sports",desc:"Stylish Slip On Clogs",delivery:autoDelivery},
+ {id:54,name:"Wugatti",price:22000,img:"https://i.postimg.cc/sf0yjZ1Q/a58.jpg",type:"sports",desc:"Wugatti Comfort Sendals",delivery:autoDelivery},
+ {id:55,name:"Girls Backpack",price:68000,img:"https://i.postimg.cc/ZKcYmDmQ/bag2.jpg",type:"gloves",desc:"Backpack for Girls",delivery:autoDelivery},
+ {id:56,name:"MD Black Backpack",price:68000,img:"https://i.postimg.cc/ZK1G18vt/bag3.jpg",type:"gloves",desc:"MD laptop Backpack",delivery:autoDelivery},
+ {id:57,name:"Cellphone Mall",price:68000,img:"https://i.postimg.cc/9Fwq12jW/bag4.jpg",type:"gloves",desc:"Cellphone Mall Men Travel Backpacks",delivery:autoDelivery},
+ {id:58,name:"Kids School bag",price:25000,img:"https://i.postimg.cc/tJZH02XM/bag1.jpg",type:"gloves",desc:"SpiderMan Backpack",delivery:autoDelivery},
  {id:59,name:"Purple Hermes Oran ",price:10000,img:"https://i.postimg.cc/x1Y8S5ZD/ab20.jpg",
  imgs:[
    "https://i.postimg.cc/x1Y8S5ZD/ab20.jpg",
@@ -262,36 +288,36 @@ const fashion=[
    "https://i.postimg.cc/c1M2wk6T/ab34.jpg",
    "https://i.postimg.cc/qBDMVGdf/ab36.jpg",
    "https://i.postimg.cc/vmSbFQJG/ab35.jpg"
- ],type:"dress",desc:"Women Embellished Scoop-Neck"},
-{id:61,name:"Draax Fashions",price:20000,img:"https://i.postimg.cc/XNKNX0F7/ab37.jpg",type:"dress",desc:"Graphic Dress"},
-{id:62,name:"Pinacolada",price:13000,img:"https://i.postimg.cc/nczLWPjV/ab38.jpg",type:"dress",desc:"Graphic Dress"},
-{id:63,name:"Arrabi",price:25000,img:"https://i.postimg.cc/pTz0RCmj/ab39.jpg",type:"dress",desc:"Floral Embellished Burkha"},
-{id:64,name:"Blue Off-shoulder",price:67000,img:"https://i.postimg.cc/GpKM2Krb/ab40.jpg",type:"dress",desc:"Light Blue Off Shoulder Gown"},
-{id:65,name:"Brown Cotton Belt",price:47000,img:"https://i.postimg.cc/YCM2B2S7/ab41.jpg",type:"dress",desc:"Cotton Belted Shirt dress"},
-{id:66,name:"Outry by Azorte",price:46000,img:"https://i.postimg.cc/MKhR7Qts/ab42.jpg",type:"dress",desc:"Embroidered Scoop-Neck A-Line Dress"},
-{id:67,name:"Beige Safari",price:47000,img:"https://i.postimg.cc/zv2Qtj3W/ab43.jpg",type:"dress",desc:"Cotton Belted Shirt dress"},
-{id:68,name:"Bhumifab",price:24000,img:"https://i.postimg.cc/HkTgrSXm/ab44.jpg",type:"dress",desc:"Women Printed Gown Dress"},
-{id:69,name:"Nyrika",price:33000,img:"https://i.postimg.cc/kGdnf76v/ab45.jpg",type:"dress",desc:"Women Embroidery Flared Kurta Set"},
-{id:70,name:"BHUMIFAB LONG",price:42000,img:"https://i.postimg.cc/NMd3rY6N/ab46.jpg",type:"dress",desc:"Women Printed Gown Dress"},
-{id:71,name:"Styli Dress",price:48000,img:"https://i.postimg.cc/RFrY6Rbp/dr1.jpg",type:"dress",desc:"Women Abstract Printed Short Sleeve Dress"},
-{id:72,name:"V-neck Orchid Blues",price:34000,img:"https://i.postimg.cc/HWFtpxRP/dr2.jpg",type:"dress",desc:"Women V-Neck Bodycon Dress"},
-{id:73,name:"Orchid Blues dress",price:33000,img:"https://i.postimg.cc/3xfNTybW/dr5.jpg",type:"dress",desc:"Women Shirt Dress with Front Slit"},
-{id:74,name:"Young Africans Away kit",price:45000,img:"https://i.postimg.cc/W1j0tFnP/aa69.jpg",type:"jezi",desc:"Yanga fc Away kit 2025/26"},
-{id:75,name:"Simba Sc Away kit",price:45000,img:"https://i.postimg.cc/wBXPLmKm/aa70.jpg",type:"jezi",desc:"Simba Sc Away kit 2025/26"},
-{id:76,name:"Simba Sc Home kit",price:45000,img:"https://i.postimg.cc/g2Dt0P3w/aa72.jpg",type:"jezi",desc:"Simba Sc Home kit 2025/26"},
-{id:77,name:"Yanga Fc Home kit",price:45000,img:"https://i.postimg.cc/VL3mFnh2/ab50.jpg",type:"jezi",desc:"Yanga Fc Home kit 2025/26"},
-{id:78,name:"Simba Sc Third kit",price:45000,img:"https://i.postimg.cc/sDF3Y5qq/aa71.jpg",type:"jezi",desc:"Simba Sc Third kit 2025/26"},
-{id:79,name:"Yanga Fc Third kit",price:45000,img:"https://i.postimg.cc/rs5XnY3S/aa68.jpg",type:"jezi",desc:"Simba Sc Third kit 2025/26"}
+ ],type:"dress",desc:"Women Embellished Scoop-Neck",delivery:autoDelivery},
+{id:61,name:"Draax Fashions",price:20000,img:"https://i.postimg.cc/XNKNX0F7/ab37.jpg",type:"dress",desc:"Graphic Dress",delivery:autoDelivery},
+{id:62,name:"Pinacolada",price:13000,img:"https://i.postimg.cc/nczLWPjV/ab38.jpg",type:"dress",desc:"Graphic Dress",delivery:autoDelivery},
+{id:63,name:"Arrabi",price:25000,img:"https://i.postimg.cc/pTz0RCmj/ab39.jpg",type:"dress",desc:"Floral Embellished Burkha",delivery:autoDelivery},
+{id:64,name:"Blue Off-shoulder",price:67000,img:"https://i.postimg.cc/GpKM2Krb/ab40.jpg",type:"dress",desc:"Light Blue Off Shoulder Gown",delivery:autoDelivery},
+{id:65,name:"Brown Cotton Belt",price:47000,img:"https://i.postimg.cc/YCM2B2S7/ab41.jpg",type:"dress",desc:"Cotton Belted Shirt dress",delivery:autoDelivery},
+{id:66,name:"Outry by Azorte",price:46000,img:"https://i.postimg.cc/MKhR7Qts/ab42.jpg",type:"dress",desc:"Embroidered Scoop-Neck A-Line Dress",delivery:autoDelivery},
+{id:67,name:"Beige Safari",price:47000,img:"https://i.postimg.cc/zv2Qtj3W/ab43.jpg",type:"dress",desc:"Cotton Belted Shirt dress",delivery:autoDelivery},
+{id:68,name:"Bhumifab",price:24000,img:"https://i.postimg.cc/HkTgrSXm/ab44.jpg",type:"dress",desc:"Women Printed Gown Dress",delivery:autoDelivery},
+{id:69,name:"Nyrika",price:33000,img:"https://i.postimg.cc/kGdnf76v/ab45.jpg",type:"dress",desc:"Women Embroidery Flared Kurta Set",delivery:autoDelivery},
+{id:70,name:"BHUMIFAB LONG",price:42000,img:"https://i.postimg.cc/NMd3rY6N/ab46.jpg",type:"dress",desc:"Women Printed Gown Dress",delivery:autoDelivery},
+{id:71,name:"Styli Dress",price:48000,img:"https://i.postimg.cc/RFrY6Rbp/dr1.jpg",type:"dress",desc:"Women Abstract Printed Short Sleeve Dress",delivery:autoDelivery},
+{id:72,name:"V-neck Orchid Blues",price:34000,img:"https://i.postimg.cc/HWFtpxRP/dr2.jpg",type:"dress",desc:"Women V-Neck Bodycon Dress",delivery:autoDelivery},
+{id:73,name:"Orchid Blues dress",price:33000,img:"https://i.postimg.cc/3xfNTybW/dr5.jpg",type:"dress",desc:"Women Shirt Dress with Front Slit",delivery:autoDelivery},
+{id:74,name:"Young Africans Away kit",price:45000,img:"https://i.postimg.cc/W1j0tFnP/aa69.jpg",type:"jezi",desc:"Yanga fc Away kit 2025/26",delivery:autoDelivery},
+{id:75,name:"Simba Sc Away kit",price:45000,img:"https://i.postimg.cc/wBXPLmKm/aa70.jpg",type:"jezi",desc:"Simba Sc Away kit 2025/26",delivery:autoDelivery},
+{id:76,name:"Simba Sc Home kit",price:45000,img:"https://i.postimg.cc/g2Dt0P3w/aa72.jpg",type:"jezi",desc:"Simba Sc Home kit 2025/26",delivery:autoDelivery},
+{id:77,name:"Yanga Fc Home kit",price:45000,img:"https://i.postimg.cc/VL3mFnh2/ab50.jpg",type:"jezi",desc:"Yanga Fc Home kit 2025/26",delivery:autoDelivery},
+{id:78,name:"Simba Sc Third kit",price:45000,img:"https://i.postimg.cc/sDF3Y5qq/aa71.jpg",type:"jezi",desc:"Simba Sc Third kit 2025/26",delivery:autoDelivery},
+{id:79,name:"Yanga Fc Third kit",price:45000,img:"https://i.postimg.cc/rs5XnY3S/aa68.jpg",type:"jezi",desc:"Simba Sc Third kit 2025/26",delivery:autoDelivery}
 ];
 
  /* TOP DEALS DATA */
 const topDeals = [
- {id:62,name:"Pinacolada",price:13000,img:"https://i.postimg.cc/nczLWPjV/ab38.jpg",type:"dress",desc:"Graphic Dress"},
- {id:49,name:"Clogs sandal Navy",price:15000,img:"https://i.postimg.cc/PqJw0wRc/a49.jpg",type:"kids",desc:"Navy Back Strap Clogs"},
- {id:50,name:"Red Tape",price:13000,img:"https://i.postimg.cc/tRMmc3vD/a53.jpg",type:"kids",desc:"Red Tape Clogs"},
- {id:51,name:"Red Tape Grey",price:12000,img:"https://i.postimg.cc/1tNJhTjM/a55.jpg",type:"kids",desc:"Kapani Fashion Flipflops,Slipper"},
- {id:18,name:"Indian Garage Co Pant",price:32000,img:"https://i.imgur.com/fJconnx.jpeg",type:"jeans",desc:"Slim Fit Flat-Front Cargo Trousers"},
- {id:5,name:"Common Men",price:17000,img:"https://i.postimg.cc/Yq9jyfd2/ab15.jpg",type:"jeans",desc:"House of Common Polo Neck"}
+ {id:62,name:"Pinacolada",price:13000,img:"https://i.postimg.cc/nczLWPjV/ab38.jpg",type:"dress",desc:"Graphic Dress",delivery:autoDelivery},
+ {id:49,name:"Clogs sandal Navy",price:15000,img:"https://i.postimg.cc/PqJw0wRc/a49.jpg",type:"kids",desc:"Navy Back Strap Clogs",delivery:autoDelivery},
+ {id:50,name:"Red Tape",price:13000,img:"https://i.postimg.cc/tRMmc3vD/a53.jpg",type:"kids",desc:"Red Tape Clogs",delivery:autoDelivery},
+ {id:51,name:"Red Tape Grey",price:12000,img:"https://i.postimg.cc/1tNJhTjM/a55.jpg",type:"kids",desc:"Kapani Fashion Flipflops,Slipper",delivery:autoDelivery},
+ {id:18,name:"Indian Garage Co Pant",price:32000,img:"https://i.imgur.com/fJconnx.jpeg",type:"jeans",desc:"Slim Fit Flat-Front Cargo Trousers",delivery:autoDelivery},
+ {id:5,name:"Common Men",price:17000,img:"https://i.postimg.cc/Yq9jyfd2/ab15.jpg",type:"jeans",desc:"House of Common Polo Neck",delivery:autoDelivery}
 ];
 
  let allProducts = JSON.parse(localStorage.getItem("allProducts")) || [];
