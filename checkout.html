@@ -138,6 +138,11 @@ if(Array.isArray(buy)){
           <p>${formatPrice(item.price)}</p>
           <p>Qty: ${item.qty}</p>
           ${item.size ? `<p>Size: ${item.size}</p>` : ""}
+
+<p style="color:#2874f0;font-weight:bold;">
+  <i class="fa fa-truck"></i>
+  ${item.delivery || "Delivery by 25 May, Mon"}
+</p>
         </div>
       </div>
       <hr>
@@ -148,6 +153,7 @@ Product: ${item.name}
 Price: ${formatPrice(item.price)}
 Quantity: ${item.qty}
 ${item.size ? "Size: " + item.size : ""}
+Delivery Date: ${item.delivery || "Delivery by 25 May, Mon"}
 -------------------
     `;
   });
@@ -166,6 +172,11 @@ ${item.size ? "Size: " + item.size : ""}
         <p>${formatPrice(buy.price)}</p>
         <p>Qty: ${buy.qty}</p>
         ${buy.size ? `<p>Size: ${buy.size}</p>` : ""}
+
+<p style="color:#2874f0;font-weight:bold;">
+  <i class="fa fa-truck"></i>
+  ${buy.delivery || "Delivery by 25 May, Mon"}
+</p>
       </div>
     </div>
     <hr>
@@ -176,6 +187,7 @@ Product: ${buy.name}
 Price: ${formatPrice(buy.price)}
 Quantity: ${buy.qty}
 ${buy.size ? "Size: " + buy.size : ""}
+Delivery Date: ${buy.delivery || "Delivery by 25 May, Mon"}
 -------------------
   `;
 }
