@@ -447,6 +447,28 @@ const isFashion = fashionTypes.includes(p.type);
   `;
   throw new Error("Product not found");
 }
+  
+function getDeliveryText(){
+
+  const months = [
+    "January","February","March","April","May","June",
+    "July","August","September","October","November","December"
+  ];
+
+  /* GET DELIVERY DAYS */
+  const deliveryDays =
+    Number(localStorage.getItem("deliveryDays")) || 0;
+
+  const today = new Date();
+
+  /* ADD DAYS */
+  today.setDate(today.getDate() + deliveryDays);
+
+  const day = today.getDate();
+  const month = months[today.getMonth()];
+
+  return `Delivery by ${day} ${month}`;
+}
 
 // MAIN PRODUCT
 document.getElementById("productBox").innerHTML = `
@@ -481,9 +503,9 @@ document.getElementById("productBox").innerHTML = `
   <div class="delivery-row">
     <i class="fa fa-truck"></i>
 
-    <span class="delivery-date">
-      ${p.delivery || "Delivery by 25 May, Mon"}
-    </span>
+<span class="delivery-date">
+  ${getDeliveryText()}
+</span>
   </div>
 
 </div>
