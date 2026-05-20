@@ -128,18 +128,44 @@ body{
 <div id="trending" class="scroll-row"></div>
 
 <script>
-const speakers = [
- {id:47,name:"psg Home",price:27000,img:"https://i.postimg.cc/Sx9yW3Ch/ab3.jpg",type:"jezi",desc:"psg Home Kit 2025/26"},
- {id:48,name:"psg Away",price:27000,img:"https://i.postimg.cc/0QQFCKFt/ab2.jpg",type:"jezi",desc:"psg Kit 2025/26"},
- {id:30,name:"Manchester United",price:27000,img:"https://i.postimg.cc/D0f5GjC9/dr12.jpg",type:"jezi",desc:"Manchester United Home Kit 2025/26"},
- {id:31,name:"Arsenal",price:27000,img:"https://i.postimg.cc/DfqfvrKf/ars1.jpg",type:"jezi",desc:"Arsenal Home Kit 2025/26"},
- {id:32,name:"Arsenal",price:27000,img:"https://i.postimg.cc/x8gWkT5Y/ars2.jpg",type:"jezi",desc:"Arsenal Third Kit 2025/26"},
- {id:33,name:"Manchester City",price:27000,img:"https://i.postimg.cc/vT9tjP1f/sport2.jpg",type:"jezi",desc:"Manchester City Home Shirt 25/26"},
- {id:34,name:"Manchester United",price:27000,img:"https://i.postimg.cc/nLkDmH6x/dr11.jpg",type:"jezi",desc:"Manchester United Away Kit 2025/26"},
- {id:35,name:"Atlético Madrid",price:27000,img:"https://i.postimg.cc/kGz2FDJ2/dr7.jpg",type:"jezi",desc:"Atlético Madrid 2025/26"},
- {id:36,name:"Atlético Madrid",price:27000,img:"https://i.postimg.cc/N0nLw5XC/dr4.jpg",type:"jezi",desc:"Atlético Madrid 2025/26"},
- {id:37,name:"Tanzania",price:27000,img:"https://i.postimg.cc/8kxk47Q0/aa64.jpg",type:"jezi",desc:"Tanzania jersey"},
- {id:38,name:"Liverpool",price:27000,img:"https://i.postimg.cc/RCG1DnbG/liva1.jpg",type:"jezi",desc:"Liverpool Home Kit 2025/26"}
+/* AUTO DELIVERY DATE = TODAY + 7 DAYS */
+function getDeliveryDate(days = 7){
+
+  const months = [
+    "January","February","March","April","May","June",
+    "July","August","September","October","November","December"
+  ];
+
+  const daysName = [
+    "Sun","Mon","Tue","Wed","Thu","Fri","Sat"
+  ];
+
+  let d = new Date();
+
+  d.setDate(d.getDate() + days);
+
+  let day = d.getDate();
+  let month = months[d.getMonth()];
+  let weekDay = daysName[d.getDay()];
+
+  return `Delivery by ${day} ${month}, ${weekDay}`;
+}
+
+const autoDelivery = getDeliveryDate(7);
+
+/* FASHION DATA */
+const fashion=[
+ {id:47,name:"psg Home",price:27000,img:"https://i.postimg.cc/Sx9yW3Ch/ab3.jpg",type:"jezi",desc:"psg Home Kit 2025/26",delivery:autoDelivery},
+ {id:48,name:"psg Away",price:27000,img:"https://i.postimg.cc/0QQFCKFt/ab2.jpg",type:"jezi",desc:"psg Kit 2025/26",delivery:autoDelivery},
+ {id:30,name:"Manchester United",price:27000,img:"https://i.postimg.cc/D0f5GjC9/dr12.jpg",type:"jezi",desc:"Manchester United Home Kit 2025/26",delivery:autoDelivery},
+ {id:31,name:"Arsenal",price:27000,img:"https://i.postimg.cc/DfqfvrKf/ars1.jpg",type:"jezi",desc:"Arsenal Home Kit 2025/26",delivery:autoDelivery},
+ {id:32,name:"Arsenal",price:27000,img:"https://i.postimg.cc/x8gWkT5Y/ars2.jpg",type:"jezi",desc:"Arsenal Third Kit 2025/26",delivery:autoDelivery},
+ {id:33,name:"Manchester City",price:27000,img:"https://i.postimg.cc/vT9tjP1f/sport2.jpg",type:"jezi",desc:"Manchester City Home Shirt 25/26",delivery:autoDelivery},
+ {id:34,name:"Manchester United",price:27000,img:"https://i.postimg.cc/nLkDmH6x/dr11.jpg",type:"jezi",desc:"Manchester United Away Kit 2025/26",delivery:autoDelivery},
+ {id:35,name:"Atlético Madrid",price:27000,img:"https://i.postimg.cc/kGz2FDJ2/dr7.jpg",type:"jezi",desc:"Atlético Madrid 2025/26",delivery:autoDelivery},
+ {id:36,name:"Atlético Madrid",price:27000,img:"https://i.postimg.cc/N0nLw5XC/dr4.jpg",type:"jezi",desc:"Atlético Madrid 2025/26",delivery:autoDelivery},
+ {id:37,name:"Tanzania",price:27000,img:"https://i.postimg.cc/8kxk47Q0/aa64.jpg",type:"jezi",desc:"Tanzania jersey",delivery:autoDelivery},
+ {id:38,name:"Liverpool",price:27000,img:"https://i.postimg.cc/RCG1DnbG/liva1.jpg",type:"jezi",desc:"Liverpool Home Kit 2025/26",delivery:autoDelivery}
 ];
 
 // FORMAT PRICE (TZS + comma)
