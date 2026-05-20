@@ -270,6 +270,35 @@ body{
   font-weight:bold;
   cursor:pointer;
 }
+
+.delivery-box{
+  background:#f2f7ff;
+  border-radius:10px;
+  padding:12px;
+  margin:15px 0;
+}
+
+.delivery-row{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  margin-bottom:10px;
+  font-size:15px;
+}
+
+.delivery-row i{
+  color:#2874f0;
+  font-size:18px;
+}
+
+.delivery-date{
+  font-weight:bold;
+}
+
+.delivery-location{
+  color:#2874f0;
+  font-weight:bold;
+}
   </style>
 </head>
 
@@ -429,8 +458,37 @@ document.getElementById("productBox").innerHTML = `
   </div>
 </div>
   <h2>${p.name}</h2>
-  <p>${p.desc}</p> 
- <b>${formatPrice(p.price)}</b><br><br>
+
+<p>${p.desc}</p> 
+
+<b>${formatPrice(p.price)}</b>
+
+<div class="delivery-box">
+
+  <div class="delivery-row">
+    <i class="fa fa-location-dot"></i>
+
+    <span>
+      Location not set
+      <span class="delivery-location">
+        Select delivery location
+      </span>
+    </span>
+  </div>
+
+  <hr style="border:none;border-top:1px solid #ddd;">
+
+  <div class="delivery-row">
+    <i class="fa fa-truck"></i>
+
+    <span class="delivery-date">
+      ${p.delivery || "Delivery by 25 May, Mon"}
+    </span>
+  </div>
+
+</div>
+
+<br>
 
  ${isFashion || isShoe ? `
   <div class="size-box">
