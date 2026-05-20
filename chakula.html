@@ -225,6 +225,32 @@ setInterval(()=>{
 },3000);
 
 /* FASHION DATA */
+/* AUTO DELIVERY DATE = TODAY + 7 DAYS */
+function getDeliveryDate(days = 0){
+
+  const months = [
+    "January","February","March","April","May","June",
+    "July","August","September","October","November","December"
+  ];
+
+  const daysName = [
+    "Sun","Mon","Tue","Wed","Thu","Fri","Sat"
+  ];
+
+  let d = new Date();
+
+  d.setDate(d.getDate() + days);
+
+  let day = d.getDate();
+  let month = months[d.getMonth()];
+  let weekDay = daysName[d.getDay()];
+
+  return `Delivery by ${day} ${month}, ${weekDay}`;
+}
+
+const autoDelivery = getDeliveryDate(0);
+
+/* FASHION DATA */
 const fashion=[
  {id:100,name:"Mafuta Korie(5ltr)",price:25050,img:"https://i.imgur.com/bI2cHtb.jpeg",
  imgs:[
@@ -232,39 +258,39 @@ const fashion=[
    "https://i.postimg.cc/ZRGYSwyn/ab30.jpg",
    "https://i.postimg.cc/FHC4vTM7/ab31.jpg"
  ],type:"mafuta",desc:"Good cooking oil",
- delivery:"Delivery by 20 May, Wed"},
- {id:101,name:"Nell Premium Salt(500g)",price:300,img:"https://i.postimg.cc/QdzNfWmf/Chumvi2.jpg",type:"sukari",delivery:"Delivery by 20 May, Wed"},
+ delivery:autoDelivery},
+ {id:101,name:"Nell Premium Salt(500g)",price:300,img:"https://i.postimg.cc/QdzNfWmf/Chumvi2.jpg",type:"sukari",delivery:autoDelivery},
  {id:102,name:"Sukari 1kg",price:2950,img:"https://i.postimg.cc/WbBkpG8D/1kg.jpg",type:"sukari",delivery:"Delivery by 20 May, Wed"},
- {id:103,name:"Neel Premium Salt(200g)",price:200,img:"https://i.postimg.cc/Dfx5BRLW/ab33.jpg/200",type:"sukari",desc:"chumvi bora",delivery:"Delivery by 20 May, Wed"},
- {id:104,name:"Tomato sauce(900g)",price:1350,img:"https://i.imgur.com/IqhRkL7.jpeg/200",type:"extra",desc:"Tomato sauce tamu",delivery:"Delivery by 20 May, Wed"},
- {id:105,name:"Soy sauce(500ml)",price:3450,img:"https://i.imgur.com/CqraWiO.jpeg/200",type:"masala",desc:"Jipatie soy sauce",delivery:"Delivery by 20 May, Wed"},
- {id:106,name:"Kahawa",price:500,img:"https://i.postimg.cc/fTQhRQTC/ab10.jpg/200",type:"cream",desc:"Kahawa Toffee & Cappuccino",delivery:"Delivery by 20 May, Wed"},
- {id:107,name:"Bungo",price:500,img:"https://i.postimg.cc/prYcd7qF/ab11.jpg/200",type:"cream",desc:"Azam ice lolly",delivery:"Delivery by 20 May, Wed"},
- {id:108,name:"Ballcone",price:1800,img:"https://i.imgur.com/YU7yVMc.jpeg/200",type:"cream",desc:"Ballcone flavoured ice cream",delivery:"Delivery by 20 May, Wed"},
- {id:109,name:"Embe DODO",price:500,img:"https://i.postimg.cc/7ZpdPpkp/ab14.jpg/200",type:"cream",desc:"Flavoured ice lolly",delivery:"Delivery by 20 May, Wed"},
- {id:110,name:"Strawberry",price:500,img:"https://i.postimg.cc/Y9tXh7yP/ab12.jpg/200",type:"cream",desc:"Strawberry sherbet milk bar",delivery:"Delivery by 20 May, Wed"},
- {id:111,name:"Ukwaju",price:500,img:"https://i.postimg.cc/xCsP8zmq/ab9.jpg/200",type:"cream",desc:"Ukwaju ice lOlly",delivery:"Delivery by 20 May, Wed"},
- {id:112,name:"Coca Cola(600ml)",price:1000,img:"https://i.imgur.com/UYZ1dIH.jpeg/200",type:"drinks",desc:"Coca Cola",delivery:"Delivery by 20 May, Wed"},
- {id:113,name:"pepsi(600ml)",price:1000,img:"https://i.imgur.com/cGRn5OZ.jpeg/200",type:"drinks",desc:"pepsi",delivery:"Delivery by 20 May, Wed"},
- {id:114,name:"Afya Maji(1.6L)",price:1000,img:"https://i.imgur.com/u9dkajs.jpeg/200",type:"drinks",desc:"Afya maji ya kunywa Baridi au Ya moto eka idadi HAPO chini",delivery:"Delivery by 20 May, Wed"},
- {id:115,name:"u-fresh orange(330ml)",price:500,img:"https://i.imgur.com/k42X2gl.jpeg/200",type:"drinks",desc:"u-fresh baridi ipo weka idadi hapo chini",delivery:"Delivery by 20 May, Wed"},
- {id:116,name:"u-fresh power(330ml)",price:500,img:"https://i.imgur.com/y1qJelw.jpeg/200",type:"drinks",desc:"u-fresh baridi ipo weka idadi hapo chini",delivery:"Delivery by 20 May, Wed"},
- {id:117,name:"u-fresh pineapple(330ml)",price:500,img:"https://i.imgur.com/GcVEME3.jpeg/200",type:"drinks",desc:"u-fresh baridi ipo weka idadi hapo chini",delivery:"Delivery by 20 May, Wed"},
- {id:118,name:"u-fresh passion(330ml",price:500,img:"https://i.imgur.com/9uhn4hj.jpeg/200",type:"drinks",desc:"u-fresh baridi ipo weka idadi hapo chini",delivery:"Delivery by 20 May, Wed"},
- {id:119,name:"u-fresh cola(330ml)",price:500,img:"https://i.imgur.com/FvMtoAL.jpeg/200",type:"drinks",desc:"u-fresh baridi ipo weka idadi hapo chini",delivery:"Delivery by 20 May, Wed"},
- {id:120,name:"Korie(3ltr)",price:16150,img:"https://i.postimg.cc/76vjPdmk/ab32.jpg",type:"mafuta",delivery:"Delivery by 20 May, Wed"},
- {id:121,name:"Korie(900ml)",price:5250,img:"https://i.postimg.cc/zDKdhVhJ/kori4.jpg",type:"mafuta",desc:"Korie Cooking Oil",delivery:"Delivery by 20 May, Wed"},
- {id:122,name:"Royco mchuzi mix(200g)",price:2200,img:"https://i.postimg.cc/13LjR2gC/royco1.jpg",type:"masala",desc:"Spicy Beef Flavour",delivery:"Delivery by 20 May, Wed"},
- {id:123,name:"Chicken Masala(100g)",price:2850,img:"https://i.postimg.cc/DzRb8VLY/chic-mas1.jpg",type:"masala",desc:"Spice Seasoning",delivery:"Delivery by 20 May, Wed"},
- {id:124,name:"Baking Powder(100g)",price:750,img:"https://i.postimg.cc/NfPGg61d/bakin1.jpg",type:"masala",desc:"Kwa Mandazi Baking Powder",delivery:"Delivery by 20 May, Wed"},
- {id:125,name:"Red Gold(400g)",price:1750,img:"https://i.postimg.cc/636F2SKZ/red-gol1.jpg",type:"masala",desc:"Red Gold Tomato Paste",delivery:"Delivery by 20 May, Wed"},
- {id:126,name:"Tea Masala(100g)",price:4250,img:"https://i.postimg.cc/dVH5N1Pb/tea-mas1.jpg",type:"masala",desc:"Spice seasoning",delivery:"Delivery by 20 May, Wed"},
- {id:127,name:"Pilau Masala(100g)",price:6050,img:"https://i.postimg.cc/5tQSPSmq/pilau-masa.jpg",type:"masala",desc:"Spice seasoning",delivery:"Delivery by 20 May, Wed"},
- {id:128,name:"White Vinegar 965ml",price:1150,img:"https://i.postimg.cc/9FN9vq0v/red-ven.jpg",type:"masala",desc:"RedGold White Vinegar ",delivery:"Delivery by 20 May, Wed"},
- {id:129,name:"Blue Band 100g",price:1300,img:"https://i.postimg.cc/k461vX42/ab47.jpg/200",type:"extra",desc:"Blue Band 100g",delivery:"Delivery by 20 May, Wed"},
- {id:130,name:"Swahili Honey 500g",price:9000,img:"https://i.postimg.cc/kGR0Gv8Z/ab48.jpg/200",type:"extra",desc:"Swahili Honey",delivery:"Delivery by 20 May, Wed"},
- {id:131,name:"Blue Band 450g",price:5000,img:"https://i.postimg.cc/BvqtFXmw/blue-ban1.jpg/200",type:"extra",desc:"Blue Band Original 450g",delivery:"Delivery by 20 May, Wed"},
- {id:132,name:"Swahili Honey 300g",price:5100,img:"https://i.postimg.cc/PqJGwHks/ab49.jpg/200",type:"extra",desc:"Swahili Honey",delivery:"Delivery by 20 May, Wed"}
+ {id:103,name:"Neel Premium Salt(200g)",price:200,img:"https://i.postimg.cc/Dfx5BRLW/ab33.jpg/200",type:"sukari",desc:"chumvi bora",delivery:autoDelivery},
+ {id:104,name:"Tomato sauce(900g)",price:1350,img:"https://i.imgur.com/IqhRkL7.jpeg/200",type:"extra",desc:"Tomato sauce tamu",delivery:autoDelivery},
+ {id:105,name:"Soy sauce(500ml)",price:3450,img:"https://i.imgur.com/CqraWiO.jpeg/200",type:"masala",desc:"Jipatie soy sauce",delivery:autoDelivery},
+ {id:106,name:"Kahawa",price:500,img:"https://i.postimg.cc/fTQhRQTC/ab10.jpg/200",type:"cream",desc:"Kahawa Toffee & Cappuccino",delivery:autoDelivery},
+ {id:107,name:"Bungo",price:500,img:"https://i.postimg.cc/prYcd7qF/ab11.jpg/200",type:"cream",desc:"Azam ice lolly",delivery:autoDelivery},
+ {id:108,name:"Ballcone",price:1800,img:"https://i.imgur.com/YU7yVMc.jpeg/200",type:"cream",desc:"Ballcone flavoured ice cream",delivery:autoDelivery},
+ {id:109,name:"Embe DODO",price:500,img:"https://i.postimg.cc/7ZpdPpkp/ab14.jpg/200",type:"cream",desc:"Flavoured ice lolly",delivery:autoDelivery},
+ {id:110,name:"Strawberry",price:500,img:"https://i.postimg.cc/Y9tXh7yP/ab12.jpg/200",type:"cream",desc:"Strawberry sherbet milk bar",delivery:autoDelivery},
+ {id:111,name:"Ukwaju",price:500,img:"https://i.postimg.cc/xCsP8zmq/ab9.jpg/200",type:"cream",desc:"Ukwaju ice lOlly",delivery:autoDelivery},
+ {id:112,name:"Coca Cola(600ml)",price:1000,img:"https://i.imgur.com/UYZ1dIH.jpeg/200",type:"drinks",desc:"Coca Cola",delivery:autoDelivery},
+ {id:113,name:"pepsi(600ml)",price:1000,img:"https://i.imgur.com/cGRn5OZ.jpeg/200",type:"drinks",desc:"pepsi",delivery:autoDelivery},
+ {id:114,name:"Afya Maji(1.6L)",price:1000,img:"https://i.imgur.com/u9dkajs.jpeg/200",type:"drinks",desc:"Afya maji ya kunywa Baridi au Ya moto eka idadi HAPO chini",delivery:autoDelivery},
+ {id:115,name:"u-fresh orange(330ml)",price:500,img:"https://i.imgur.com/k42X2gl.jpeg/200",type:"drinks",desc:"u-fresh baridi ipo weka idadi hapo chini",delivery:autoDelivery},
+ {id:116,name:"u-fresh power(330ml)",price:500,img:"https://i.imgur.com/y1qJelw.jpeg/200",type:"drinks",desc:"u-fresh baridi ipo weka idadi hapo chini",delivery:autoDelivery},
+ {id:117,name:"u-fresh pineapple(330ml)",price:500,img:"https://i.imgur.com/GcVEME3.jpeg/200",type:"drinks",desc:"u-fresh baridi ipo weka idadi hapo chini",delivery:autoDelivery},
+ {id:118,name:"u-fresh passion(330ml",price:500,img:"https://i.imgur.com/9uhn4hj.jpeg/200",type:"drinks",desc:"u-fresh baridi ipo weka idadi hapo chini",delivery:autoDelivery},
+ {id:119,name:"u-fresh cola(330ml)",price:500,img:"https://i.imgur.com/FvMtoAL.jpeg/200",type:"drinks",desc:"u-fresh baridi ipo weka idadi hapo chini",delivery:autoDelivery},
+ {id:120,name:"Korie(3ltr)",price:16150,img:"https://i.postimg.cc/76vjPdmk/ab32.jpg",type:"mafuta",delivery:autoDelivery},
+ {id:121,name:"Korie(900ml)",price:5250,img:"https://i.postimg.cc/zDKdhVhJ/kori4.jpg",type:"mafuta",desc:"Korie Cooking Oil",delivery:autoDelivery},
+ {id:122,name:"Royco mchuzi mix(200g)",price:2200,img:"https://i.postimg.cc/13LjR2gC/royco1.jpg",type:"masala",desc:"Spicy Beef Flavour",delivery:autoDelivery},
+ {id:123,name:"Chicken Masala(100g)",price:2850,img:"https://i.postimg.cc/DzRb8VLY/chic-mas1.jpg",type:"masala",desc:"Spice Seasoning",delivery:autoDelivery},
+ {id:124,name:"Baking Powder(100g)",price:750,img:"https://i.postimg.cc/NfPGg61d/bakin1.jpg",type:"masala",desc:"Kwa Mandazi Baking Powder",delivery:autoDelivery},
+ {id:125,name:"Red Gold(400g)",price:1750,img:"https://i.postimg.cc/636F2SKZ/red-gol1.jpg",type:"masala",desc:"Red Gold Tomato Paste",delivery:autoDelivery},
+ {id:126,name:"Tea Masala(100g)",price:4250,img:"https://i.postimg.cc/dVH5N1Pb/tea-mas1.jpg",type:"masala",desc:"Spice seasoning",delivery:autoDelivery},
+ {id:127,name:"Pilau Masala(100g)",price:6050,img:"https://i.postimg.cc/5tQSPSmq/pilau-masa.jpg",type:"masala",desc:"Spice seasoning",delivery:autoDelivery},
+ {id:128,name:"White Vinegar 965ml",price:1150,img:"https://i.postimg.cc/9FN9vq0v/red-ven.jpg",type:"masala",desc:"RedGold White Vinegar ",delivery:autoDelivery},
+ {id:129,name:"Blue Band 100g",price:1300,img:"https://i.postimg.cc/k461vX42/ab47.jpg/200",type:"extra",desc:"Blue Band 100g",delivery:autoDelivery},
+ {id:130,name:"Swahili Honey 500g",price:9000,img:"https://i.postimg.cc/kGR0Gv8Z/ab48.jpg/200",type:"extra",desc:"Swahili Honey",delivery:autoDelivery},
+ {id:131,name:"Blue Band 450g",price:5000,img:"https://i.postimg.cc/BvqtFXmw/blue-ban1.jpg/200",type:"extra",desc:"Blue Band Original 450g",delivery:autoDelivery},
+ {id:132,name:"Swahili Honey 300g",price:5100,img:"https://i.postimg.cc/PqJGwHks/ab49.jpg/200",type:"extra",desc:"Swahili Honey",delivery:autoDelivery}
 ];
 
 localStorage.setItem("allProducts",JSON.stringify(fashion));
