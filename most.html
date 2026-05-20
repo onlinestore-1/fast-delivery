@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Gloves</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<style>
+body{
+ margin:0;
+ font-family:Arial;
+ background:#f4f4f4;
+ padding-top:70px;
+}
+
+/* TOP BAR */
+.topbar{
+ display:flex;
+ align-items:center;
+ background:linear-gradient(180deg, #87c7f3, #a8d8f8);
+ padding:10px;
+ color:white;
+ gap:10px;
+
+ position:fixed;
+ top:0;
+ left:0;
+ width:100%;
+ z-index:1000;
+
+ box-sizing:border-box;
+}
+.topbar input{
+ flex:1;
+ padding:8px;
+ border:none;
+ border-radius:4px;
+}
+.cart{font-size:22px;cursor:pointer}
+
+ .title{
+ flex:1;
+ font-size:16px;
+ font-weight:bold;
+}
+
+/* SMALL GAP */
+.section-title{
+ padding:6px 10px;
+ margin:0;
+ font-size:18px;
+}
+
+/* THIS PRODUCT (2 COLUMN) */
+.two-grid{
+ display:grid;
+ grid-template-columns:repeat(2,1fr);
+ gap:10px;
+ padding:10px;
+}
+
+/* HORIZONTAL SCROLL ROW */
+.scroll-row{
+ display:flex;
+ overflow-x:auto;
+ gap:12px;
+ padding:10px;
+}
+.scroll-row::-webkit-scrollbar{
+ display:none;
+}
+
+.scroll-card{
+ min-width:130px;
+ max-width:130px;
+ background:#fff;
+ border-radius:8px;
+ padding:8px;
+ flex-shrink:0;
+ text-align:center;
+}
+
+.scroll-card img{
+ width:100%;
+ height:100px;
+ object-fit:cover;
+ border-radius:6px;
+}
+
+/* GRID */
+.grid{
+ display:grid;
+ grid-template-columns:repeat(2,1fr);
+ gap:10px;
+ padding:10px;
+}
+.card{
+ background:#fff;
+ padding:10px;
+ border-radius:6px;
+}
+.card img{width:100%}
+</style>
+</head>
+
+<body>
+
+<!-- SEARCH + CART -->
+ <div class="topbar">
+  <span onclick="history.back()" style="font-size:22px;cursor:pointer;">←</span>
+
+  <h3 class="title">Continue Your Shopping</h3>
+
+  <span style="font-size:20px;cursor:pointer;" onclick="location.href='search.html'">🔍</span>
+  <span class="cart" onclick="location.href='cart.html'">🛒</span>
+</div>
+
+ <!-- THIS PRODUCT -->
+<h3 class="section-title">This Product</h3>
+<div id="thisProduct" class="two-grid"></div>
+
+<!-- SIMILAR PRODUCTS -->
+<h3 class="section-title">Similar Products</h3>
+<div id="similar" class="scroll-row"></div>
+
+<!-- EXPLORE SIMILAR TRENDS -->
+<h3 class="section-title">Explore Similar Trends</h3>
+<div id="trending" class="scroll-row"></div>
+
+<script>
+const speakers = [
+ {id:102,name:"Sukari 1kg",price:2950,img:"https://i.postimg.cc/WbBkpG8D/1kg.jpg",type:"sukari"},
+ {id:101,name:"Nell Premium Salt(500g)",price:300,img:"https://i.postimg.cc/QdzNfWmf/Chumvi2.jpg",type:"sukari"},
+ {id:100,name:"Mafuta Korie(5ltr)",price:25050,img:"https://i.imgur.com/bI2cHtb.jpeg",
+ imgs:[
+   "https://i.imgur.com/g3hVvcA.jpeg",
+   "https://i.postimg.cc/ZRGYSwyn/ab30.jpg",
+   "https://i.postimg.cc/FHC4vTM7/ab31.jpg"
+ ],type:"mafuta",desc:"Good cooking oil"},
+ {id:103,name:"Neel Premium Salt(200g)",price:200,img:"https://i.postimg.cc/Dfx5BRLW/ab33.jpg/200",type:"sukari",desc:"chumvi bora"},
+ {id:104,name:"Tomato sauce(900g)",price:1350,img:"https://i.imgur.com/IqhRkL7.jpeg/200",type:"extra",desc:"Tomato sauce tamu"},
+ {id:105,name:"Soy sauce(500ml)",price:3450,img:"https://i.imgur.com/CqraWiO.jpeg/200",type:"masala",desc:"Jipatie soy sauce"},
+ {id:120,name:"Korie(3ltr)",price:16150,img:"https://i.postimg.cc/76vjPdmk/ab32.jpg",type:"mafuta"},
+ {id:121,name:"Korie(900ml)",price:5250,img:"https://i.postimg.cc/zDKdhVhJ/kori4.jpg",type:"mafuta",desc:"Korie Cooking Oil"},
+ {id:122,name:"Royco mchuzi mix(200g)",price:2200,img:"https://i.postimg.cc/13LjR2gC/royco1.jpg",type:"masala",desc:"Spicy Beef Flavour"},
+ {id:123,name:"Chicken Masala(100g)",price:2850,img:"https://i.postimg.cc/DzRb8VLY/chic-mas1.jpg",type:"masala",desc:"Spice Seasoning"},
+ {id:124,name:"Baking Powder(100g)",price:750,img:"https://i.postimg.cc/NfPGg61d/bakin1.jpg",type:"masala",desc:"Kwa Mandazi Baking Powder"},
+ {id:125,name:"Red Gold(400g)",price:1750,img:"https://i.postimg.cc/636F2SKZ/red-gol1.jpg",type:"masala",desc:"Red Gold Tomato Paste"},
+ {id:126,name:"Tea Masala(100g)",price:4250,img:"https://i.postimg.cc/dVH5N1Pb/tea-mas1.jpg",type:"masala",desc:"Spice seasoning"},
+ {id:127,name:"Pilau Masala(100g)",price:6050,img:"https://i.postimg.cc/5tQSPSmq/pilau-masa.jpg",type:"masala",desc:"Spice seasoning"},
+ {id:128,name:"White Vinegar 965ml",price:1150,img:"https://i.postimg.cc/9FN9vq0v/red-ven.jpg",type:"masala",desc:"RedGold White Vinegar "},
+ {id:129,name:"Blue Band 100g",price:1300,img:"https://i.postimg.cc/k461vX42/ab47.jpg/200",type:"extra",desc:"Blue Band 100g"},
+ {id:130,name:"Swahili Honey 500g",price:9000,img:"https://i.postimg.cc/kGR0Gv8Z/ab48.jpg/200",type:"extra",desc:"Swahili Honey"},
+ {id:131,name:"Blue Band 450g",price:5000,img:"https://i.postimg.cc/BvqtFXmw/blue-ban1.jpg/200",type:"extra",desc:"Blue Band Original 450g"},
+ {id:132,name:"Swahili Honey 300g",price:5100,img:"https://i.postimg.cc/PqJGwHks/ab49.jpg/200",type:"extra",desc:"Swahili Honey"}
+];
+
+// FORMAT PRICE (TZS + comma)
+function formatPrice(price){
+ return "TZS " + Number(price).toLocaleString() + "/=";
+}
+
+// LOAD EXISTING PRODUCTS
+let all = JSON.parse(localStorage.getItem("allProducts")) || [];
+
+// MERGE WITHOUT DUPLICATES
+speakers.forEach(sp => {
+ if (!all.some(p => p.id === sp.id)) {
+  all.push(sp);
+ }
+});
+
+localStorage.setItem("allProducts", JSON.stringify(all));
+
+ function drawThisProduct(){
+ let selected = speakers.slice(0,2);
+
+ document.getElementById("thisProduct").innerHTML =
+  selected.map(p=>`
+   <div class="card" onclick="openProduct(${p.id})">
+    <img src="${p.img}">
+    <p>${p.name}</p>
+    <b>${formatPrice(p.price)}</b>
+   </div>
+  `).join("");
+}
+
+ let similarIds = []; // store IDs used in Similar
+
+function drawSimilar(){
+
+  // shuffle all products
+  let shuffled = [...speakers].sort(()=>0.5 - Math.random());
+
+  // pick 7
+  let selected = shuffled.slice(0,7);
+
+  // store their IDs
+  similarIds = selected.map(p => p.id);
+
+  document.getElementById("similar").innerHTML =
+    selected.map(p=>`
+      <div class="scroll-card" onclick="openProduct(${p.id})">
+        <img src="${p.img}">
+        <p>${p.name}</p>
+        <b>${formatPrice(p.price)}</b>
+      </div>
+    `).join("");
+}
+
+
+function drawTrending(){
+
+  // ❌ REMOVE products already used in Similar
+  let remaining = speakers.filter(p => !similarIds.includes(p.id));
+
+  // shuffle remaining only
+  let shuffled = [...remaining].sort(()=>0.5 - Math.random());
+
+  // pick 6
+  let selected = shuffled.slice(0,6);
+
+  document.getElementById("trending").innerHTML =
+    selected.map(p=>`
+      <div class="scroll-card" onclick="openProduct(${p.id})">
+        <img src="${p.img}">
+        <p>${p.name}</p>
+        <b>${formatPrice(p.price)}</b>
+      </div>
+    `).join("");
+}
+
+// SEARCH FUNCTION
+function search(value){
+ const filtered = speakers.filter(p =>
+  p.name.toLowerCase().includes(value.toLowerCase())
+ );
+ draw(filtered);
+}
+
+// OPEN PRODUCT
+function openProduct(id){
+ localStorage.setItem("pid", id);
+ location.href = "product.html";
+}
+
+drawThisProduct();
+drawSimilar();
+drawTrending();
+
+/* AUTO UPDATE */
+ setInterval(()=>{
+ drawSimilar();   // must run first
+ drawTrending();  // uses filtered data
+},60000);
+</script>
+
+</body>
+</html>
