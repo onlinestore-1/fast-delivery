@@ -108,31 +108,6 @@ body{
 <div id="box" class="grid"></div>
 
 <script>
-/* AUTO DELIVERY DATE = TODAY + 7 DAYS */
-function getDeliveryDate(days = 7){
-
-  const months = [
-    "January","February","March","April","May","June",
-    "July","August","September","October","November","December"
-  ];
-
-  const daysName = [
-    "Sun","Mon","Tue","Wed","Thu","Fri","Sat"
-  ];
-
-  let d = new Date();
-
-  d.setDate(d.getDate() + days);
-
-  let day = d.getDate();
-  let month = months[d.getMonth()];
-  let weekDay = daysName[d.getDay()];
-
-  return `Delivery by ${day} ${month}, ${weekDay}`;
-}
-
-const autoDelivery = getDeliveryDate(7);
-
 /* FASHION DATA */
 const fashion=[
  {id:55,name:"Girls Backpack",price:68000,img:"https://i.postimg.cc/ZKcYmDmQ/bag2.jpg",type:"gloves",desc:"Backpack for Girls",delivery:autoDelivery},
