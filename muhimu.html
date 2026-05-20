@@ -195,6 +195,32 @@ setInterval(()=>{
 },3000);
 
 /* FASHION DATA */
+/* AUTO DELIVERY DATE = TODAY + 7 DAYS */
+function getDeliveryDate(days = 0){
+
+  const months = [
+    "January","February","March","April","May","June",
+    "July","August","September","October","November","December"
+  ];
+
+  const daysName = [
+    "Sun","Mon","Tue","Wed","Thu","Fri","Sat"
+  ];
+
+  let d = new Date();
+
+  d.setDate(d.getDate() + days);
+
+  let day = d.getDate();
+  let month = months[d.getMonth()];
+  let weekDay = daysName[d.getDay()];
+
+  return `Delivery by ${day} ${month}, ${weekDay}`;
+}
+
+const autoDelivery = getDeliveryDate(0);
+
+/* FASHION DATA */
 const fashion=[
  {id:200,name:"Doffi 500g",price:1000,img:"https://i.imgur.com/wpJjs0L.jpeg",type:"sabuni",delivery:autoDelivery},
  {id:201,name:"OMO 200g",price:1600,img:"https://i.imgur.com/v0eeorr.jpeg",type:"sabuni",desc:"Ondoa madoa sugu",delivery:autoDelivery},
