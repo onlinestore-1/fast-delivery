@@ -156,27 +156,53 @@ setInterval(()=>{
 },3000);
 
 /* FASHION DATA */
+/* AUTO DELIVERY DATE = TODAY + 7 DAYS */
+function getDeliveryDate(days = 7){
+
+  const months = [
+    "January","February","March","April","May","June",
+    "July","August","September","October","November","December"
+  ];
+
+  const daysName = [
+    "Sun","Mon","Tue","Wed","Thu","Fri","Sat"
+  ];
+
+  let d = new Date();
+
+  d.setDate(d.getDate() + days);
+
+  let day = d.getDate();
+  let month = months[d.getMonth()];
+  let weekDay = daysName[d.getDay()];
+
+  return `Delivery by ${day} ${month}, ${weekDay}`;
+}
+
+const autoDelivery = getDeliveryDate(7);
+
+/* FASHION DATA */
 const fashion=[
- {id:400,name:"Smart Watches",price:5000,img:"https://i.imgur.com/yIsxgJk.jpeg",type:"watches",desc:"Smart Watch for Men 50M Waterproof"},
- {id:401,name:"SanDisk",price:33000,img:"https://i.imgur.com/p4TuNyK.jpeg",type:"data",desc:"SanDisk Ultra Shift 32GB"},
- {id:402,name:"Goboult",price:34000,img:"https://i.imgur.com/d23TMP5.jpeg",type:"power",desc:"10000 mAH 22.5 W Power Bank"},
- {id:403,name:"HG WORLD PS4 Controller",price:30000,img:"https://i.imgur.com/ADKZfyn.jpeg",type:"pad",desc:"HG WORLD PS4 Controller DualShock 4 wireless"},
- {id:404,name:"HP Laptop 4540s",price:390000,img:"https://i.imgur.com/S7hlTgj.jpeg",type:"laptop",desc:"HP ProBook 4540s 4GB Intel i3 HDD 500GB"},
- {id:405,name:"HP Laptop 4530s",price:360000,img:"https://i.imgur.com/Y5W6m6J.jpeg",type:"laptop",desc:"HP ProBook 4530s 8GB Intel i5 HDD 500GB"},
- {id:406,name:"Pods",price:17000,img:"https://i.imgur.com/bSBbTan.jpeg",type:"charger",desc:"Swiss Pods Bluetooth Headset"},
- {id:407,name:"Mini Boost",price:10000,img:"https://i.postimg.cc/j2H3TfLz/aa85.jpg",type:"power",desc:"Small Bluetooth Speaker"},
- {id:408,name:"ZEBRONICS Astra",price:25500,img:"https://i.postimg.cc/rFyNs3Hv/aa81.jpg",type:"power",desc:"Portable Bluetooth Speaker"},
- {id:409,name:"Small Speaker purple",price:10000,img:"https://i.postimg.cc/DwMMYkjL/aa86.jpg",type:"power",desc:"Small Bluetooth Speaker"},
- {id:410,name:"ZEBRONICS Sound",price:30000,img:"https://i.postimg.cc/FsQsxQm4/aa83.jpg",type:"power",desc:"Zebronics Sound Feast50"},
- {id:411,name:"Motorola Moto",price:170000,img:"https://i.postimg.cc/nL965CYk/a37.jpg",type:"charger",desc:"Buds Loop TWS"},
- {id:412,name:"Smart Watches Orange",price:26000,img:"https://i.postimg.cc/d0KnGnNk/a41.jpg",type:"watches",desc:"Ulta Max Smart Watch"},
- {id:413,name:"Smart Watches Black",price:26000,img:"https://i.postimg.cc/XvH8t3Nt/a42.jpg",type:"watches",desc:"Black Ulta Max Smart Watch"},
- {id:414,name:"Smart Watches Metal Black",price:30000,img:"https://i.postimg.cc/PfmDwTsw/a40.jpg",type:"watches",desc:"Max Smart Watch"},
- {id:415,name:"Smart Watches",price:5000,img:"https://i.postimg.cc/c1mHWHGB/b10.jpg",type:"watches",desc:"Best Max Smart Watch"},
- {id:416,name:"Smart Watches",price:10000,img:"https://i.postimg.cc/QtSr2FKD/b12.jpg",type:"watches",desc:"Ulta Max Smart Watch"},
- {id:417,name:"Bestor RGB",price:30000,img:"https://i.postimg.cc/DZHLrP7K/a44.jpg",type:"charger",desc:"Bestor rgb wired Gaming Headset"},
- {id:418,name:"PunnkFunnk",price:27500,img:"https://i.postimg.cc/T1k8N1H2/a45.jpg",type:"charger",desc:"PunkFunnk BattleKiller"},
- {id:419,name:"Lexolt Astra",price:15000,img:"https://i.postimg.cc/3RnbY6j4/a46.jpg",type:"charger",desc:"Lexolt Astra 45ms"}
+ {id:400,name:"Smart Watches",price:5000,img:"https://i.imgur.com/yIsxgJk.jpeg",type:"watches",desc:"Smart Watch for Men 50M Waterproof",delivery:autoDelivery},
+ {id:401,name:"SanDisk",price:33000,img:"https://i.imgur.com/p4TuNyK.jpeg",type:"data",desc:"SanDisk Ultra Shift 32GB",delivery:autoDelivery},
+ {id:402,name:"Goboult",price:34000,img:"https://i.imgur.com/d23TMP5.jpeg",type:"power",desc:"10000 mAH 22.5 W Power Bank",delivery:autoDelivery},
+ {id:403,name:"HG WORLD PS4 Controller",price:30000,img:"https://i.imgur.com/ADKZfyn.jpeg",type:"pad",desc:"HG WORLD PS4 Controller DualShock 4 wireless",delivery:autoDelivery},
+ {id:404,name:"HP Laptop 4540s",price:390000,img:"https://i.imgur.com/S7hlTgj.jpeg",type:"laptop",desc:"HP ProBook 4540s 4GB Intel i3 HDD 500GB",delivery:autoDelivery},
+ {id:405,name:"HP Laptop 4530s",price:360000,img:"https://i.imgur.com/Y5W6m6J.jpeg",type:"laptop",desc:"HP ProBook 4530s 8GB Intel i5 HDD 500GB",delivery:autoDelivery},
+ {id:406,name:"Pods",price:17000,img:"https://i.imgur.com/bSBbTan.jpeg",type:"charger",desc:"Swiss Pods Bluetooth Headset",delivery:autoDelivery},
+ {id:407,name:"Mini Boost",price:10000,img:"https://i.postimg.cc/j2H3TfLz/aa85.jpg",type:"power",desc:"Small Bluetooth Speaker",delivery:autoDelivery},
+ {id:408,name:"ZEBRONICS Astra",price:25500,img:"https://i.postimg.cc/rFyNs3Hv/aa81.jpg",type:"power",desc:"Portable Bluetooth Speaker",delivery:autoDelivery},
+ {id:409,name:"Small Speaker purple",price:10000,img:"https://i.postimg.cc/DwMMYkjL/aa86.jpg",type:"power",desc:"Small Bluetooth Speaker",delivery:autoDelivery},
+ {id:410,name:"ZEBRONICS Sound",price:30000,img:"https://i.postimg.cc/FsQsxQm4/aa83.jpg",type:"power",desc:"Zebronics Sound Feast50",delivery:autoDelivery},
+ {id:411,name:"Motorola Moto",price:170000,img:"https://i.postimg.cc/nL965CYk/a37.jpg",type:"charger",desc:"Buds Loop TWS",delivery:autoDelivery},
+ {id:412,name:"Smart Watches Orange",price:26000,img:"https://i.postimg.cc/d0KnGnNk/a41.jpg",type:"watches",desc:"Ulta Max Smart Watch",delivery:autoDelivery},
+ {id:413,name:"Smart Watches Black",price:26000,img:"https://i.postimg.cc/XvH8t3Nt/a42.jpg",type:"watches",desc:"Black Ulta Max Smart Watch",delivery:autoDelivery},
+ {id:414,name:"Smart Watches Metal Black",price:30000,img:"https://i.postimg.cc/PfmDwTsw/a40.jpg",type:"watches",desc:"Max Smart Watch",delivery:autoDelivery},
+ {id:415,name:"Smart Watches",price:5000,img:"https://i.postimg.cc/c1mHWHGB/b10.jpg",type:"watches",desc:"Best Max Smart Watch",delivery:autoDelivery},
+ {id:416,name:"Smart Watches",price:10000,img:"https://i.postimg.cc/QtSr2FKD/b12.jpg",type:"watches",desc:"Ulta Max Smart Watch",delivery:autoDelivery},
+ {id:417,name:"Bestor RGB",price:30000,img:"https://i.postimg.cc/DZHLrP7K/a44.jpg",type:"charger",desc:"Bestor rgb wired Gaming Headset",delivery:autoDelivery},
+ {id:418,name:"PunnkFunnk",price:27500,img:"https://i.postimg.cc/T1k8N1H2/a45.jpg",type:"charger",desc:"PunkFunnk BattleKiller",delivery:autoDelivery},
+ {id:419,name:"Lexolt Astra",price:15000,img:"https://i.postimg.cc/3RnbY6j4/a46.jpg",type:"charger",desc:"Lexolt Astra 45ms",delivery:autoDelivery}
 ];
 
 localStorage.setItem("allProducts",JSON.stringify(fashion));
