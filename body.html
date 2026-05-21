@@ -128,28 +128,51 @@ body{
 <div id="trending" class="scroll-row"></div>
 
 <script>
+// FORMAT DELIVERY DATE
+function getDeliveryDate(days = 0){
+
+  const months = [
+    "Jan","Feb","Mar","Apr","May","Jun",
+    "Jul","Aug","Sep","Oct","Nov","Dec"
+  ];
+
+  const daysName = [
+    "Sun","Mon","Tue","Wed","Thu","Fri","Sat"
+  ];
+
+  let date = new Date();
+
+  // add days automatically
+  date.setDate(date.getDate() + days);
+
+  let day = date.getDate();
+  let month = months[date.getMonth()];
+  let weekDay = daysName[date.getDay()];
+
+  return `Delivery by ${day} ${month}, ${weekDay}`;
+}
 const speakers = [
- {id:200,name:"Doffi 500g",price:1000,img:"https://i.imgur.com/wpJjs0L.jpeg",type:"sabuni",delivery:"Delivery by 21 May, Wed"},
- {id:201,name:"OMO 200g",price:1600,img:"https://i.imgur.com/v0eeorr.jpeg",type:"sabuni",desc:"Ondoa madoa sugu",delivery:"Delivery by 21 May, Wed"},
- {id:202,name:"Doffi pink 500g",price:1000,img:"https://i.postimg.cc/KvhDYFPG/muh6.jpg/200",type:"sabuni",desc:"Washing powder",delivery:"Delivery by 21 May, Wed"},
- {id:203,name:"Niceone 180g",price:450,img:"https://i.imgur.com/7nmPGbq.jpeg/200",type:"sabuni",desc:"Ondoa madoa sugu",delivery:"Delivery by 21 May, Wed"},
- {id:204,name:"Jet 5ltr",price:10200,img:"https://i.imgur.com/OoGiHtj.jpeg",type:"sabuni",desc:"Dish washing liquid soap",delivery:"Delivery by 21 May, Wed"},
- {id:205,name:"Toss 500g",price:3800,img:"https://i.postimg.cc/fWdCn33J/toss1.jpg",type:"sabuni",desc:"Blue Washing Powder",delivery:"Delivery by 21 May, Wed"},
- {id:206,name:"Freedom Counter Book 2Q",price:1500,img:"https://i.postimg.cc/50JG0SpM/free1.jpg",type:"book",desc:"Freedom Counter Book-2 Quire",delivery:"Delivery by 21 May, Wed"},
- {id:207,name:"Famire Hair removal",price:4000,img:"https://i.postimg.cc/4yFNKWrD/ab27.jpg",type:"oil",desc:"Famire Hair Removal Spray for Men and Women",delivery:"Delivery by 21 May, Wed"},
- {id:208,name:"Exercise Book",price:700,img:"https://i.imgur.com/AQrSAGW.jpeg/200",type:"book",desc:"Daftari mistali mikubwa na midogo",delivery:"Delivery by 21 May, Wed"},
- {id:209,name:"Exercise Book",price:300,img:"https://i.imgur.com/ihIcg3h.jpeg/200",type:"book",desc:"Daftari la kuandikia page 100",delivery:"Delivery by 21 May, Wed"},
- {id:210,name:"Exercise Book",price:300,img:"https://i.imgur.com/Hg8Aeea.jpeg/200",type:"book",desc:"Daftari la kuandikia page 32",delivery:"Delivery by 21 May, Wed"},
- {id:211,name:"Sneakers",price:22000,img:"https://i.postimg.cc/XqdgtpTs/a17.jpg",type:"kids",desc:"G & D kids Running Shoes",delivery:"Delivery by 21 May, Wed"},
- {id:212,name:"Colgate 140g",price:3900,img:"https://i.postimg.cc/2547hzTB/a1.jpg/200",type:"tooth",desc:"With The Cool Mint Flavour",delivery:"Delivery by 21 May, Wed"},
- {id:213,name:"Rungu Spray 500ml",price:5000,img:"https://i.postimg.cc/WpCbGHdx/muh16.jpg/200",type:"ziada",desc:"Rungu Mosquito Spray",delivery:"Delivery by 21 May, Wed"},
- {id:214,name:"Abros Barisal Black",price:24000,img:"https://i.postimg.cc/gJh5cB3N/a15.jpg/200",type:"kids",desc:"Viatu vya watoto wadogo",delivery:"Delivery by 21 May, Wed"},
- {id:215,name:"Abros Barisal",price:22000,img:"https://i.postimg.cc/kGncrjsW/a16.jpg/200",type:"kids",desc:"Sneakers for Boys & Girls",delivery:"Delivery by 21 May, Wed"},
- {id:216,name:"Kats Lace Snakers",price:14000,img:"https://i.postimg.cc/sxXh9bws/a13.jpg/200",type:"kids",desc:"Viatu vya watoto",delivery:"Delivery by 21 May, Wed"},
- {id:217,name:"Redgettim Black Hair 300ml",price:6500,img:"https://i.postimg.cc/QtKJHz9p/ab29.jpg/200",type:"oil",desc:"Redgettim Black Hair Shampoo",delivery:"Delivery by 21 May, Wed"},
- {id:218,name:"Black Hair Shampoo 200ml",price:20000,img:"https://i.postimg.cc/htmy5fPT/ab28.jpg/200",type:"oil",desc:"Black Hair Shampoo",delivery:"Delivery by 21 May, Wed"},
- {id:219,name:" Hiper Razor",price:1000,img:"https://i.postimg.cc/Pq5jsWLS/muh23.jpg/200",type:"oil",desc:"Plus disposable Razor",delivery:"Delivery by 21 May, Wed"},
- {id:220,name:"Whitedent 40g",price:900,img:"https://i.imgur.com/U3VDK5W.jpeg/200",type:"tooth",desc:"Whitedent Herbal",delivery:"Delivery by 21 May, Wed"}
+ {id:200,name:"Doffi 500g",price:1000,img:"https://i.imgur.com/wpJjs0L.jpeg",type:"sabuni",delivery:getDeliveryDate()},
+ {id:201,name:"OMO 200g",price:1600,img:"https://i.imgur.com/v0eeorr.jpeg",type:"sabuni",desc:"Ondoa madoa sugu",delivery:getDeliveryDate()},
+ {id:202,name:"Doffi pink 500g",price:1000,img:"https://i.postimg.cc/KvhDYFPG/muh6.jpg/200",type:"sabuni",desc:"Washing powder",delivery:getDeliveryDate()},
+ {id:203,name:"Niceone 180g",price:450,img:"https://i.imgur.com/7nmPGbq.jpeg/200",type:"sabuni",desc:"Ondoa madoa sugu",delivery:getDeliveryDate()},
+ {id:204,name:"Jet 5ltr",price:10200,img:"https://i.imgur.com/OoGiHtj.jpeg",type:"sabuni",desc:"Dish washing liquid soap",delivery:getDeliveryDate()},
+ {id:205,name:"Toss 500g",price:3800,img:"https://i.postimg.cc/fWdCn33J/toss1.jpg",type:"sabuni",desc:"Blue Washing Powder",delivery:getDeliveryDate()},
+ {id:206,name:"Freedom Counter Book 2Q",price:1500,img:"https://i.postimg.cc/50JG0SpM/free1.jpg",type:"book",desc:"Freedom Counter Book-2 Quire",delivery:getDeliveryDate()},
+ {id:207,name:"Famire Hair removal",price:4000,img:"https://i.postimg.cc/4yFNKWrD/ab27.jpg",type:"oil",desc:"Famire Hair Removal Spray for Men and Women",delivery:getDeliveryDate()},
+ {id:208,name:"Exercise Book",price:700,img:"https://i.imgur.com/AQrSAGW.jpeg/200",type:"book",desc:"Daftari mistali mikubwa na midogo",delivery:getDeliveryDate()},
+ {id:209,name:"Exercise Book",price:300,img:"https://i.imgur.com/ihIcg3h.jpeg/200",type:"book",desc:"Daftari la kuandikia page 100",delivery:getDeliveryDate()},
+ {id:210,name:"Exercise Book",price:300,img:"https://i.imgur.com/Hg8Aeea.jpeg/200",type:"book",desc:"Daftari la kuandikia page 32",delivery:getDeliveryDate()},
+ {id:211,name:"Sneakers",price:22000,img:"https://i.postimg.cc/XqdgtpTs/a17.jpg",type:"kids",desc:"G & D kids Running Shoes",delivery:getDeliveryDate()},
+ {id:212,name:"Colgate 140g",price:3900,img:"https://i.postimg.cc/2547hzTB/a1.jpg/200",type:"tooth",desc:"With The Cool Mint Flavour",delivery:getDeliveryDate()},
+ {id:213,name:"Rungu Spray 500ml",price:5000,img:"https://i.postimg.cc/WpCbGHdx/muh16.jpg/200",type:"ziada",desc:"Rungu Mosquito Spray",delivery:getDeliveryDate()},
+ {id:214,name:"Abros Barisal Black",price:24000,img:"https://i.postimg.cc/gJh5cB3N/a15.jpg/200",type:"kids",desc:"Viatu vya watoto wadogo",delivery:getDeliveryDate()},
+ {id:215,name:"Abros Barisal",price:22000,img:"https://i.postimg.cc/kGncrjsW/a16.jpg/200",type:"kids",desc:"Sneakers for Boys & Girls",delivery:getDeliveryDate()},
+ {id:216,name:"Kats Lace Snakers",price:14000,img:"https://i.postimg.cc/sxXh9bws/a13.jpg/200",type:"kids",desc:"Viatu vya watoto",delivery:getDeliveryDate()},
+ {id:217,name:"Redgettim Black Hair 300ml",price:6500,img:"https://i.postimg.cc/QtKJHz9p/ab29.jpg/200",type:"oil",desc:"Redgettim Black Hair Shampoo",delivery:getDeliveryDate()},
+ {id:218,name:"Black Hair Shampoo 200ml",price:20000,img:"https://i.postimg.cc/htmy5fPT/ab28.jpg/200",type:"oil",desc:"Black Hair Shampoo",delivery:getDeliveryDate()},
+ {id:219,name:" Hiper Razor",price:1000,img:"https://i.postimg.cc/Pq5jsWLS/muh23.jpg/200",type:"oil",desc:"Plus disposable Razor",delivery:getDeliveryDate()},
+ {id:220,name:"Whitedent 40g",price:900,img:"https://i.imgur.com/U3VDK5W.jpeg/200",type:"tooth",desc:"Whitedent Herbal",delivery:getDeliveryDate()}
 ];
 
 // FORMAT PRICE (TZS + comma)
