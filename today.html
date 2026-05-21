@@ -128,19 +128,42 @@ body{
 <div id="trending" class="scroll-row"></div>
 
 <script>
+// FORMAT DELIVERY DATE
+function getDeliveryDate(days = 7){
+
+  const months = [
+    "Jan","Feb","Mar","Apr","May","Jun",
+    "Jul","Aug","Sep","Oct","Nov","Dec"
+  ];
+
+  const daysName = [
+    "Sun","Mon","Tue","Wed","Thu","Fri","Sat"
+  ];
+
+  let date = new Date();
+
+  // add days automatically
+  date.setDate(date.getDate() + days);
+
+  let day = date.getDate();
+  let month = months[date.getMonth()];
+  let weekDay = daysName[date.getDay()];
+
+  return `Delivery by ${day} ${month}, ${weekDay}`;
+}
 const speakers = [
- {id:10,name:"Neonomad Urban",price:12500,img:"https://i.imgur.com/tpYrddJ.jpeg",type:"tshirt",desc:"Men Graphic Print Oversized"},
- {id:9,name:"Black Neonomad Street ",price:12000,img:"https://i.imgur.com/zgyFKOe.jpeg",type:"tshirt",desc:"Men Graphic Print Oversized"},
- {id:6,name:"TECHNOSPORT",price:13000,img:"https://i.imgur.com/EptkNxj.jpeg",type:"tshirt",desc:"Men Slim Fit T Shirt"},
- {id:7,name:"Surprise Buda Jeans Co",price:10000,img:"https://i.imgur.com/DuPhNKu.jpeg",type:"tshirt",desc:"Men Graphic Print Regular Fit"},
- {id:8,name:"Alfaq",price:15000,img:"https://i.imgur.com/unw4MV3.jpeg",type:"tshirt",desc:"Men Graphic Print Oversized"},
- {id:11,name:"Buda Jeans Co Race",price:12500,img:"https://i.imgur.com/bBde034.jpeg",type:"tshirt",desc:"Men Graphic Oversized Fit"},
- {id:12,name:"Black Neonomad",price:12000,img:"https://i.imgur.com/NDAoZAr.jpeg",type:"tshirt",desc:"Men Graphic Print Oversized Fit"},
- {id:13,name:"Blue Buda Jeans Co",price:12000,img:"https://i.imgur.com/SSMbMl6.jpeg",type:"tshirt",desc:"Men Graphic Print Oversized Fit"},
- {id:14,name:"lee cooper",price:10000,img:"https://i.imgur.com/3yuEsKY.jpeg",type:"tshirt",desc:"Men Brand Print oversized Fit"},
- {id:15,name:"Yousta",price:6000,img:"https://i.imgur.com/3d3c22F.jpeg",type:"tshirt",desc:"Men Graphic Print Oversized Fit"},
- {id:16,name:"Marvel Buda jeans Co",price:13000,img:"https://i.imgur.com/0kLhxU4.jpeg",type:"tshirt",desc:"Men Graphic Print Oversized Fit"},
- {id:17,name:"T-Base",price:19000,img:"https://i.imgur.com/MkDOJUt.jpeg",type:"tshirt",desc:"Men Typographic Print Regular"},
+ {id:10,name:"Neonomad Urban",price:12500,img:"https://i.imgur.com/tpYrddJ.jpeg",type:"tshirt",desc:"Men Graphic Print Oversized",delivery:getDeliveryDate()},
+ {id:9,name:"Black Neonomad Street ",price:12000,img:"https://i.imgur.com/zgyFKOe.jpeg",type:"tshirt",desc:"Men Graphic Print Oversized",delivery:getDeliveryDate()},
+ {id:6,name:"TECHNOSPORT",price:13000,img:"https://i.imgur.com/EptkNxj.jpeg",type:"tshirt",desc:"Men Slim Fit T Shirt",delivery:getDeliveryDate()},
+ {id:7,name:"Surprise Buda Jeans Co",price:10000,img:"https://i.imgur.com/DuPhNKu.jpeg",type:"tshirt",desc:"Men Graphic Print Regular Fit",delivery:getDeliveryDate()},
+ {id:8,name:"Alfaq",price:15000,img:"https://i.imgur.com/unw4MV3.jpeg",type:"tshirt",desc:"Men Graphic Print Oversized",delivery:getDeliveryDate()},
+ {id:11,name:"Buda Jeans Co Race",price:12500,img:"https://i.imgur.com/bBde034.jpeg",type:"tshirt",desc:"Men Graphic Oversized Fit",delivery:getDeliveryDate()},
+ {id:12,name:"Black Neonomad",price:12000,img:"https://i.imgur.com/NDAoZAr.jpeg",type:"tshirt",desc:"Men Graphic Print Oversized Fit",delivery:getDeliveryDate()},
+ {id:13,name:"Blue Buda Jeans Co",price:12000,img:"https://i.imgur.com/SSMbMl6.jpeg",type:"tshirt",desc:"Men Graphic Print Oversized Fit",delivery:getDeliveryDate()},
+ {id:14,name:"lee cooper",price:10000,img:"https://i.imgur.com/3yuEsKY.jpeg",type:"tshirt",desc:"Men Brand Print oversized Fit",delivery:getDeliveryDate()},
+ {id:15,name:"Yousta",price:6000,img:"https://i.imgur.com/3d3c22F.jpeg",type:"tshirt",desc:"Men Graphic Print Oversized Fit",delivery:getDeliveryDate()},
+ {id:16,name:"Marvel Buda jeans Co",price:13000,img:"https://i.imgur.com/0kLhxU4.jpeg",type:"tshirt",desc:"Men Graphic Print Oversized Fit",delivery:getDeliveryDate()},
+ {id:17,name:"T-Base",price:19000,img:"https://i.imgur.com/MkDOJUt.jpeg",type:"tshirt",desc:"Men Typographic Print Regular",delivery:getDeliveryDate()}
 ];
 
 // FORMAT PRICE (TZS + comma)
