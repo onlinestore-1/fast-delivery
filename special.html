@@ -128,21 +128,44 @@ body{
 <div id="trending" class="scroll-row"></div>
 
 <script>
+// FORMAT DELIVERY DATE
+function getDeliveryDate(days = 7){
+
+  const months = [
+    "Jan","Feb","Mar","Apr","May","Jun",
+    "Jul","Aug","Sep","Oct","Nov","Dec"
+  ];
+
+  const daysName = [
+    "Sun","Mon","Tue","Wed","Thu","Fri","Sat"
+  ];
+
+  let date = new Date();
+
+  // add days automatically
+  date.setDate(date.getDate() + days);
+
+  let day = date.getDate();
+  let month = months[date.getMonth()];
+  let weekDay = daysName[date.getDay()];
+
+  return `Delivery by ${day} ${month}, ${weekDay}`;
+}
 const speakers = [
- {id:49,name:"Clogs sandal Navy",price:15000,img:"https://i.postimg.cc/PqJw0wRc/a49.jpg",type:"sports",desc:"Navy Back Strap Clogs"},
- {id:50,name:"Red Tape",price:13000,img:"https://i.postimg.cc/tRMmc3vD/a53.jpg",type:"sports",desc:"Red Tape Clogs"},
- {id:39,name:"Zara Brown",price:32000,img:"https://i.postimg.cc/dVWyHGSG/ab16.jpg",type:"sports",desc:"Brown leather Zara Sandals"},
- {id:40,name:"Zara Leather Black",price:32000,img:"https://i.postimg.cc/tTss7TyS/ab18.jpg",type:"sports",desc:"Black Leather Zara Comfortable Cross"},
- {id:41,name:"Brown Leather",price:20000,img:"https://i.postimg.cc/VsD4Q0Ty/ab17.jpg",type:"sports",desc:"Brown leather Slides"},
- {id:42,name:"Prada black",price:20000,img:"https://i.postimg.cc/7LD1CSQm/ab19.jpg",type:"sports",desc:"Prada black patent leather sandals"},
- {id:43,name:"Black Fendi",price:10000,img:"https://i.postimg.cc/G3xvNXzv/ab23.jpg",type:"sports",desc:"Black Fendi Women sandals"},
- {id:44,name:"Brown Mosssimo",price:28000,img:"https://i.postimg.cc/7ht3R6Dk/ab24.jpg",type:"sports",desc:"Mossimo sandals with a crisscross strap"},
- {id:45,name:"Gold Modish Slides",price:15000,img:"https://i.postimg.cc/9M8b61Yz/ab25.jpg",type:"sports",desc:"Gold Modish Slides Sendals"},
- {id:46,name:"Burberry black Canvas",price:15000,img:"https://i.postimg.cc/sD6B5qDs/ab26.jpg",type:"sports",desc:"Burberry canvas and leather Honour sandals"},
- {id:51,name:"Red Tape Grey",price:12000,img:"https://i.postimg.cc/1tNJhTjM/a55.jpg",type:"sports",desc:"Kapani Fashion Flipflops,Slipper"},
- {id:52,name:"Slip On Clogs navy",price:12000,img:"https://i.postimg.cc/VLSGjJgL/a54.jpg",type:"sports",desc:"Casual Slip On Clogs"},
- {id:53,name:"Stylish Clogs Black",price:12000,img:"https://i.postimg.cc/7607HyMc/a56.jpg",type:"sports",desc:"Stylish Slip On Clogs"},
- {id:54,name:"Wugatti",price:22000,img:"https://i.postimg.cc/sf0yjZ1Q/a58.jpg",type:"sports",desc:"Wugatti Comfort Sendals"}
+ {id:49,name:"Clogs sandal Navy",price:15000,img:"https://i.postimg.cc/PqJw0wRc/a49.jpg",type:"sports",desc:"Navy Back Strap Clogs",delivery:getDeliveryDate()},
+ {id:50,name:"Red Tape",price:13000,img:"https://i.postimg.cc/tRMmc3vD/a53.jpg",type:"sports",desc:"Red Tape Clogs",delivery:getDeliveryDate()},
+ {id:39,name:"Zara Brown",price:32000,img:"https://i.postimg.cc/dVWyHGSG/ab16.jpg",type:"sports",desc:"Brown leather Zara Sandals",delivery:getDeliveryDate()},
+ {id:40,name:"Zara Leather Black",price:32000,img:"https://i.postimg.cc/tTss7TyS/ab18.jpg",type:"sports",desc:"Black Leather Zara Comfortable Cross",delivery:getDeliveryDate()},
+ {id:41,name:"Brown Leather",price:20000,img:"https://i.postimg.cc/VsD4Q0Ty/ab17.jpg",type:"sports",desc:"Brown leather Slides",delivery:getDeliveryDate()},
+ {id:42,name:"Prada black",price:20000,img:"https://i.postimg.cc/7LD1CSQm/ab19.jpg",type:"sports",desc:"Prada black patent leather sandals",delivery:getDeliveryDate()},
+ {id:43,name:"Black Fendi",price:10000,img:"https://i.postimg.cc/G3xvNXzv/ab23.jpg",type:"sports",desc:"Black Fendi Women sandals",delivery:getDeliveryDate()},
+ {id:44,name:"Brown Mosssimo",price:28000,img:"https://i.postimg.cc/7ht3R6Dk/ab24.jpg",type:"sports",desc:"Mossimo sandals with a crisscross strap",delivery:getDeliveryDate()},
+ {id:45,name:"Gold Modish Slides",price:15000,img:"https://i.postimg.cc/9M8b61Yz/ab25.jpg",type:"sports",desc:"Gold Modish Slides Sendals",delivery:getDeliveryDate()},
+ {id:46,name:"Burberry black Canvas",price:15000,img:"https://i.postimg.cc/sD6B5qDs/ab26.jpg",type:"sports",desc:"Burberry canvas and leather Honour sandals",delivery:getDeliveryDate()},
+ {id:51,name:"Red Tape Grey",price:12000,img:"https://i.postimg.cc/1tNJhTjM/a55.jpg",type:"sports",desc:"Kapani Fashion Flipflops,Slipper",delivery:getDeliveryDate()},
+ {id:52,name:"Slip On Clogs navy",price:12000,img:"https://i.postimg.cc/VLSGjJgL/a54.jpg",type:"sports",desc:"Casual Slip On Clogs",delivery:getDeliveryDate()},
+ {id:53,name:"Stylish Clogs Black",price:12000,img:"https://i.postimg.cc/7607HyMc/a56.jpg",type:"sports",desc:"Stylish Slip On Clogs",delivery:getDeliveryDate()},
+ {id:54,name:"Wugatti",price:22000,img:"https://i.postimg.cc/sf0yjZ1Q/a58.jpg",type:"sports",desc:"Wugatti Comfort Sendals",delivery:getDeliveryDate()}
 ];
 
 // FORMAT PRICE (TZS + comma)
