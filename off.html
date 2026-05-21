@@ -128,21 +128,44 @@ body{
 <div id="trending" class="scroll-row"></div>
 
 <script>
+// FORMAT DELIVERY DATE
+function getDeliveryDate(days = 7){
+
+  const months = [
+    "Jan","Feb","Mar","Apr","May","Jun",
+    "Jul","Aug","Sep","Oct","Nov","Dec"
+  ];
+
+  const daysName = [
+    "Sun","Mon","Tue","Wed","Thu","Fri","Sat"
+  ];
+
+  let date = new Date();
+
+  // add days automatically
+  date.setDate(date.getDate() + days);
+
+  let day = date.getDate();
+  let month = months[date.getMonth()];
+  let weekDay = daysName[date.getDay()];
+
+  return `Delivery by ${day} ${month}, ${weekDay}`;
+}
 const speakers = [
- {id:412,name:"Smart Watches Orange",price:26000,img:"https://i.postimg.cc/d0KnGnNk/a41.jpg",type:"watches",desc:"Ulta Max Smart Watch"},
- {id:413,name:"Smart Watches Black",price:26000,img:"https://i.postimg.cc/XvH8t3Nt/a42.jpg",type:"watches",desc:"Black Ulta Max Smart Watch"},
- {id:414,name:"Smart Watches Metal Black",price:30000,img:"https://i.postimg.cc/PfmDwTsw/a40.jpg",type:"watches",desc:"Max Smart Watch"},
- {id:415,name:"Smart Watches",price:5000,img:"https://i.postimg.cc/c1mHWHGB/b10.jpg",type:"watches",desc:"Best Max Smart Watch"},
- {id:416,name:"Smart Watches",price:10000,img:"https://i.postimg.cc/QtSr2FKD/b12.jpg",type:"watches",desc:"Ulta Max Smart Watch"},
- {id:417,name:"Bestor RGB",price:30000,img:"https://i.postimg.cc/DZHLrP7K/a44.jpg",type:"charger",desc:"Bestor rgb wired Gaming Headset"},
- {id:418,name:"PunnkFunnk",price:27500,img:"https://i.postimg.cc/T1k8N1H2/a45.jpg",type:"charger",desc:"PunkFunnk BattleKiller"},
- {id:419,name:"Lexolt Astra",price:15000,img:"https://i.postimg.cc/3RnbY6j4/a46.jpg",type:"charger",desc:"Lexolt Astra 45ms"},
- {id:406,name:"Pods",price:17000,img:"https://i.imgur.com/bSBbTan.jpeg",type:"charger",desc:"Swiss Pods Bluetooth Headset"},
- {id:407,name:"Mini Boost",price:10000,img:"https://i.postimg.cc/j2H3TfLz/aa85.jpg",type:"power",desc:"Small Bluetooth Speaker"},
- {id:408,name:"ZEBRONICS Astra",price:25500,img:"https://i.postimg.cc/rFyNs3Hv/aa81.jpg",type:"power",desc:"Portable Bluetooth Speaker"},
- {id:409,name:"Small Speaker purple",price:10000,img:"https://i.postimg.cc/DwMMYkjL/aa86.jpg",type:"power",desc:"Small Bluetooth Speaker"},
- {id:410,name:"ZEBRONICS Sound",price:30000,img:"https://i.postimg.cc/FsQsxQm4/aa83.jpg",type:"power",desc:"Zebronics Sound Feast50"},
- {id:411,name:"Motorola Moto",price:170000,img:"https://i.postimg.cc/nL965CYk/a37.jpg",type:"charger",desc:"Buds Loop TWS"}
+ {id:412,name:"Smart Watches Orange",price:26000,img:"https://i.postimg.cc/d0KnGnNk/a41.jpg",type:"watches",desc:"Ulta Max Smart Watch",delivery:getDeliveryDate()},
+ {id:413,name:"Smart Watches Black",price:26000,img:"https://i.postimg.cc/XvH8t3Nt/a42.jpg",type:"watches",desc:"Black Ulta Max Smart Watch",delivery:getDeliveryDate()},
+ {id:414,name:"Smart Watches Metal Black",price:30000,img:"https://i.postimg.cc/PfmDwTsw/a40.jpg",type:"watches",desc:"Max Smart Watch",delivery:getDeliveryDate()},
+ {id:415,name:"Smart Watches",price:5000,img:"https://i.postimg.cc/c1mHWHGB/b10.jpg",type:"watches",desc:"Best Max Smart Watch",delivery:getDeliveryDate()},
+ {id:416,name:"Smart Watches",price:10000,img:"https://i.postimg.cc/QtSr2FKD/b12.jpg",type:"watches",desc:"Ulta Max Smart Watch",delivery:getDeliveryDate()},
+ {id:417,name:"Bestor RGB",price:30000,img:"https://i.postimg.cc/DZHLrP7K/a44.jpg",type:"charger",desc:"Bestor rgb wired Gaming Headset",delivery:getDeliveryDate()},
+ {id:418,name:"PunnkFunnk",price:27500,img:"https://i.postimg.cc/T1k8N1H2/a45.jpg",type:"charger",desc:"PunkFunnk BattleKiller",delivery:getDeliveryDate()},
+ {id:419,name:"Lexolt Astra",price:15000,img:"https://i.postimg.cc/3RnbY6j4/a46.jpg",type:"charger",desc:"Lexolt Astra 45ms",delivery:getDeliveryDate()},
+ {id:406,name:"Pods",price:17000,img:"https://i.imgur.com/bSBbTan.jpeg",type:"charger",desc:"Swiss Pods Bluetooth Headset",delivery:getDeliveryDate()},
+ {id:407,name:"Mini Boost",price:10000,img:"https://i.postimg.cc/j2H3TfLz/aa85.jpg",type:"power",desc:"Small Bluetooth Speaker",delivery:getDeliveryDate()},
+ {id:408,name:"ZEBRONICS Astra",price:25500,img:"https://i.postimg.cc/rFyNs3Hv/aa81.jpg",type:"power",desc:"Portable Bluetooth Speaker",delivery:getDeliveryDate()},
+ {id:409,name:"Small Speaker purple",price:10000,img:"https://i.postimg.cc/DwMMYkjL/aa86.jpg",type:"power",desc:"Small Bluetooth Speaker",delivery:getDeliveryDate()},
+ {id:410,name:"ZEBRONICS Sound",price:30000,img:"https://i.postimg.cc/FsQsxQm4/aa83.jpg",type:"power",desc:"Zebronics Sound Feast50",delivery:getDeliveryDate()},
+ {id:411,name:"Motorola Moto",price:170000,img:"https://i.postimg.cc/nL965CYk/a37.jpg",type:"charger",desc:"Buds Loop TWS",delivery:getDeliveryDate()}
 ];
 
 // FORMAT PRICE (TZS + comma)
