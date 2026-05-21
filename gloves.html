@@ -108,10 +108,33 @@ body{
 <div id="box" class="grid"></div>
 
 <script>
+// FORMAT DELIVERY DATE
+function getDeliveryDate(days = 7){
+
+  const months = [
+    "Jan","Feb","Mar","Apr","May","Jun",
+    "Jul","Aug","Sep","Oct","Nov","Dec"
+  ];
+
+  const daysName = [
+    "Sun","Mon","Tue","Wed","Thu","Fri","Sat"
+  ];
+
+  let date = new Date();
+
+  // add days automatically
+  date.setDate(date.getDate() + days);
+
+  let day = date.getDate();
+  let month = months[date.getMonth()];
+  let weekDay = daysName[date.getDay()];
+
+  return `Delivery by ${day} ${month}, ${weekDay}`;
+}
 const speakers = [
- {id:25,name:"Riding Gloves",price:12000,img:"https://i.imgur.com/bdRBRBf.jpeg",type:"gloves",desc:"Riding Gloves"},
- {id:23,name:"Gloves ZaySoo",price:13000,img:"https://i.imgur.com/bnxAhsJ.jpeg",type:"gloves",desc:"ZaySoo Anti-Slip Gym  Gloves for Professional Weightlifting,fitness Training and workout"},
- {id:24,name:"Gloves Adidas",price:15000,img:"https://i.imgur.com/SEkRfCe.jpeg",type:"gloves",desc:"Adidas Essential Training Gloves"}
+ {id:25,name:"Riding Gloves",price:12000,img:"https://i.imgur.com/bdRBRBf.jpeg",type:"gloves",desc:"Riding Gloves",delivery:getDeliveryDate()},
+ {id:23,name:"Gloves ZaySoo",price:13000,img:"https://i.imgur.com/bnxAhsJ.jpeg",type:"gloves",desc:"ZaySoo Anti-Slip Gym  Gloves for Professional Weightlifting,fitness Training and workout",delivery:getDeliveryDate()},
+ {id:24,name:"Gloves Adidas",price:15000,img:"https://i.imgur.com/SEkRfCe.jpeg",type:"gloves",desc:"Adidas Essential Training Gloves",delivery:getDeliveryDate()}
 ];
 
 // FORMAT PRICE
