@@ -128,21 +128,44 @@ body{
 <div id="trending" class="scroll-row"></div>
 
 <script>
+// FORMAT DELIVERY DATE
+function getDeliveryDate(days = 0){
+
+  const months = [
+    "Jan","Feb","Mar","Apr","May","Jun",
+    "Jul","Aug","Sep","Oct","Nov","Dec"
+  ];
+
+  const daysName = [
+    "Sun","Mon","Tue","Wed","Thu","Fri","Sat"
+  ];
+
+  let date = new Date();
+
+  // add days automatically
+  date.setDate(date.getDate() + days);
+
+  let day = date.getDate();
+  let month = months[date.getMonth()];
+  let weekDay = daysName[date.getDay()];
+
+  return `Delivery by ${day} ${month}, ${weekDay}`;
+}
 const speakers = [
- {id:116,name:"u-fresh power(330ml)",price:500,img:"https://i.imgur.com/y1qJelw.jpeg/200",type:"drinks",desc:"u-fresh baridi ipo weka idadi hapo chini",delivery:"Delivery by 20 May, Wed"},
- {id:113,name:"pepsi(600ml)",price:1000,img:"https://i.imgur.com/cGRn5OZ.jpeg/200",type:"drinks",desc:"pepsi",delivery:"Delivery by 20 May, Wed"},
- {id:106,name:"Kahawa",price:500,img:"https://i.postimg.cc/fTQhRQTC/ab10.jpg/200",type:"cream",desc:"Kahawa Toffee & Cappuccino",delivery:"Delivery by 20 May, Wed"},
- {id:107,name:"Bungo",price:500,img:"https://i.postimg.cc/prYcd7qF/ab11.jpg/200",type:"cream",desc:"Azam ice lolly",delivery:"Delivery by 20 May, Wed"},
- {id:108,name:"Ballcone",price:1800,img:"https://i.imgur.com/YU7yVMc.jpeg/200",type:"cream",desc:"Ballcone flavoured ice cream",delivery:"Delivery by 20 May, Wed"},
- {id:109,name:"Embe DODO",price:500,img:"https://i.postimg.cc/7ZpdPpkp/ab14.jpg/200",type:"cream",desc:"Flavoured ice lolly",delivery:"Delivery by 20 May, Wed"},
- {id:110,name:"Strawberry",price:500,img:"https://i.postimg.cc/Y9tXh7yP/ab12.jpg/200",type:"cream",desc:"Strawberry sherbet milk bar",delivery:"Delivery by 20 May, Wed"},
- {id:111,name:"Ukwaju",price:500,img:"https://i.postimg.cc/xCsP8zmq/ab9.jpg/200",type:"cream",desc:"Ukwaju ice lOlly",delivery:"Delivery by 20 May, Wed"},
- {id:112,name:"Coca Cola(600ml)",price:1000,img:"https://i.imgur.com/UYZ1dIH.jpeg/200",type:"drinks",desc:"Coca Cola",delivery:"Delivery by 20 May, Wed"},
- {id:114,name:"Afya Maji(1.6L)",price:1000,img:"https://i.imgur.com/u9dkajs.jpeg/200",type:"drinks",desc:"Afya maji ya kunywa Baridi au Ya moto eka idadi HAPO chini",delivery:"Delivery by 20 May, Wed"},
- {id:115,name:"u-fresh orange(330ml)",price:500,img:"https://i.imgur.com/k42X2gl.jpeg/200",type:"drinks",desc:"u-fresh baridi ipo weka idadi hapo chini",delivery:"Delivery by 20 May, Wed"},
- {id:117,name:"u-fresh pineapple(330ml)",price:500,img:"https://i.imgur.com/GcVEME3.jpeg/200",type:"drinks",desc:"u-fresh baridi ipo weka idadi hapo chini",delivery:"Delivery by 20 May, Wed"},
- {id:118,name:"u-fresh passion(330ml",price:500,img:"https://i.imgur.com/9uhn4hj.jpeg/200",type:"drinks",desc:"u-fresh baridi ipo weka idadi hapo chini",delivery:"Delivery by 20 May, Wed"},
- {id:119,name:"u-fresh cola(330ml)",price:500,img:"https://i.imgur.com/FvMtoAL.jpeg/200",type:"drinks",desc:"u-fresh baridi ipo weka idadi hapo chini",delivery:"Delivery by 20 May, Wed"}
+ {id:116,name:"u-fresh power(330ml)",price:500,img:"https://i.imgur.com/y1qJelw.jpeg/200",type:"drinks",desc:"u-fresh baridi ipo weka idadi hapo chini",delivery:getDeliveryDate()},
+ {id:113,name:"pepsi(600ml)",price:1000,img:"https://i.imgur.com/cGRn5OZ.jpeg/200",type:"drinks",desc:"pepsi",delivery:getDeliveryDate()},
+ {id:106,name:"Kahawa",price:500,img:"https://i.postimg.cc/fTQhRQTC/ab10.jpg/200",type:"cream",desc:"Kahawa Toffee & Cappuccino",delivery:getDeliveryDate()},
+ {id:107,name:"Bungo",price:500,img:"https://i.postimg.cc/prYcd7qF/ab11.jpg/200",type:"cream",desc:"Azam ice lolly",delivery:getDeliveryDate()},
+ {id:108,name:"Ballcone",price:1800,img:"https://i.imgur.com/YU7yVMc.jpeg/200",type:"cream",desc:"Ballcone flavoured ice cream",delivery:getDeliveryDate()},
+ {id:109,name:"Embe DODO",price:500,img:"https://i.postimg.cc/7ZpdPpkp/ab14.jpg/200",type:"cream",desc:"Flavoured ice lolly",delivery:getDeliveryDate()},
+ {id:110,name:"Strawberry",price:500,img:"https://i.postimg.cc/Y9tXh7yP/ab12.jpg/200",type:"cream",desc:"Strawberry sherbet milk bar",delivery:getDeliveryDate()},
+ {id:111,name:"Ukwaju",price:500,img:"https://i.postimg.cc/xCsP8zmq/ab9.jpg/200",type:"cream",desc:"Ukwaju ice lOlly",delivery:getDeliveryDate()},
+ {id:112,name:"Coca Cola(600ml)",price:1000,img:"https://i.imgur.com/UYZ1dIH.jpeg/200",type:"drinks",desc:"Coca Cola",delivery:getDeliveryDate()},
+ {id:114,name:"Afya Maji(1.6L)",price:1000,img:"https://i.imgur.com/u9dkajs.jpeg/200",type:"drinks",desc:"Afya maji ya kunywa Baridi au Ya moto eka idadi HAPO chini",delivery:getDeliveryDate()},
+ {id:115,name:"u-fresh orange(330ml)",price:500,img:"https://i.imgur.com/k42X2gl.jpeg/200",type:"drinks",desc:"u-fresh baridi ipo weka idadi hapo chini",delivery:getDeliveryDate()},
+ {id:117,name:"u-fresh pineapple(330ml)",price:500,img:"https://i.imgur.com/GcVEME3.jpeg/200",type:"drinks",desc:"u-fresh baridi ipo weka idadi hapo chini",delivery:getDeliveryDate()},
+ {id:118,name:"u-fresh passion(330ml",price:500,img:"https://i.imgur.com/9uhn4hj.jpeg/200",type:"drinks",desc:"u-fresh baridi ipo weka idadi hapo chini",delivery:getDeliveryDate()},
+ {id:119,name:"u-fresh cola(330ml)",price:500,img:"https://i.imgur.com/FvMtoAL.jpeg/200",type:"drinks",desc:"u-fresh baridi ipo weka idadi hapo chini",delivery:getDeliveryDate()}
 ];
 
 // FORMAT PRICE (TZS + comma)
