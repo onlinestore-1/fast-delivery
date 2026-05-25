@@ -83,12 +83,35 @@ body{
 <div id="box" class="grid"></div>
 
 <script>
+// FORMAT DELIVERY DATE
+function getDeliveryDate(days = 7){
+
+  const months = [
+    "Jan","Feb","Mar","Apr","May","Jun",
+    "Jul","Aug","Sep","Oct","Nov","Dec"
+  ];
+
+  const daysName = [
+    "Sun","Mon","Tue","Wed","Thu","Fri","Sat"
+  ];
+
+  let date = new Date();
+
+  // add days automatically
+  date.setDate(date.getDate() + days);
+
+  let day = date.getDate();
+  let month = months[date.getMonth()];
+  let weekDay = daysName[date.getDay()];
+
+  return `Delivery by ${day} ${month}, ${weekDay}`;
+}
 const speakers = [ 
- {id:417,name:"Bestor RGB",price:30000,img:"https://i.postimg.cc/DZHLrP7K/a44.jpg",type:"charger",desc:"Bestor rgb wired Gaming Headset"},
- {id:406,name:"Pods",price:17000,img:"https://i.imgur.com/bSBbTan.jpeg",type:"charger",desc:"Swiss Pods Bluetooth Headset"},
- {id:418,name:"PunnkFunnk",price:27500,img:"https://i.postimg.cc/T1k8N1H2/a45.jpg",type:"charger",desc:"PunkFunnk BattleKiller"},
- {id:419,name:"Lexolt Astra",price:15000,img:"https://i.postimg.cc/3RnbY6j4/a46.jpg",type:"charger",desc:"Lexolt Astra 45ms"},
- {id:411,name:"Motorola Moto",price:170000,img:"https://i.postimg.cc/nL965CYk/a37.jpg",type:"charger",desc:"Buds Loop TWS"}
+ {id:417,name:"Bestor RGB",price:30000,img:"https://i.postimg.cc/DZHLrP7K/a44.jpg",type:"charger",desc:"Bestor rgb wired Gaming Headset",delivery:getDeliveryDate()},
+ {id:406,name:"Pods",price:17000,img:"https://i.imgur.com/bSBbTan.jpeg",type:"charger",desc:"Swiss Pods Bluetooth Headset",delivery:getDeliveryDate()},
+ {id:418,name:"PunnkFunnk",price:27500,img:"https://i.postimg.cc/T1k8N1H2/a45.jpg",type:"charger",desc:"PunkFunnk BattleKiller",delivery:getDeliveryDate()},
+ {id:419,name:"Lexolt Astra",price:15000,img:"https://i.postimg.cc/3RnbY6j4/a46.jpg",type:"charger",desc:"Lexolt Astra 45ms",delivery:getDeliveryDate()},
+ {id:411,name:"Motorola Moto",price:170000,img:"https://i.postimg.cc/nL965CYk/a37.jpg",type:"charger",desc:"Buds Loop TWS",delivery:getDeliveryDate()}
 ];
 
 // FORMAT PRICE (TZS + comma)
