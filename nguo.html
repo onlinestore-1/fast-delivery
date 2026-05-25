@@ -108,13 +108,36 @@ body{
 <div id="box" class="grid"></div>
 
 <script>
+// FORMAT DELIVERY DATE
+function getDeliveryDate(days = 7){
+
+  const months = [
+    "Jan","Feb","Mar","Apr","May","Jun",
+    "Jul","Aug","Sep","Oct","Nov","Dec"
+  ];
+
+  const daysName = [
+    "Sun","Mon","Tue","Wed","Thu","Fri","Sat"
+  ];
+
+  let date = new Date();
+
+  // add days automatically
+  date.setDate(date.getDate() + days);
+
+  let day = date.getDate();
+  let month = months[date.getMonth()];
+  let weekDay = daysName[date.getDay()];
+
+  return `Delivery by ${day} ${month}, ${weekDay}`;
+}
 const speakers = [
- {id:18,name:"Indian Garage Co Pant",price:32000,img:"https://i.imgur.com/fJconnx.jpeg",type:"jeans",desc:"Slim Fit Flat-Front Cargo Trousers"},
- {id:19,name:"Dnmx for trends select",price:33000,img:"https://i.imgur.com/2JaAcgr.jpeg",type:"jeans",desc:"Slim Fit Flat-Front Cargo Trousers"},
- {id:20,name:"ECKO UNLTD",price:82500,img:"https://i.imgur.com/R3ZrzPW.jpeg",type:"jeans",desc:"Slim Fit Flat-Front Cargo Pants"},
- {id:21,name:"STUDIO NEXX",price:74000,img:"https://i.imgur.com/8E1PQNH.jpeg",type:"jeans",desc:"Straight Fit Cargo Pants"},
- {id:3,name:"Slim Indian Garage Co",price:32500,img:"https://i.imgur.com/0bMhAZJ.jpeg",type:"jeans",desc:"Slim Fit Flat-Front Cargo Trousers"},
- {id:4,name:"Buda Jeans Co Pant",price:25500,img:"https://i.imgur.com/HPRwTKJ.jpeg",type:"jeans",desc:"Men Slim Fit Mid-Rise Cargo Pants"}
+ {id:18,name:"Indian Garage Co Pant",price:32000,img:"https://i.imgur.com/fJconnx.jpeg",type:"jeans",desc:"Slim Fit Flat-Front Cargo Trousers",delivery:getDeliveryDate()},
+ {id:19,name:"Dnmx for trends select",price:33000,img:"https://i.imgur.com/2JaAcgr.jpeg",type:"jeans",desc:"Slim Fit Flat-Front Cargo Trousers",delivery:getDeliveryDate()},
+ {id:20,name:"ECKO UNLTD",price:82500,img:"https://i.imgur.com/R3ZrzPW.jpeg",type:"jeans",desc:"Slim Fit Flat-Front Cargo Pants",delivery:getDeliveryDate()},
+ {id:21,name:"STUDIO NEXX",price:74000,img:"https://i.imgur.com/8E1PQNH.jpeg",type:"jeans",desc:"Straight Fit Cargo Pants",delivery:getDeliveryDate()},
+ {id:3,name:"Slim Indian Garage Co",price:32500,img:"https://i.imgur.com/0bMhAZJ.jpeg",type:"jeans",desc:"Slim Fit Flat-Front Cargo Trousers",delivery:getDeliveryDate()},
+ {id:4,name:"Buda Jeans Co Pant",price:25500,img:"https://i.imgur.com/HPRwTKJ.jpeg",type:"jeans",desc:"Men Slim Fit Mid-Rise Cargo Pants",delivery:getDeliveryDate()}
 ];
 
 // FORMAT PRICE
