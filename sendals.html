@@ -108,6 +108,29 @@ body{
 <div id="box" class="grid"></div>
 
 <script>
+// FORMAT DELIVERY DATE
+function getDeliveryDate(days = 7){
+
+  const months = [
+    "Jan","Feb","Mar","Apr","May","Jun",
+    "Jul","Aug","Sep","Oct","Nov","Dec"
+  ];
+
+  const daysName = [
+    "Sun","Mon","Tue","Wed","Thu","Fri","Sat"
+  ];
+
+  let date = new Date();
+
+  // add days automatically
+  date.setDate(date.getDate() + days);
+
+  let day = date.getDate();
+  let month = months[date.getMonth()];
+  let weekDay = daysName[date.getDay()];
+
+  return `Delivery by ${day} ${month}, ${weekDay}`;
+}
 const speakers = [
  {id:39,name:"Zara Brown",price:32000,img:"https://i.postimg.cc/dVWyHGSG/ab16.jpg",type:"sports",desc:"Brown leather Zara Sandals",delivery:getDeliveryDate()},
  {id:40,name:"Zara Leather Black",price:32000,img:"https://i.postimg.cc/tTss7TyS/ab18.jpg",type:"sports",desc:"Black Leather Zara Comfortable Cross",delivery:getDeliveryDate()},
