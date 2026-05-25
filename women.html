@@ -108,26 +108,49 @@ body{
 <div id="box" class="grid"></div>
 
 <script>
+// FORMAT DELIVERY DATE
+function getDeliveryDate(days = 7){
+
+  const months = [
+    "Jan","Feb","Mar","Apr","May","Jun",
+    "Jul","Aug","Sep","Oct","Nov","Dec"
+  ];
+
+  const daysName = [
+    "Sun","Mon","Tue","Wed","Thu","Fri","Sat"
+  ];
+
+  let date = new Date();
+
+  // add days automatically
+  date.setDate(date.getDate() + days);
+
+  let day = date.getDate();
+  let month = months[date.getMonth()];
+  let weekDay = daysName[date.getDay()];
+
+  return `Delivery by ${day} ${month}, ${weekDay}`;
+}
 const speakers = [
- {id:71,name:"Styli Dress",price:48000,img:"https://i.postimg.cc/RFrY6Rbp/dr1.jpg",type:"dress",desc:"Women Abstract Printed Short Sleeve Dress"},
+ {id:71,name:"Styli Dress",price:48000,img:"https://i.postimg.cc/RFrY6Rbp/dr1.jpg",type:"dress",desc:"Women Abstract Printed Short Sleeve Dress",delivery:getDeliveryDate()},
  {id:60,name:"Street9",price:21000,img:"https://i.postimg.cc/c1M2wk6T/ab34.jpg",
  imgs:[
    "https://i.postimg.cc/c1M2wk6T/ab34.jpg",
    "https://i.postimg.cc/qBDMVGdf/ab36.jpg",
    "https://i.postimg.cc/vmSbFQJG/ab35.jpg"
- ],type:"dress",desc:"Women Embellished Scoop-Neck"},
-{id:61,name:"Draax Fashions",price:20000,img:"https://i.postimg.cc/XNKNX0F7/ab37.jpg",type:"dress",desc:"Graphic Dress"},
-{id:62,name:"Pinacolada",price:13000,img:"https://i.postimg.cc/nczLWPjV/ab38.jpg",type:"dress",desc:"Graphic Dress"},
-{id:63,name:"Arrabi",price:25000,img:"https://i.postimg.cc/pTz0RCmj/ab39.jpg",type:"dress",desc:"Floral Embellished Burkha"},
-{id:64,name:"Blue Off-shoulder",price:67000,img:"https://i.postimg.cc/GpKM2Krb/ab40.jpg",type:"dress",desc:"Light Blue Off Shoulder Gown"},
-{id:65,name:"Brown Cotton Belt",price:47000,img:"https://i.postimg.cc/YCM2B2S7/ab41.jpg",type:"dress",desc:"Cotton Belted Shirt dress"},
-{id:66,name:"Outry by Azorte",price:46000,img:"https://i.postimg.cc/MKhR7Qts/ab42.jpg",type:"dress",desc:"Embroidered Scoop-Neck A-Line Dress"},
-{id:67,name:"Beige Safari",price:47000,img:"https://i.postimg.cc/zv2Qtj3W/ab43.jpg",type:"dress",desc:"Cotton Belted Shirt dress"},
-{id:68,name:"Bhumifab",price:24000,img:"https://i.postimg.cc/HkTgrSXm/ab44.jpg",type:"dress",desc:"Women Printed Gown Dress"},
-{id:69,name:"Nyrika",price:33000,img:"https://i.postimg.cc/kGdnf76v/ab45.jpg",type:"dress",desc:"Women Embroidery Flared Kurta Set"},
-{id:70,name:"BHUMIFAB LONG",price:42000,img:"https://i.postimg.cc/NMd3rY6N/ab46.jpg",type:"dress",desc:"Women Printed Gown Dress"},
-{id:72,name:"V-neck Orchid Blues",price:34000,img:"https://i.postimg.cc/HWFtpxRP/dr2.jpg",type:"dress",desc:"Women V-Neck Bodycon Dress"},
-{id:73,name:"Orchid Blues dress",price:33000,img:"https://i.postimg.cc/3xfNTybW/dr5.jpg",type:"dress",desc:"Women Shirt Dress with Front Slit"}
+ ],type:"dress",desc:"Women Embellished Scoop-Neck",delivery:getDeliveryDate()},
+{id:61,name:"Draax Fashions",price:20000,img:"https://i.postimg.cc/XNKNX0F7/ab37.jpg",type:"dress",desc:"Graphic Dress",delivery:getDeliveryDate()},
+{id:62,name:"Pinacolada",price:13000,img:"https://i.postimg.cc/nczLWPjV/ab38.jpg",type:"dress",desc:"Graphic Dress",delivery:getDeliveryDate()},
+{id:63,name:"Arrabi",price:25000,img:"https://i.postimg.cc/pTz0RCmj/ab39.jpg",type:"dress",desc:"Floral Embellished Burkha",delivery:getDeliveryDate()},
+{id:64,name:"Blue Off-shoulder",price:67000,img:"https://i.postimg.cc/GpKM2Krb/ab40.jpg",type:"dress",desc:"Light Blue Off Shoulder Gown",delivery:getDeliveryDate()},
+{id:65,name:"Brown Cotton Belt",price:47000,img:"https://i.postimg.cc/YCM2B2S7/ab41.jpg",type:"dress",desc:"Cotton Belted Shirt dress",delivery:getDeliveryDate()},
+{id:66,name:"Outry by Azorte",price:46000,img:"https://i.postimg.cc/MKhR7Qts/ab42.jpg",type:"dress",desc:"Embroidered Scoop-Neck A-Line Dress",delivery:getDeliveryDate()},
+{id:67,name:"Beige Safari",price:47000,img:"https://i.postimg.cc/zv2Qtj3W/ab43.jpg",type:"dress",desc:"Cotton Belted Shirt dress",delivery:getDeliveryDate()},
+{id:68,name:"Bhumifab",price:24000,img:"https://i.postimg.cc/HkTgrSXm/ab44.jpg",type:"dress",desc:"Women Printed Gown Dress",delivery:getDeliveryDate()},
+{id:69,name:"Nyrika",price:33000,img:"https://i.postimg.cc/kGdnf76v/ab45.jpg",type:"dress",desc:"Women Embroidery Flared Kurta Set",delivery:getDeliveryDate()},
+{id:70,name:"BHUMIFAB LONG",price:42000,img:"https://i.postimg.cc/NMd3rY6N/ab46.jpg",type:"dress",desc:"Women Printed Gown Dress",delivery:getDeliveryDate()},
+{id:72,name:"V-neck Orchid Blues",price:34000,img:"https://i.postimg.cc/HWFtpxRP/dr2.jpg",type:"dress",desc:"Women V-Neck Bodycon Dress",delivery:getDeliveryDate()},
+{id:73,name:"Orchid Blues dress",price:33000,img:"https://i.postimg.cc/3xfNTybW/dr5.jpg",type:"dress",desc:"Women Shirt Dress with Front Slit",delivery:getDeliveryDate()}
 ];
 
 // FORMAT PRICE
