@@ -108,11 +108,34 @@ body{
 <div id="box" class="grid"></div>
 
 <script>
+// FORMAT DELIVERY DATE
+function getDeliveryDate(days = 7){
+
+  const months = [
+    "Jan","Feb","Mar","Apr","May","Jun",
+    "Jul","Aug","Sep","Oct","Nov","Dec"
+  ];
+
+  const daysName = [
+    "Sun","Mon","Tue","Wed","Thu","Fri","Sat"
+  ];
+
+  let date = new Date();
+
+  // add days automatically
+  date.setDate(date.getDate() + days);
+
+  let day = date.getDate();
+  let month = months[date.getMonth()];
+  let weekDay = daysName[date.getDay()];
+
+  return `Delivery by ${day} ${month}, ${weekDay}`;
+}
 const speakers = [ 
- {id:43,name:"Black Fendi",price:10000,img:"https://i.postimg.cc/G3xvNXzv/ab23.jpg",type:"sports",desc:"Black Fendi Women sandals"},
- {id:44,name:"Brown Mosssimo",price:28000,img:"https://i.postimg.cc/7ht3R6Dk/ab24.jpg",type:"sports",desc:"Mossimo sandals with a crisscross strap"},
- {id:45,name:"Gold Modish Slides",price:15000,img:"https://i.postimg.cc/9M8b61Yz/ab25.jpg",type:"sports",desc:"Gold Modish Slides Sendals"},
- {id:46,name:"Burberry black Canvas",price:15000,img:"https://i.postimg.cc/sD6B5qDs/ab26.jpg",type:"sports",desc:"Burberry canvas and leather Honour sandals"}
+ {id:43,name:"Black Fendi",price:10000,img:"https://i.postimg.cc/G3xvNXzv/ab23.jpg",type:"sports",desc:"Black Fendi Women sandals",delivery:getDeliveryDate()},
+ {id:44,name:"Brown Mosssimo",price:28000,img:"https://i.postimg.cc/7ht3R6Dk/ab24.jpg",type:"sports",desc:"Mossimo sandals with a crisscross strap",delivery:getDeliveryDate()},
+ {id:45,name:"Gold Modish Slides",price:15000,img:"https://i.postimg.cc/9M8b61Yz/ab25.jpg",type:"sports",desc:"Gold Modish Slides Sendals",delivery:getDeliveryDate()},
+ {id:46,name:"Burberry black Canvas",price:15000,img:"https://i.postimg.cc/sD6B5qDs/ab26.jpg",type:"sports",desc:"Burberry canvas and leather Honour sandals",delivery:getDeliveryDate()}
 ];
 
 // FORMAT PRICE
