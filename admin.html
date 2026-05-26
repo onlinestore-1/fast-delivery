@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Admin Orders Panel</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+<style>
+
+body{
+  margin:0;
+  font-family:Arial,sans-serif;
+  background:#f4f4f4;
+  padding-top:70px;
+}
+
+/* TOP */
+.top-bar{
+  position:fixed;
+  top:0;
+  left:0;
+  width:100%;
+  height:60px;
+  background:#fff;
+  display:flex;
+  align-items:center;
+  padding:0 15px;
+  border-bottom:1px solid #ddd;
+  z-index:1000;
+}
+
+.top-bar h3{
+  margin:0;
+}
+
+/* CARD */
+.order-card{
+  background:#fff;
+  margin:12px;
+  border-radius:10px;
+  padding:15px;
+}
+
+.product{
+  display:flex;
+  gap:10px;
+}
+
+.product img{
+  width:90px;
+  height:90px;
+  object-fit:cover;
+  border-radius:8px;
+}
+
+.info{
+  flex:1;
+}
+
+.info h4{
+  margin:0 0 5px;
+}
+
+.info p{
+  margin:4px 0;
+  color:#555;
+}
+
+/* STATUS */
+select{
+  width:100%;
+  padding:10px;
+  margin-top:10px;
+  border-radius:6px;
+  border:1px solid #ccc;
+}
+
+/* BUTTON */
+button{
+  width:100%;
+  padding:12px;
+  margin-top:10px;
+  border:none;
+  background:#2874f0;
+  color:#fff;
+  border-radius:6px;
+  font-size:16px;
+}
+
+.empty{
+  text-align:center;
+  margin-top:80px;
+  color:#777;
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- TOP -->
+<div class="top-bar">
+  <h3>Admin Order Panel</h3>
+</div>
+
+<!-- ORDERS -->
+<div id="ordersBox"></div>
+
+<script>
+
+let orders = JSON.parse(localStorage.getItem("orders")) || [];
+
+const ordersBox = document.getElementById("ordersBox");
+
+/* EMPTY */
+if(orders.length === 0){
+
+  ordersBox.innerHTML = `
+    <div class="empty">
+      <h2>No Orders Found</h2>
+    </div>
+  `;
+}
+
+/* SHOW ORDERS */
+orders.reverse();
+
+orders.forEach((order,orderIndex)=>{
+
+  let items = Array.isArray(order.items)
+    ? order.items
+    : [order.items];
+
+  items.forEach((item,itemIndex)=>{
+
+    ordersBox.innerHTML += `
+
+      <div class="order-card">
+
+        <div class="product">
+
+          <img src="${item.img}">
+
+          <div class="info">
+
+            <h4>${item.name}</h4>
+
+            <p>
+              TZS ${Number(item.price).toLocaleString()}/=
+            </p>
+
+            <p>
+              Qty: ${item.qty}
+            </p>
+
+            ${
+              item.size
+              ? `<p>Size: ${item.size}</p>`
+              : ""
+            }
+
+            <p>
+              Customer: ${order.name}
+            </p>
+
+            <p>
+              Phone: ${order.phone}
+            </p>
+
+            <p>
+              Address: ${order.address}
+            </p>
+
+            <p>
+              Current Status:
+              <b style="color:#2874f0">
+                ${item.status || "placed"}
+              </b>
+            </p>
+
+          </div>
+
+        </div>
+
+        <!-- STATUS -->
+        <select id="status-${orderIndex}-${itemIndex}">
+
+          <option value="placed">
+            Order Placed
+          </option>
+
+          <option value="packed">
+            Packed
+          </option>
+
+          <option value="shipped">
+            Shipped
+          </option>
+
+          <option value="delivery">
+            Out For Delivery
+          </option>
+
+          <option value="delivered">
+            Delivered
+          </option>
+
+        </select>
+
+        <!-- SAVE -->
+        <button
+          onclick="updateStatus(
+            ${orderIndex},
+            ${itemIndex}
+          )">
+
+          Update Order Status
+
+        </button>
+
+      </div>
+
+    `;
+  });
+
+});
+
+/* UPDATE STATUS */
+function updateStatus(orderIndex,itemIndex){
+
+  let select = document.getElementById(
+    `status-${orderIndex}-${itemIndex}`
+  );
+
+  let newStatus = select.value;
+
+  /* reverse fix */
+  let originalIndex =
+    orders.length - 1 - orderIndex;
+
+  let realOrder =
+    JSON.parse(localStorage.getItem("orders"));
+
+  /* MULTIPLE ITEMS */
+  if(Array.isArray(realOrder[originalIndex].items)){
+
+    realOrder[originalIndex]
+    .items[itemIndex]
+    .status = newStatus;
+
+  }else{
+
+    realOrder[originalIndex]
+    .items.status = newStatus;
+  }
+
+  localStorage.setItem(
+    "orders",
+    JSON.stringify(realOrder)
+  );
+
+  alert("Order status updated successfully");
+
+  location.reload();
+}
+
+</script>
+
+</body>
+</html>
