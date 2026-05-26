@@ -1,63 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-  <meta charset="UTF-8">
-  <title>My Orders</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="referrer" content="strict-origin-when-cross-origin">
+<meta charset="UTF-8">
+<title>My Orders</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <style>
-    body{
-      margin:0;
-      font-family: Arial, sans-serif;
-      background:white;
-      padding:10px;
-    }
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
-    header{
-      background:white;
-      color:black;
-      padding:12px;
-      text-align:center;
-      font-size:18px;
-    }
+<style>
 
-    .orders{
-      max-width:600px;
-      margin:auto;
-    }
+body{
+  margin:0;
+  font-family:Arial, sans-serif;
+  background:#f4f4f4;
+  padding-top:70px;
+  padding-bottom:30px;
+}
 
-    .order{
-      background:#fff;
-      padding:10px;
-      margin:10px 0;
-      border-radius:8px;
-      display:flex;
-      gap:10px;
-      align-items:center;
-      cursor:pointer;
-    }
-
-    .order img{
-      width:80px;
-      height:80px;
-      object-fit:cover;
-      border-radius:6px;
-    }
-
-    .order-name{
-      font-size:16px;
-      font-weight:bold;
-    }
-
-    .empty{
-      text-align:center;
-      margin-top:40px;
-      color:#777;
-    }
-
-    /* TOP BAR (LIKE IMAGE) */
+/* TOP BAR */
 .top-bar{
   position:fixed;
   top:0;
@@ -73,7 +34,7 @@
   z-index:1000;
 }
 
-.top-bar span{
+.top-bar i{
   font-size:22px;
   cursor:pointer;
 }
@@ -83,230 +44,270 @@
   font-size:18px;
 }
 
-/* PUSH CONTENT DOWN */
-body{
-  padding-top:70px;
-}
-
-/* YOU MAY ALSO LIKE */
-.like-section{
-  margin-top:20px;
-}
-
-.like-title{
-  font-size:18px;
-  font-weight:bold;
-  margin-bottom:10px;
-}
-
-.like-grid{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:10px;
-}
-
-.like-card{
+/* ORDER CARD */
+.order-card{
   background:#fff;
-  border-radius:8px;
-  padding:6px;
-  text-align:center;
-  cursor:pointer;
+  margin:12px;
+  border-radius:10px;
+  padding:15px;
 }
 
-.like-card img{
-  width:100%;
+/* PRODUCT */
+.product{
+  display:flex;
+  gap:10px;
+  align-items:center;
+  margin-bottom:20px;
+}
+
+.product img{
+  width:90px;
   height:90px;
   object-fit:cover;
-  border-radius:6px;
+  border-radius:8px;
 }
 
-.like-card p{
-  font-size:12px;
-  margin:4px 0;
+.product-info{
+  flex:1;
 }
 
-/* BOTTOM NAVBAR */
-.bottom-nav{
- position:fixed;
- bottom:0;
- left:0;
- width:100%;
- height:60px;
- background:#fff;
- display:flex;
- justify-content:space-around;
- align-items:center;
- border-top:1px solid #ddd;
- z-index:1000;
+.product-info h4{
+  margin:0 0 5px;
 }
 
-.bottom-nav a{
- text-decoration:none;
- text-align:center;
- font-size:12px;
- color:#777;
+.product-info p{
+  margin:3px 0;
+  color:#555;
 }
 
-.bottom-nav i{
- display:block;
- font-size:20px;
- margin-bottom:3px;
+/* TRACKING */
+.timeline{
+  position:relative;
+  margin-left:10px;
+  padding-left:30px;
 }
 
-/* ACTIVE PAGE (BLUE) */
-.bottom-nav .active{
- color:#2874f0;
- font-weight:bold;
+.timeline::before{
+  content:"";
+  position:absolute;
+  left:7px;
+  top:0;
+  width:3px;
+  height:100%;
+  background:#ddd;
 }
 
-/* PREVENT CONTENT HIDING */
-body{
- padding-bottom:70px;
+.step{
+  position:relative;
+  margin-bottom:25px;
 }
-  </style>
+
+.step:last-child{
+  margin-bottom:0;
+}
+
+.dot{
+  position:absolute;
+  left:-27px;
+  top:5px;
+  width:14px;
+  height:14px;
+  border-radius:50%;
+  background:#ccc;
+}
+
+/* ACTIVE */
+.step.active .dot{
+  background:#1db954;
+}
+
+.step.active h5{
+  color:#000;
+}
+
+/* PENDING */
+.step.pending h5{
+  color:#999;
+}
+
+.step h5{
+  margin:0;
+  font-size:15px;
+}
+
+.step p{
+  margin:4px 0 0;
+  color:#666;
+  font-size:13px;
+}
+
+.empty{
+  text-align:center;
+  margin-top:80px;
+  color:#777;
+}
+
+</style>
 </head>
 
 <body>
 
+<!-- TOP -->
 <div class="top-bar">
-  <span onclick="goHome()">&#8592;</span>
-  <h3>Account</h3>
+  <i class="fa fa-arrow-left" onclick="history.back()"></i>
+  <h3>My Orders</h3>
 </div>
 
-<div class="orders" id="ordersBox"></div>
-
-<!-- YOU MAY ALSO LIKE -->
-<div class="like-section">
-  <div class="like-title">You May Also Like</div>
-  <div id="likeBox" class="like-grid"></div>
-</div>
+<!-- ORDERS -->
+<div id="ordersBox"></div>
 
 <script>
-let orders = JSON.parse(localStorage.getItem("orders")) || [];
-const box = document.getElementById("ordersBox");
 
+/* LOAD ORDERS */
+let orders = JSON.parse(localStorage.getItem("orders")) || [];
+
+const ordersBox = document.getElementById("ordersBox");
+
+/* EMPTY */
 if(orders.length === 0){
-  box.innerHTML = `
+
+  ordersBox.innerHTML = `
     <div class="empty">
-      <p>No orders yet</p>
+      <i class="fa fa-box" style="font-size:70px;color:#ccc;"></i>
+      <h2>No Orders Yet</h2>
+      <p>Your placed orders will appear here</p>
     </div>
   `;
+
 }
 
-orders.forEach(o => {
-  box.innerHTML += `
-    <div class="order" onclick="rebuy(${o.id})">
-      <img src="${o.img}">
-      <div class="order-name">${o.name}</div>
-    </div>
-  `;
+/* SHOW LATEST FIRST */
+orders.reverse();
+
+/* LOOP */
+orders.forEach((order,index)=>{
+
+  /* HANDLE MULTIPLE ITEMS */
+  let items = Array.isArray(order.items)
+    ? order.items
+    : [order.items];
+
+  items.forEach(item=>{
+
+    /* ORDER STATUS */
+    let status = item.status || "placed";
+
+    /* ACTIVE STEPS */
+    const active = {
+      placed:1,
+      packed:2,
+      shipped:3,
+      delivery:4,
+      delivered:5
+    };
+
+    let current = active[status] || 1;
+
+    ordersBox.innerHTML += `
+
+      <div class="order-card">
+
+        <!-- PRODUCT -->
+        <div class="product">
+
+          <img src="${item.img}">
+
+          <div class="product-info">
+            <h4>${item.name}</h4>
+
+            <p>
+              TZS ${Number(item.price).toLocaleString()}/=
+            </p>
+
+            <p>Qty: ${item.qty}</p>
+
+            ${
+              item.size
+              ? `<p>Size: ${item.size}</p>`
+              : ""
+            }
+
+            <p style="color:#2874f0;font-weight:bold;">
+              <i class="fa fa-truck"></i>
+              ${item.delivery || "Delivery in progress"}
+            </p>
+
+          </div>
+        </div>
+
+        <!-- TIMELINE -->
+        <div class="timeline">
+
+          <!-- PLACED -->
+          <div class="step ${current >= 1 ? "active":"pending"}">
+            <div class="dot"></div>
+
+            <h5>Order Placed</h5>
+
+            <p>
+              Your order has been placed successfully
+            </p>
+          </div>
+
+          <!-- PACKED -->
+          <div class="step ${current >= 2 ? "active":"pending"}">
+            <div class="dot"></div>
+
+            <h5>Packed</h5>
+
+            <p>
+              Seller is preparing your order
+            </p>
+          </div>
+
+          <!-- SHIPPED -->
+          <div class="step ${current >= 3 ? "active":"pending"}">
+            <div class="dot"></div>
+
+            <h5>Shipped</h5>
+
+            <p>
+              Your order has been shipped
+            </p>
+          </div>
+
+          <!-- OUT FOR DELIVERY -->
+          <div class="step ${current >= 4 ? "active":"pending"}">
+            <div class="dot"></div>
+
+            <h5>Out For Delivery</h5>
+
+            <p>
+              Delivery rider is on the way
+            </p>
+          </div>
+
+          <!-- DELIVERED -->
+          <div class="step ${current >= 5 ? "active":"pending"}">
+            <div class="dot"></div>
+
+            <h5>Delivered</h5>
+
+            <p>
+              Customer received the order
+            </p>
+          </div>
+
+        </div>
+
+      </div>
+
+    `;
+  });
+
 });
 
-function rebuy(id){
-  localStorage.setItem("pid", id);
-  location.href = "product.html";
-}
-
-function openProduct(id){
-
-  localStorage.setItem("pid", id);
-
-  let viewed = JSON.parse(localStorage.getItem("lastViewed")) || [];
-
-  viewed = viewed.filter(p => p != id);
-  viewed.unshift(id);
-  viewed = viewed.slice(0,10);
-
-  localStorage.setItem("lastViewed", JSON.stringify(viewed));
-
-  location.href = "product.html";
-}
-
-function formatPrice(price){
-  return "TZS " + Number(price).toLocaleString() + "/=";
-}
-
-function showYouMayAlsoLike(){
-
-  let products = JSON.parse(localStorage.getItem("allProducts")) || [];
-
-  // shuffle like index
-  let shuffled = [...products].sort(()=>0.5 - Math.random());
-
-  // take ONLY 6
-  let selected = shuffled.slice(0,6);
-
-  document.getElementById("likeBox").innerHTML =
-    selected.map(p=>`
-      <div class="like-card" onclick="openProduct(${p.id})">
-        <img src="${p.img}">
-        <p>${p.name}</p>
-        <b>${formatPrice(p.price)}</b>
-      </div>
-    `).join("");
-}
-
-function autoUpdateLike(){
-  showYouMayAlsoLike();
-}
-
-window.addEventListener("load", autoUpdateLike);
-window.addEventListener("pageshow", autoUpdateLike);
-window.addEventListener("storage", autoUpdateLike);
-
-/* optional refresh like homepage */
-setInterval(showYouMayAlsoLike, 60000);
-
-function goHome(){
-  location.href = "index.html";
-}
-
-/* AUTO ACTIVE NAV */
-function setActiveNav(){
-
-  let path = window.location.pathname;
-
-  if(path.includes("index.html") || path === "/" ){
-    document.getElementById("nav-home").classList.add("active");
-  }
-  else if(path.includes("category") || path.includes("fashion")){
-    document.getElementById("nav-category").classList.add("active");
-  }
-  else if(path.includes("account")){
-    document.getElementById("nav-account").classList.add("active");
-  }
-  else if(path.includes("cart")){
-    document.getElementById("nav-cart").classList.add("active");
-  }
-}
-
-window.addEventListener("load", setActiveNav);
 </script>
-
-<!-- BOTTOM NAV -->
-<div class="bottom-nav">
-
-  <a href="index.html" id="nav-home">
-    <i class="fa fa-home"></i>
-    Home
-  </a>
-
-  <a href="category.html" id="nav-category">
-    <i class="fa fa-th-large"></i>
-    Categories
-  </a>
-
-  <a href="account.html" id="nav-account">
-    <i class="fa fa-user"></i>
-    Account
-  </a>
-
-  <a href="cart.html" id="nav-cart">
-    <i class="fa fa-shopping-cart"></i>
-    Cart
-  </a>
-
-</div>
 
 </body>
 </html>
