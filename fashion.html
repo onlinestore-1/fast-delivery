@@ -46,36 +46,67 @@
 
 /* CATEGORY GRID */
 .grid3{
-  display:grid;
-  grid-template-columns:repeat(10, minmax(0, 1fr));
-  gap:3px;
-  padding:5px;
+  display:flex;
+  flex-direction:row;
+  flex-wrap:nowrap;
+
+  gap:8px;
+  padding:8px 10px;
+
+  overflow-x:auto;
+  overflow-y:hidden;
+
   width:100%;
+  box-sizing:border-box;
+
+  /* Smooth touch scrolling */
+  scroll-behavior:smooth;
+  -webkit-overflow-scrolling:touch;
+
+  /* Hide scrollbar */
+  scrollbar-width:none;
+}
+
+.grid3::-webkit-scrollbar{
+  display:none;
+}
+
+/* EACH CATEGORY */
+.cat{
+  flex:0 0 82px;
+  width:82px;
+
+  background:#fff;
+  padding:6px;
+
+  text-align:center;
+  border-radius:8px;
+
+  cursor:pointer;
+
   box-sizing:border-box;
 }
 
-.cat{
-  background:#fff;
-  padding:4px 2px;
-  text-align:center;
-  border-radius:5px;
-  cursor:pointer;
-  min-width:0;
-  overflow:hidden;
-}
-
+/* CATEGORY IMAGE */
 .cat img{
   width:100%;
-  aspect-ratio:1 / 1;
-  height:auto;
+  height:75px;
+
   object-fit:cover;
-  border-radius:4px;
+  border-radius:6px;
+
+  display:block;
 }
 
+/* CATEGORY NAME */
 .cat p{
-  margin:4px 0 2px;
-  font-size:9px;
-  line-height:11px;
+  margin:5px 0 0;
+
+  font-size:11px;
+  line-height:13px;
+
+  color:#333;
+
   white-space:normal;
   overflow:hidden;
 }
@@ -179,64 +210,39 @@
 
 <div class="grid3">
 
-  <!-- 1 -->
   <div class="cat" onclick="openType('tshirt')">
     <img src="https://i.postimg.cc/RFXLFgV9/aa35.jpg">
     <p>T-Shirts</p>
   </div>
 
-  <!-- 2 -->
   <div class="cat" onclick="openType('jeans')">
     <img src="https://i.postimg.cc/8zMdWpzD/aa14.jpg">
     <p>Jeans</p>
   </div>
 
-  <!-- 3 -->
   <div class="cat" onclick="openType('jezi')">
     <img src="https://i.postimg.cc/66PCm27K/ars2.jpg">
     <p>Jezi</p>
   </div>
 
-  <!-- 4 -->
   <div class="cat" onclick="openType('dress')">
     <img src="https://i.postimg.cc/c1M2wk6T/ab34.jpg">
-    <p>Dresses</p>
+    <p>Fashion Dress</p>
   </div>
 
-  <!-- 5 -->
   <div class="cat" onclick="openType('sports')">
     <img src="https://i.postimg.cc/bwp0xXDx/kia1.jpg">
     <p>Shoes</p>
   </div>
 
-  <!-- 6 -->
   <div class="cat" onclick="openType('gloves')">
     <img src="https://i.postimg.cc/CLNnVR5Z/b21.jpg">
-    <p>Bags</p>
+    <p>Gloves & Bags</p>
   </div>
 
-  <!-- 7 -->
   <div class="cat" onclick="openType('kids')">
     <img src="https://i.postimg.cc/3xFBVr5F/kof6.jpg">
     <p>Kofia</p>
-  </div>
-
-  <!-- 8 -->
-  <div class="cat" onclick="openType('jezi')">
-    <img src="https://i.postimg.cc/66PCm27K/ars2.jpg">
-    <p>Football</p>
-  </div>
-
-  <!-- 9 -->
-  <div class="cat" onclick="openType('sports')">
-    <img src="https://i.postimg.cc/bwp0xXDx/kia1.jpg">
-    <p>Sandals</p>
-  </div>
-
-  <!-- 10 -->
-  <div class="cat" onclick="openType('dress')">
-    <img src="https://i.postimg.cc/c1M2wk6T/ab34.jpg">
-    <p>Women</p>
   </div>
 
 </div>
